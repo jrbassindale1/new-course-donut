@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/* Ensure two-column layout even if Tailwind is unavailable */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: start;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  flex: 1;
+  min-height: 0;
+  grid-auto-rows: minmax(0, auto);
+  grid-template-rows: 30px auto;
+}
+@media (min-width: 640px) {
+  .page-grid { grid-template-columns: 0.8fr 2.2fr; }
+  .page-title { grid-column: 1 / -1; grid-row: 1; }
+  .details-panel { grid-column: 1; grid-row: 2; }
+  .chart-panel { grid-column: 2; grid-row: 2; }
+  /* Keep the chart anchored while the text panel scrolls */
+  .chart-panel { position: sticky; top: calc(var(--app-pad-top) + 8px); }
+}
+
+/* Basic, predictable UI styling (independent of Tailwind) */
+html, body { height: 100%; }
+body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova", Arial, Helvetica, sans-serif; }
+:root { --app-pad-top: 20px; --app-pad-bottom: 12px; --vh: 100vh; --header-space: 60px; }
+@supports (height: 100svh) { :root { --vh: 100svh; } }
+@supports (height: 100dvh) { :root { --vh: 100dvh; } }
+.app-shell { min-height: var(--vh); padding: var(--app-pad-top) 12px var(--app-pad-bottom); display: flex; flex-direction: column; }
+.page-title { margin: 0; padding-left: 0; font-weight: 700; color: #111827; font-size: clamp(16px, 3.2vw, 22px); }
+@media (max-width: 380px) {
+  .page-title { font-size: 15px; }
+}
+.page-header { grid-column: 1 / -1; grid-row: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+.panel { padding: 2px; display: flex; flex-direction: column; height: 100%; }
+/* Remove padding in chart column so the wheel can use full width/height */
+.chart-panel { padding: 0; }
+.panel-title { margin: 0 0 8px; font-size: 16px; font-weight: 600; }
+
+.panel-header { display: flex; align-items: center; justify-content: space-between; }
+.breadcrumbs { display: flex; gap: 8px; align-items: center; font-size: 13px; color: #4b5563; }
+.breadcrumbs .divider { color: #9ca3af; }
+.breadcrumbs .current { color: #111827; }
+
+.btn { appearance: none; border: 1px solid #e5e7eb; background: transparent; color: #fff; padding: 6px 12px; border-radius: 12px; font-size: 13px; cursor: pointer; }
+.btn:hover { background: transparent; }
+
+.link { appearance: none; border: none; background: transparent; color: #4f46e5; padding: 0; cursor: pointer; font-size: 13px; }
+.link:hover { text-decoration: underline; }
+
+.chart-wrapper { width: 100%; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; height: calc(var(--vh) - var(--app-pad-top) - var(--app-pad-bottom) - var(--header-space)); }
+@supports (height: 100dvh) { /* using var(--vh) for consistency across browsers */ }
+/* On phones, avoid big top/bottom gaps by aligning to top */
+@media (max-width: 639px) {
+  /* Anchor the chart to the top on phones to prevent vertical jumping */
+  .chart-wrapper { align-items: flex-start; justify-content: center; }
+}
+.chart-inner {
+  /* Square fills the smaller of: column width or available viewport height */
+  --chart-size: min(100%, calc(var(--vh) - var(--app-pad-top) - var(--app-pad-bottom) - var(--header-space)));
+  width: var(--chart-size);
+  height: var(--chart-size);
+  min-height: 280px;
+}
+.details-panel { overflow: auto; min-height: 0; max-height: calc(100vh - var(--app-pad-top) - var(--app-pad-bottom) - 50px); }
+@supports (height: 100dvh) {
+  .details-panel { max-height: calc(100dvh - var(--app-pad-top) - var(--app-pad-bottom) - 50px); }
+}
+.chart-panel { min-height: 0; }
+.compass-svg { width: 100%; height: 100%; display: block; }
+.compass-svg text { font-family: "Arial Nova", Arial, Helvetica, sans-serif; }
+
+.module-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.module-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border: 1px solid #eef2f7; border-radius: 10px; background: #fbfdff; }
+.module-row .muted { color: #6b7280; }
+
+.section { border-top: 1px solid #eef2f7; margin-top: 16px; padding-top: 12px; }
+.section-title { margin: 0 0 8px; font-weight: 600; }
+.threads { display: grid; gap: 10px; color: #374151; font-size: 13px; }
+.thread-name { font-weight: 500; margin-bottom: 2px; }
+.thread-desc { margin: 0; }
+
+.item-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.item-row { border: 1px solid #eef2f7; border-radius: 10px; padding: 10px; background: #fbfdff; }
+.item-head { display: flex; justify-content: space-between; align-items: center; }
+.item-title { font-weight: 600; }
+.item-desc { margin: 8px 0; color: #4b5563; font-size: 13px; white-space: pre-line; }
+/* Add extra spacing only between consecutive paragraphs */
+.item-desc + .item-desc { margin-top: 12px; }
+
+/* --- Mobile typography and spacing trims (phones ≤ 640px) --- */
+@media (max-width: 640px) {
+  /* Give the chart more vertical room */
+  :root { --header-space: 46px; }
+
+  /* Reset landscape overrides when returning to portrait on phones */
+  .app-shell { overflow: auto; }
+  .page-grid { height: auto; }
+  .chart-panel { margin-top: 0 !important; z-index: 1; }
+  .details-panel { z-index: 0; }
+
+  /* Titles */
+  .page-title { font-size: clamp(14px, 4vw, 18px); }
+  .panel-title { font-size: 14px; }
+
+  /* Navigation bits */
+  .breadcrumbs { font-size: 12px; }
+  .breadcrumbs .divider { margin: 0 4px; }
+
+  /* Lists & item cards */
+  .module-row { font-size: 12.5px; padding: 6px 8px; }
+  .item-row { padding: 8px; }
+  .item-title { font-size: 13.5px; }
+  .item-desc { font-size: 12px; line-height: 1.45; }
+
+  /* Section headings */
+  .section-title { font-size: 14px; }
+
+  /* Panel scroll area breathes less so chart can grow */
+  .details-panel {
+    max-height: calc(100dvh - var(--app-pad-top) - var(--app-pad-bottom) - 40px);
+  }
+
+  /* Anchor the chart on mobile and decouple from viewport-height to stop jumping */
+  .chart-panel {
+    position: static;
+    top: auto;
+    z-index: auto;
+  }
+  .details-panel { overflow: auto; position: relative; }
+
+  /* Let the wrapper size to content so changing mobile toolbars don't affect height */
+  .chart-wrapper {
+    height: auto;
+    align-items: flex-start;  /* stay pinned to top */
+    justify-content: center;  /* centered horizontally */
+  }
+
+  /* Make the chart square from width so height is stable across Safari/Chrome */
+  .chart-inner {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    min-height: 260px;
+  }
+
+  /* Ensure SVG respects the aspect box */
+  .compass-svg {
+    width: 100%;
+    height: auto !important;
+    display: block;
+  }
+}
+
+/* --- Landscape phone/tablet tuning: short viewport height but wide width --- */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Make title behave like mobile to save height */
+  .page-title { font-size: clamp(13px, 3vw, 16px); }
+  .panel-title { font-size: 13px; }
+  .section-title { font-size: 13px; }
+
+  /* Lock the viewport and delegate scrolling to the text panel only */
+  .app-shell { height: 100dvh; overflow: hidden; }
+  .page-grid { height: 100%; }
+  .details-panel { max-height: 100%; overflow: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Keep the chart fixed in view while text scrolls in landscape */
+  .chart-panel {
+    position: sticky;
+    top: calc(env(safe-area-inset-top) + 6px);
+    z-index: 2;
+    align-self: start;
+  }
+
+  /* Give more width to the left text column in the 2‑column layout */
+  @media (min-width: 640px) {
+    .page-grid { grid-template-columns: 1.2fr 1.8fr; }
+  }
+
+  /* Reduce reserved header space so the chart can grow vertically */
+  :root { --header-space: 36px; }
+  .chart-panel { margin-top: -8px; }
+
+  /* Keep the chart anchored to the top for consistency */
+  .chart-wrapper { align-items: flex-start; }
+
+  /* Maximise donut size based on the limiting dimension (height). 
+     We keep it square so the circle remains round, but use 100dvh to avoid toolbar jumps. */
+  .chart-inner {
+    --chart-size: min(100%, calc(100dvh - var(--app-pad-top) - var(--app-pad-bottom) - 42px));
+    width: var(--chart-size);
+    height: var(--chart-size);
+    min-height: 220px;
+  }
+
+  /* Let the detail panel breathe horizontally and remove strict max-height */
+  .details-panel { font-size: 13px; max-height: none; }
+}

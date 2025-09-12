@@ -1,0 +1,42 @@
+name: Build and Deploy to Bluehost
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: List dist contents
+        run: ls -la dist && du -sh dist || true
+
+      - name: Deploy dist/ to Bluehost
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 21
+          protocol: ftp
+          local-dir: dist/
+          server-dir: ${{ secrets.REMOTE_DIR }}
+          dangerous-clean-slate: false
+          exclude: |
+            **/.htaccess
