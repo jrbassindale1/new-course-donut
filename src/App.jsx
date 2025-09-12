@@ -188,7 +188,7 @@ export default function App() {
     <div className="app-shell">
       <div className="page-grid">
         <div className="page-header">
-          <h1 className="page-title">MArch Architecture @ UWE Bristol</h1>
+          <h1 className="page-title">BSc Architecture @ UWE Bristol</h1>
           <button
             className="btn"
             onClick={() => { setMod(null); setSec(null); setItem(null); setInfoModuleId(null); setInfoKey(null); setResetSignal(v => v + 1); }}
@@ -305,7 +305,7 @@ export default function App() {
           <AnimatePresence mode="wait">
             {!mod && !infoKey && (
               <motion.div key="programme" initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-8}}>
-                <p className="item-desc">MArch at UWE is designed to empower you to become innovative designers, ethical future practitioners and catalysts for positive change in the built environment.</p>
+                <p className="item-desc">BSc at UWE is designed to empower you to become innovative designers, ethical future practitioners and catalysts for positive change in the built environment.</p>
                 <p className="item-desc">The programme emphasises the importance of collaboration beyond traditional disciplines, encouraging work with local communities and industry professionals to address societal challenges and transform cities, places, and spaces for the benefit of both people and the planet.</p>
                 <p className="item-desc">Through tailored pathways and research opportunities, we want to prepare you to lead in your chosen specialism and make meaningful contributions to the architectural profession.</p>
                 <p className="item-desc"><strong>First Year (Pathway Year):</strong> The year focuses on grounding you in the broader context of architecture and empowering you to start shaping an emerging specialism. The modules encourage critical thinking, interdisciplinary collaboration, design competence and develop foundational professional and technical skills to address pressing global issues.</p>
