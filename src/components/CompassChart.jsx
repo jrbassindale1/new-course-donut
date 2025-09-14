@@ -17,13 +17,6 @@ const arcPath = (cx, cy, r, startDeg, endDeg) => {
   return `M ${sx} ${sy} A ${r} ${r} 0 ${largeArc} ${sweep} ${ex} ${ey}`;
 };
 
-// Radial line between inner and outer radii at a given angle
-const radialPath = (cx, cy, rInner, rOuter, angleDeg) => {
-  const [ix, iy] = toXY(cx, cy, rInner, angleDeg);
-  const [ox, oy] = toXY(cx, cy, rOuter, angleDeg);
-  return `M ${ix} ${iy} L ${ox} ${oy}`;
-};
-
 // Text along arc using <textPath>
 function ArcLabel({ id, cx, cy, r, start, end, text, fill = "#111827", fontSize = 12, fontWeight = 'normal', startOffset = '50%', textAnchor = 'middle' }) {
   if (!text) return null;
@@ -67,7 +60,6 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
 
   // Thin outer guide ring just outside modules
   // Place thin ring so its inner edge touches the module outer edge
-  const thinOffset = 0;
   const thinR = outerR + thinBand / 2;   // inner edge = outerR
 
   // Thin inner guide ring (Year 2) just inside modules (between Y1 and Y2)
@@ -81,6 +73,14 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   const y2TopR = y2BottomR - baseThickness - gap;
   const y2SoloThickness = baseThickness * 2 + gap;
   const y2SoloR = (y2BottomR + y2TopR) / 2;
+
+  // Year 3 inner bands (two concurrent rings + solo segment in S1)
+  const innerEdge2 = y2TopR - baseThickness / 2; // inner boundary of Y2 modules
+  const innerThinR2 = innerEdge2 - ringGap - thinBand / 2; // separation ring to Y3
+  const y3BottomR = innerThinR2 - (thinBand / 2 + baseThickness / 2);
+  const y3TopR = y3BottomR - baseThickness - gap;
+  const y3SoloThickness = baseThickness * 2 + gap;
+  const y3SoloR = (y3BottomR + y3TopR) / 2;
 
   // Colour palette fallback
   const C = colors || {
@@ -100,8 +100,6 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   const infoBaseColor = '#FDE047';
   const infoHoverColor = '#FACC15';
   const infoSelectedColor = '#F59E0B';
-  const hoverOutlineColor = hoverColor;  // legacy: match hover for any outlines
-  const hoverOutlineW = 2;              // px
 
   // Base angles (clockwise, 0 at top)
   const A0 = {
@@ -158,6 +156,22 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
     thesisS2: trimCustom(A2_0.thesisS2, y2BottomR, false, true),     // no gap at 180°, keep gap at 360°
     // Ecology (inner) keeps standard start gap; increase end gap to align + slightly separate from Thesis
     eco: trimWithCustomEndGap(A2_0.eco, y2TopR, gapAngle(y2BottomR) / 2 + ECO_EXTRA_END_GAP_DEG),
+  };
+
+  // Year 3 angles (same base layout)
+  const A3_0 = {
+    a: { start: 0, end: 90 },
+    b: { start: 0, end: 90 },
+    solo: { start: 90, end: 180 },
+    c: { start: 180, end: 360 },
+    d: { start: 180, end: 360 },
+  };
+  const A3 = {
+    a: trim(A3_0.a, y3TopR),
+    b: trim(A3_0.b, y3BottomR),
+    solo: trim(A3_0.solo, y3SoloR),
+    c: trim(A3_0.c, y3TopR),
+    d: trim(A3_0.d, y3BottomR),
   };
 
 
@@ -226,7 +240,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
     setTimeout(() => setIsSpinning(false), NORMAL_TRANS_MS + 50);
   };
 
-  const strokeFor = (id, _color) => {
+  const strokeFor = (id) => {
     // If a selection exists, keep selected deep yellow; allow hover on others
     if (selected) {
       if (id === selected) return selectedColor;
@@ -256,9 +270,13 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   // Year selection logic
   const year1Ids = new Set(['UBLL46-30-3','UBLL48-15-3','UBLL47-30-3','UBLL49-15-3','UBLL45-30-3']);
   const year2Ids = new Set(['UBLL4A-60-M','UBLL4B-15-M','UBLL4C-15-M','UBLL4F-30-M']);
-  const selectedYear = selected ? (year1Ids.has(selected) ? 1 : (year2Ids.has(selected) ? 2 : null)) : null;
+  const year3Ids = new Set(['Y3MOD1','Y3MOD2','Y3MOD3','Y3MOD4','Y3MOD5']);
+  const selectedYear = selected
+    ? (year1Ids.has(selected) ? 1 : (year2Ids.has(selected) ? 2 : (year3Ids.has(selected) ? 3 : null)))
+    : null;
   const showYear1 = !selectedYear || selectedYear === 1;
   const showYear2 = !selectedYear || selectedYear === 2;
+  const showYear3 = !selectedYear || selectedYear === 3;
   const expandY2 = selectedYear === 2;
   const showInfoWheel = !!selected; // show for both Y1 and Y2 selections
 
@@ -326,10 +344,17 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   }
   const y2BgR = y2BgInner + y2BgThick / 2;
 
+  // Year 3 background metrics
+  const y3BgInner = y3SoloR - y3SoloThickness / 2;
+  const y3BgThick = y3SoloThickness + bandExtra;
+  const y3BgR = y3BgInner + y3BgThick / 2;
+  const y3BgOuter = y3BgInner + y3BgThick;
+
   // Year label radii positioned near outer edge of background bands
   const labelInset = 14; // px inside the band outer edge (bring labels slightly inward)
   const year1LabelR = y1BgOuter - labelInset;
   const year2LabelR = y2BgOuter - labelInset;
+  const year3LabelR = y3BgOuter - labelInset;
 
   // When a module is selected, default the Info Wheel to "Synopsis"
   // and rotate it so the Synopsis text sits exactly at the top.
@@ -345,7 +370,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
         ...(hasThreads ? [{ id: 'thr' }] : []),
       ];
       const sector = 360 / headings.length;
-      const contentR = y2SoloR - 10; // must match Info Wheel content radius
+      const contentR = y3SoloR - 10; // must match Info Wheel content radius
       const synIndex = headings.findIndex(h => h.id === 'syn');
       const start = synIndex * sector;
       const end = start + sector;
@@ -362,6 +387,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   // Fade styles for year groups
   const fadeStyleY1 = { opacity: showYear1 ? 1 : 0, transition: 'opacity 450ms ease', pointerEvents: showYear1 ? 'auto' : 'none' };
   const fadeStyleY2 = { opacity: showYear2 ? 1 : 0, transition: 'opacity 450ms ease', pointerEvents: showYear2 ? 'auto' : 'none' };
+  const fadeStyleY3 = { opacity: showYear3 ? 1 : 0, transition: 'opacity 450ms ease', pointerEvents: showYear3 ? 'auto' : 'none' };
 
   return (
     <svg className="compass-svg" viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" role="img" aria-label="Programme overview compass">
@@ -373,6 +399,9 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
         <clipPath id="clip-inner-y2solo"><circle cx={cx} cy={cy} r={y2SoloR - y2SoloThickness/2 + 0.5} /></clipPath>
         <clipPath id="clip-inner-y2top"><circle cx={cx} cy={cy} r={y2TopR - baseThickness/2 + 0.5} /></clipPath>
         <clipPath id="clip-inner-y2bottom"><circle cx={cx} cy={cy} r={y2BottomR - baseThickness/2 + 0.5} /></clipPath>
+        <clipPath id="clip-inner-y3solo"><circle cx={cx} cy={cy} r={y3SoloR - y3SoloThickness/2 + 0.5} /></clipPath>
+        <clipPath id="clip-inner-y3top"><circle cx={cx} cy={cy} r={y3TopR - baseThickness/2 + 0.5} /></clipPath>
+        <clipPath id="clip-inner-y3bottom"><circle cx={cx} cy={cy} r={y3BottomR - baseThickness/2 + 0.5} /></clipPath>
       </defs>
       {/* Background year bands spanning full module thickness (thicker + fade when hidden)
           Keep inner edge aligned; add thickness outward. */}
@@ -384,6 +413,10 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
         {/* Year 2 background band (expands when Year 2 selected) */}
         <g style={fadeStyleY2}>
           <circle cx={cx} cy={cy} r={y2BgR} stroke="#ccd0d8" strokeWidth={y2BgThick} fill="none" />
+        </g>
+        {/* Year 3 background band */}
+        <g style={fadeStyleY3}>
+          <circle cx={cx} cy={cy} r={y3BgR} stroke="#ccd0d8" strokeWidth={y3BgThick} fill="none" />
         </g>
       </g>
       {/* Stationary thin outer guide ring (continuous) */}
@@ -408,8 +441,8 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
               ...(hasThreads ? [{ id: 'thr', label: 'Studio Threads' }] : []),
             ];
             const sector = 360 / headings.length;
-            const infoR = y2SoloR;
-            const infoThick = y2SoloThickness;
+            const infoR = y3SoloR;
+            const infoThick = y3SoloThickness;
             // Content radius is moved inward by 10px
             const contentR = infoR - 10;
             const startOffsetDeg = 0; // start at top
@@ -453,7 +486,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
           {(() => {
             const progThick = baseThickness + 30;
             const innerGap = gap + 40;
-            const progR = y2TopR - baseThickness / 2 - innerGap - progThick / 2;
+            const progR = y3TopR - baseThickness / 2 - innerGap - progThick / 2;
             const programColor = '#FDE047';
             const programHoverColor = '#FACC15';
             const programSelectedColor = '#F59E0B';
@@ -503,6 +536,10 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
         <g style={fadeStyleY2}>
           <ArcLabel id="y2-s1" cx={cx} cy={cy} r={year2LabelR} start={0} end={60} text={"Year 2 — Semester 1 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
           <ArcLabel id="y2-s2" cx={cx} cy={cy} r={year2LabelR} start={180} end={240} text={"Year 2 — Semester 2 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
+        </g>
+        <g style={fadeStyleY3}>
+          <ArcLabel id="y3-s1" cx={cx} cy={cy} r={year3LabelR} start={0} end={60} text={"Year 3 — Semester 1 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
+          <ArcLabel id="y3-s2" cx={cx} cy={cy} r={year3LabelR} start={180} end={240} text={"Year 3 — Semester 2 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
         </g>
 
         {/* Programme ring (home view) — rotates on click, fades when a module is selected */}
@@ -583,6 +620,35 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
           <path d={arcPath(cx, cy, y2TopR_eff, A2.eco.start, A2.eco.end)} stroke={strokeFor('UBLL4F-30-M', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL4F-30-M')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL4F-30-M', A2.eco)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
           {/* Hover outline removed */}
           <ArcLabel id="y2-eco" cx={cx} cy={cy} r={y2TopR_eff - 4} fill={labelFillFor('UBLL4F-30-M')} start={A2.eco.start + 2} end={A2.eco.end - 2} text="Ecological & Regenerative Approaches" fontWeight="700" />
+        </g>
+
+        {/* Year 3 group (fades when hidden) */}
+        <g style={fadeStyleY3}>
+          {/* Solo segment */}
+          <path
+            d={arcPath(cx, cy, y3SoloR, A3.solo.start, A3.solo.end)}
+            stroke={strokeFor('Y3MOD3', '#999')}
+            strokeWidth={y3SoloThickness}
+            strokeLinecap="butt"
+            fill="none"
+            onMouseEnter={() => setHovered('Y3MOD3')}
+            onMouseLeave={() => setHovered(null)}
+            onClick={selectAndRotate('Y3MOD3', A3.solo)}
+            style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }}
+          />
+          <ArcLabel id="y3-solo" cx={cx} cy={cy} r={y3SoloR - 4} fill={labelFillFor('Y3MOD3')} start={A3.solo.start + 2} end={A3.solo.end - 2} text="Comprehensive Design Project" fontWeight="700" />
+
+          {/* Top band modules */}
+          <path d={arcPath(cx, cy, y3TopR, A3.a.start, A3.a.end)} stroke={strokeFor('Y3MOD1', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD1')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD1', A3.a)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
+          <ArcLabel id="y3-a" cx={cx} cy={cy} r={y3TopR - 4} fill={labelFillFor('Y3MOD1')} start={A3.a.start + 2} end={A3.a.end - 2} text="Advanced Architectural Design" fontWeight="700" />
+          <path d={arcPath(cx, cy, y3TopR, A3.c.start, A3.c.end)} stroke={strokeFor('Y3MOD4', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD4')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD4', A3.c)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
+          <ArcLabel id="y3-c" cx={cx} cy={cy} r={y3TopR - 4} fill={labelFillFor('Y3MOD4')} start={A3.c.start + 2} end={A3.c.end - 2} text="Urban Futures" fontWeight="700" />
+
+          {/* Bottom band modules */}
+          <path d={arcPath(cx, cy, y3BottomR, A3.b.start, A3.b.end)} stroke={strokeFor('Y3MOD2', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD2')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD2', A3.b)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
+          <ArcLabel id="y3-b" cx={cx} cy={cy} r={y3BottomR - 4} fill={labelFillFor('Y3MOD2')} start={A3.b.start + 2} end={A3.b.end - 2} text="Professional Practice 3" fontWeight="700" />
+          <path d={arcPath(cx, cy, y3BottomR, A3.d.start, A3.d.end)} stroke={strokeFor('Y3MOD5', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD5')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD5', A3.d)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
+          <ArcLabel id="y3-d" cx={cx} cy={cy} r={y3BottomR - 4} fill={labelFillFor('Y3MOD5')} start={A3.d.start + 2} end={A3.d.end - 2} text="Sustainable Technologies" fontWeight="700" />
         </g>
       </g>
     </svg>
