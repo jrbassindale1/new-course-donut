@@ -226,5 +226,60 @@
       "D11: Prepare and document designs that demonstrate appropriate consideration of fire safety, life safety and wellbeing and inclusivity of users, the public and building constructors. (Ability)",
       "PE5: Uphold the architect’s obligation to the environment, society, and the wellbeing and quality of lives of current and future generations. (Understanding)"
     ]
+  },
+  "Y3MOD1": {
+    "id": "Y3MOD1",
+    "moduleName": "Advanced Architectural Design",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Semester", "value": "1" }
+    ],
+    "synopsis": "Sample synopsis for the Advanced Architectural Design module in year three.",
+    "outcomes": ["Develop design proposals with increased complexity."],
+    "arb": ["Sample ARB mapping"]
+  },
+  "Y3MOD2": {
+    "id": "Y3MOD2",
+    "moduleName": "Professional Practice 3",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Semester", "value": "1" }
+    ],
+    "synopsis": "Overview of professional practice considerations for final year students.",
+    "outcomes": ["Understand professional responsibilities."],
+    "arb": ["Sample ARB mapping"]
+  },
+  "Y3MOD3": {
+    "id": "Y3MOD3",
+    "moduleName": "Comprehensive Design Project",
+    "keyInfo": [
+      { "label": "Credits", "value": "30" },
+      { "label": "Semester", "value": "1" }
+    ],
+    "synopsis": "Capstone design project bringing together prior learning.",
+    "outcomes": ["Deliver an integrated architectural proposal."],
+    "arb": ["Sample ARB mapping"]
+  },
+  "Y3MOD4": {
+    "id": "Y3MOD4",
+    "moduleName": "Urban Futures",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Semester", "value": "2" }
+    ],
+    "synopsis": "Explores future scenarios for urban development.",
+    "outcomes": ["Analyse urban challenges and propose responses."],
+    "arb": ["Sample ARB mapping"]
+  },
+  "Y3MOD5": {
+    "id": "Y3MOD5",
+    "moduleName": "Sustainable Technologies",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Semester", "value": "2" }
+    ],
+    "synopsis": "Technical strategies for sustainable architecture.",
+    "outcomes": ["Evaluate sustainable building technologies."],
+    "arb": ["Sample ARB mapping"]
   }
 }
