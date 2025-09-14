@@ -225,6 +225,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
     setProgSelected(null);
     const t = setTimeout(() => setIsResetting(false), dur);
     return () => { clearTimeout(t); clearTimeout(enterTimer); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resetSignal]);
   const midOf = (arc) => (arc.start + arc.end) / 2;
   const selectAndRotate = (key, arc) => () => {
@@ -382,6 +383,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
       setInfoSelected(null);
       setInfoRotation(0);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   // Fade styles for year groups
