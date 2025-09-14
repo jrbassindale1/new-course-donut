@@ -37,6 +37,6 @@ jobs:
           protocol: ftp
           local-dir: dist/
           server-dir: ${{ secrets.REMOTE_DIR }}
-          dangerous-clean-slate: false
+          dangerous-clean-slate: true
           exclude: |
             **/.htaccess
