@@ -35,21 +35,21 @@ function ArcLabel({ id, cx, cy, r, start, end, text, fill = "#111827", fontSize 
 }
 
 // CompassChart renders three bands: top concurrent, bottom concurrent, and a thick solo Pathway overlay.
-export default function CompassChart({ width = 680, height = 680, padding = 16, colors, onSelect, onInfoSelect, resetSignal }) {
+export default function CompassChart({ width = 680, height = 680, padding = 6, colors, onSelect, onInfoSelect, resetSignal }) {
   const W = width;
   const H = height;
   const cx = W / 2;
   const cy = H / 2;
 
   // Radii and thickness
-  const baseThickness = 30; // thinner concurrent band thickness (~2/3 of previous)
-  const gap = 8;            // space between bands (within a year)
+  const baseThickness = 40; // thinner concurrent band thickness so all modules fit
+  const gap = 0;            // space between bands (within a year)
   // Elements that extend beyond module outer edge
-  const bandExtra = 24;     // px extra outward thickness for background bands
-  const thinBand = 10;      // px – thin guide ring
+  const bandExtra = 18;     // px extra outward thickness for background bands (wider for clearer year labels)
+  const thinBand = 0;      // px – thin guide ring
   // Ensure the SVG viewBox always has enough breathing room so strokes don't clip.
   // The furthest outward element is max(bandExtra, thinBand). Add a small safety margin (3px).
-  const PAD_SAFE = Math.max(bandExtra, thinBand) + 3;
+  const PAD_SAFE = Math.max(bandExtra, thinBand);
   const PAD = Math.max(padding, PAD_SAFE);
   const outerR = Math.min(W, H) / 2 - PAD; // fixed outer radius with safe padding
   const bottomR = outerR - baseThickness / 2;  // center radius for bottom band stroke
@@ -67,20 +67,27 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   const ringGap = 6;                                          // desired radial gap between Y1 inner edge and Y2 ring
   const innerThinR = innerEdge - ringGap - thinBand / 2;      // ring outer edge = innerEdge - ringGap
 
-  // Year 2 inner bands (two concurrent rings + solo segment in S1)
-  // Make Y2 modules butt up against the inner thin ring (no gap to the ring)
-  const y2BottomR = innerThinR - (thinBand / 2 + baseThickness / 2);
-  const y2TopR = y2BottomR - baseThickness - gap;
+  // Year spacing: choose uniform spacing between the centre of each year's solo ring
+  const YEAR_SPACING = 65; // px between centre of year solo rings (smaller -> rings closer together)
+  // Use Year 1 soloR as the reference outermost module ring and compute Year 2/3 positions
+  const y1SoloR = soloR + 0; // nudge all modules slightly outward for a larger radius
+  const y2SoloR = y1SoloR - YEAR_SPACING;
+  const y3SoloR = y1SoloR - YEAR_SPACING * 2;
+  // Year 2 band geometry (centered on computed soloR)
   const y2SoloThickness = baseThickness * 2 + gap;
-  const y2SoloR = (y2BottomR + y2TopR) / 2;
+  const y2TopR = y2SoloR - y2SoloThickness / 2;
+  const y2BottomR = y2SoloR + y2SoloThickness / 2;
 
-  // Year 3 inner bands (two concurrent rings + solo segment in S1)
+  // Year 3 band geometry (centered on computed soloR)
   const innerEdge2 = y2TopR - baseThickness / 2; // inner boundary of Y2 modules
-  const innerThinR2 = innerEdge2 - ringGap - thinBand / 2; // separation ring to Y3
-  const y3BottomR = innerThinR2 - (thinBand / 2 + baseThickness / 2);
-  const y3TopR = y3BottomR - baseThickness - gap;
+  const innerThinR2 = innerEdge2 - ringGap - thinBand / 2; // separation ring to Y3 (kept for reference)
   const y3SoloThickness = baseThickness * 2 + gap;
-  const y3SoloR = (y3BottomR + y3TopR) / 2;
+  const y3TopR = y3SoloR - y3SoloThickness / 2;
+  const y3BottomR = y3SoloR + y3SoloThickness / 2;
+
+  // Info Wheel placement: fixed position regardless of selected year
+  const INFO_RING_INSET = 8; // px inset from reference inner edge
+  const INFO_CONTENT_R = (y3SoloR - baseThickness / 2) - INFO_RING_INSET; // stable radius
 
   // Colour palette fallback
   const C = colors || {
@@ -101,17 +108,6 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   const infoHoverColor = '#FACC15';
   const infoSelectedColor = '#F59E0B';
 
-  // Base angles (clockwise, 0 at top)
-  const A0 = {
-    // Semester 1 (0°–180°)
-    aea: { start: 0, end: 90 },            // first 90° (concurrent band A)
-    cap: { start: 0, end: 90 },            // first 90° (concurrent band B)
-    pathway: { start: 90, end: 180 },      // second 90° (solo, thick)
-    // Semester 2 (180°–360°)
-    explore: { start: 180, end: 360 },     // full S2 on band A
-    zc: { start: 180, end: 360 },          // full S2 on band B
-  };
-
   // Tangential gap between modules (px along the arc length)
   const MODULE_GAP_PX = 8;
   const gapAngle = (r) => (MODULE_GAP_PX / (2 * Math.PI * r)) * 360;
@@ -119,67 +115,36 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
     const g = gapAngle(r) / 2;
     return { start: arc.start + g, end: arc.end - g };
   };
-  // Custom trim that allows removing the gap at either end
-  const trimCustom = (arc, r, trimStart = true, trimEnd = true) => {
-    const g = gapAngle(r) / 2;
-    return { start: arc.start + (trimStart ? g : 0), end: arc.end - (trimEnd ? g : 0) };
-  };
-  // Trim using standard start gap for a ring, but a custom end gap (in degrees)
-  const trimWithCustomEndGap = (arc, r, endGapDeg) => {
-    const gStart = gapAngle(r) / 2;
-    return { start: arc.start + gStart, end: arc.end - endGapDeg };
-  };
-  // Fine-tune the shared end gap between Thesis (outer) and Ecology (inner)
-  const ECO_EXTRA_END_GAP_DEG = 0.8; // add ~0.8° more space between end caps
-  const A = {
-    aea: trim(A0.aea, topR),
-    cap: trim(A0.cap, bottomR),
-    pathway: trim(A0.pathway, soloR),
-    explore: trim(A0.explore, topR),
-    zc: trim(A0.zc, bottomR),
-  };
 
-  // Year 2 angles (same layout logic as Year 1)
-  const A2_0 = {
-    fa: { start: 0, end: 90 },                // Future Architectural Practice (S1 concurrent)
-    manifesto: { start: 0, end: 90 },         // Critical Manifesto (S1 concurrent)
-    thesisSolo: { start: 90, end: 180 },      // S1 solo (Design Thesis)
-    thesisS2: { start: 180, end: 360 },       // S2 concurrent band A (Design Thesis)
-    eco: { start: 180, end: 360 },            // S2 concurrent band B (Ecological)
+  // Build per-year module arcs from moduleInfo.json using credits -> degrees mapping
+  // Assumption: total credits per academic year = 120
+  const buildYearArcs = (ids, radius) => {
+    // ids: array of module ids in order around the ring
+    // gather modules and their credits
+    const modules = ids.map(id => {
+      const m = moduleInfo[id];
+      const credits = m && m.keyInfo && Array.isArray(m.keyInfo) ? Number((m.keyInfo.find(k => k.label === 'Credits') || {}).value) : (m && m.keyInfo && m.keyInfo[0] && Number(m.keyInfo[0].value)) || 0;
+      return { id, credits: Number(credits || 0), name: m && m.moduleName };
+    });
+    // Normalize by the sum of the credits in this year so the year fills 360°
+    const sumCredits = modules.reduce((s, m) => s + (m.credits || 0), 0) || 120; // fallback
+    const startAt = 0; // start at top (0°)
+    let angle = startAt;
+    const arcs = modules.map(m => {
+      const deg = ((m.credits || 0) / sumCredits) * 360;
+      const arc = { id: m.id, start: angle, end: angle + deg, credits: m.credits, name: m.name };
+      const trimmed = trim(arc, radius);
+      angle += deg;
+      return { ...arc, trimmed };
+    });
+    return arcs;
   };
-  const A2 = {
-    fa: trim(A2_0.fa, y2TopR),
-    manifesto: trim(A2_0.manifesto, y2BottomR),
-    // Join Design Thesis S1 and S2 visually: remove the shared gap at 180°
-    thesisSolo: trimCustom(A2_0.thesisSolo, y2SoloR, true, false),   // keep start gap at 90°, no gap at 180°
-    // Note: Thesis S2 is drawn on the outer concurrent band (y2BottomR), so compute gap using that radius
-    thesisS2: trimCustom(A2_0.thesisS2, y2BottomR, false, true),     // no gap at 180°, keep gap at 360°
-    // Ecology (inner) keeps standard start gap; increase end gap to align + slightly separate from Thesis
-    eco: trimWithCustomEndGap(A2_0.eco, y2TopR, gapAngle(y2BottomR) / 2 + ECO_EXTRA_END_GAP_DEG),
-  };
-
-  // Year 3 angles (same base layout)
-  const A3_0 = {
-    a: { start: 0, end: 90 },
-    b: { start: 0, end: 90 },
-    solo: { start: 90, end: 180 },
-    c: { start: 180, end: 360 },
-    d: { start: 180, end: 360 },
-  };
-  const A3 = {
-    a: trim(A3_0.a, y3TopR),
-    b: trim(A3_0.b, y3BottomR),
-    solo: trim(A3_0.solo, y3SoloR),
-    c: trim(A3_0.c, y3TopR),
-    d: trim(A3_0.d, y3BottomR),
-  };
-
 
   // Local selection + rotation state
   const [selected, setSelected] = React.useState(null);
   const [hovered, setHovered] = React.useState(null);
-  // Initial view: rotate Y1+Y2 segments counter-clockwise by 45°
-  const [rotation, setRotation] = React.useState(-45);
+  // Initial view: keep chart upright so Year 1 is at top
+  const [rotation, setRotation] = React.useState(0);
   const [infoRotation, setInfoRotation] = React.useState(0);
   const [infoSelected, setInfoSelected] = React.useState(null);
   const [infoHovered, setInfoHovered] = React.useState(null);
@@ -205,7 +170,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   const [resetDurMs, setResetDurMs] = React.useState(BASE_RESET_TRANS_MS);
   React.useEffect(() => {
     // Determine if we're already in the neutral pose to shorten the reset
-    const alreadyNeutral = (selected === null && rotation === -45 && infoRotation === 0 && progRotation === 0);
+    const alreadyNeutral = (selected === null && rotation === 0 && infoRotation === 0 && progRotation === 0);
     // If we are coming from a selected state, the programme ring will re-appear: fade it from 0 -> 0.6 smoothly
     const reappearing = !!selected;
     setProgReappearing(reappearing);
@@ -217,7 +182,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
     setIsResetting(true);
     setIsSpinning(false);
     setSelected(null);
-    setRotation(-45);
+    setRotation(0);
     setInfoRotation(0);
     setInfoSelected(null);
     setInfoHovered(null);
@@ -279,6 +244,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   const showYear2 = !selectedYear || selectedYear === 2;
   const showYear3 = !selectedYear || selectedYear === 3;
   const expandY2 = selectedYear === 2;
+  const expandY3 = selectedYear === 3;
   const showInfoWheel = !!selected; // show for both Y1 and Y2 selections
 
   // Info wheel colours mimic module behaviour
@@ -305,49 +271,48 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
   };
 
   // Background bands: expand outward only, keep inner edge aligned
-  // Year 1 background metrics
-  const y1BgInner = soloR - soloThickness / 2;
-  const y1BgThick = soloThickness + bandExtra;
+  // Year 1 background metrics (uniform band thickness)
+  const y1BgInner = y1SoloR - baseThickness / 2;
+  const y1BgThick = baseThickness + bandExtra;
   const y1BgR = y1BgInner + y1BgThick / 2;
   const y1BgOuter = y1BgInner + y1BgThick;
-  // Compute an inward shift for Year 2 modules (only when not expanded)
-  // so the Year 2 grey background has the same thickness as Year 1
-  // and still leaves a visible yellow gap before the Year 2 ring.
-  let y2InwardShift = 0;
-  if (!expandY2) {
-    const y2RingInnerEdge = innerThinR - thinBand / 2;   // inner edge of thin ring
-    const capOuter = y2RingInnerEdge - 2;                // stop a little before the ring
-    const desiredY2BgThick = y2SoloThickness + bandExtra; // match Y1 background thickness visually
-    const targetBgInner = capOuter - desiredY2BgThick;
-    const currentBgInner = y2SoloR - y2SoloThickness / 2;
-    y2InwardShift = Math.max(0, currentBgInner - targetBgInner);
-  }
+  // Disable any inward-shift for Year 2 to keep uniform spacing between rings
+  const y2InwardShift = 0;
 
   // Effective Year 2 radii using the computed shift
   const y2TopR_eff = expandY2 ? topR : (y2TopR - y2InwardShift);
   const y2BottomR_eff = expandY2 ? bottomR : (y2BottomR - y2InwardShift);
-  const y2SoloR_eff = expandY2 ? soloR : (y2SoloR - y2InwardShift);
-  // Combined Design Thesis arc (join S1 90°–180° and S2 180°–360°)
-  const thesisCombinedArc = { start: A2.thesisSolo.start, end: A2.thesisS2.end };
-  const thesisCombinedMidR = (y2BottomR_eff + y2SoloR_eff) / 2;
+  const y2SoloR_eff = expandY2 ? y1SoloR : (y2SoloR - y2InwardShift);
+  // Year 2 solo thickness effective
   const y2SoloThickness_eff = expandY2 ? soloThickness : y2SoloThickness;
 
-  // Year 2 background metrics (based on effective radii)
-  const y2BgInner = y2SoloR_eff - y2SoloThickness_eff / 2;
-  let y2BgThick = y2SoloThickness_eff + bandExtra;
-  let y2BgOuter = y2BgInner + y2BgThick;
-  if (!expandY2) {
-    const capOuter = (innerThinR - thinBand / 2) - 2;
-    if (y2BgOuter > capOuter) {
-      y2BgOuter = capOuter;
-      y2BgThick = y2BgOuter - y2BgInner;
-    }
-  }
-  const y2BgR = y2BgInner + y2BgThick / 2;
+  // Disable Y3 inward-shift as well; use uniform YEAR_SPACING.
+  const y3InwardShift = 0;
 
-  // Year 3 background metrics
-  const y3BgInner = y3SoloR - y3SoloThickness / 2;
-  const y3BgThick = y3SoloThickness + bandExtra;
+  // Effective Year 3 radii using the computed shift
+  const y3TopR_eff = expandY3 ? topR : (y3TopR - y3InwardShift);
+  const y3BottomR_eff = expandY3 ? bottomR : (y3BottomR - y3InwardShift);
+  const y3SoloR_eff = expandY3 ? y1SoloR : (y3SoloR - y3InwardShift);
+  const y3SoloThickness_eff = expandY3 ? soloThickness : y3SoloThickness;
+
+  // Year ordering and ids (use the same ids sets as before but in semester order)
+  const Y1_ORDER = ['UBLL48-15-3','UBLL46-30-3','UBLL47-30-3','UBLL49-15-3','UBLL45-30-3'];
+  const Y2_ORDER = ['UBLL4B-15-M','UBLL4A-60-M','UBLL4C-15-M','UBLL4F-30-M'];
+  const Y3_ORDER = ['Y3MOD1','Y3MOD3','Y3MOD2','Y3MOD4','Y3MOD5'];
+
+  const year1Arcs = buildYearArcs(Y1_ORDER, y1SoloR);
+  const year2Arcs = buildYearArcs(Y2_ORDER, y2SoloR_eff);
+  const year3Arcs = buildYearArcs(Y3_ORDER, y3SoloR_eff);
+
+  // Year 2 background metrics (uniform band thickness)
+  const y2BgInner = y2SoloR_eff - baseThickness / 2;
+  const y2BgThick = baseThickness + bandExtra;
+  const y2BgR = y2BgInner + y2BgThick / 2;
+  const y2BgOuter = y2BgInner + y2BgThick;
+
+  // Year 3 background metrics (uniform band thickness)
+  const y3BgInner = y3SoloR_eff - baseThickness / 2;
+  const y3BgThick = baseThickness + bandExtra;
   const y3BgR = y3BgInner + y3BgThick / 2;
   const y3BgOuter = y3BgInner + y3BgThick;
 
@@ -371,7 +336,8 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
         ...(hasThreads ? [{ id: 'thr' }] : []),
       ];
       const sector = 360 / headings.length;
-      const contentR = y3SoloR - 10; // must match Info Wheel content radius
+      // Must match Info Wheel content radius below (fixed for all years)
+      const contentR = INFO_CONTENT_R;
       const synIndex = headings.findIndex(h => h.id === 'syn');
       const start = synIndex * sector;
       const end = start + sector;
@@ -395,15 +361,15 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
     <svg className="compass-svg" viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" role="img" aria-label="Programme overview compass">
       <defs>
         {/* Clip inner half of strokes to simulate inner highlight border on hover */}
-        <clipPath id="clip-inner-solo"><circle cx={cx} cy={cy} r={soloR - soloThickness/2 + 0.5} /></clipPath>
+  <clipPath id="clip-inner-solo"><circle cx={cx} cy={cy} r={y1SoloR - y1BgThick/2 + 0.5} /></clipPath>
         <clipPath id="clip-inner-top"><circle cx={cx} cy={cy} r={topR - baseThickness/2 + 0.5} /></clipPath>
         <clipPath id="clip-inner-bottom"><circle cx={cx} cy={cy} r={bottomR - baseThickness/2 + 0.5} /></clipPath>
-        <clipPath id="clip-inner-y2solo"><circle cx={cx} cy={cy} r={y2SoloR - y2SoloThickness/2 + 0.5} /></clipPath>
-        <clipPath id="clip-inner-y2top"><circle cx={cx} cy={cy} r={y2TopR - baseThickness/2 + 0.5} /></clipPath>
-        <clipPath id="clip-inner-y2bottom"><circle cx={cx} cy={cy} r={y2BottomR - baseThickness/2 + 0.5} /></clipPath>
-        <clipPath id="clip-inner-y3solo"><circle cx={cx} cy={cy} r={y3SoloR - y3SoloThickness/2 + 0.5} /></clipPath>
-        <clipPath id="clip-inner-y3top"><circle cx={cx} cy={cy} r={y3TopR - baseThickness/2 + 0.5} /></clipPath>
-        <clipPath id="clip-inner-y3bottom"><circle cx={cx} cy={cy} r={y3BottomR - baseThickness/2 + 0.5} /></clipPath>
+  <clipPath id="clip-inner-y2solo"><circle cx={cx} cy={cy} r={y2SoloR_eff - y2SoloThickness_eff/2 + 0.5} /></clipPath>
+  <clipPath id="clip-inner-y2top"><circle cx={cx} cy={cy} r={y2TopR_eff - baseThickness/2 + 0.5} /></clipPath>
+  <clipPath id="clip-inner-y2bottom"><circle cx={cx} cy={cy} r={y2BottomR_eff - baseThickness/2 + 0.5} /></clipPath>
+  <clipPath id="clip-inner-y3solo"><circle cx={cx} cy={cy} r={y3SoloR_eff - y3SoloThickness_eff/2 + 0.5} /></clipPath>
+  <clipPath id="clip-inner-y3top"><circle cx={cx} cy={cy} r={y3TopR_eff - baseThickness/2 + 0.5} /></clipPath>
+  <clipPath id="clip-inner-y3bottom"><circle cx={cx} cy={cy} r={y3BottomR_eff - baseThickness/2 + 0.5} /></clipPath>
       </defs>
       {/* Background year bands spanning full module thickness (thicker + fade when hidden)
           Keep inner edge aligned; add thickness outward. */}
@@ -421,10 +387,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
           <circle cx={cx} cy={cy} r={y3BgR} stroke="#ccd0d8" strokeWidth={y3BgThick} fill="none" />
         </g>
       </g>
-      {/* Stationary thin outer guide ring (continuous) */}
-      <g>
-        <circle cx={cx} cy={cy} r={thinR} stroke="#ccd0d8" strokeWidth={thinBand} fill="none" />
-      </g>
+      {/* Stationary thin outer guide ring removed (was creating an extra outer band) */}
 
       {/* Inner thin guide ring omitted to avoid extra band */}
 
@@ -443,10 +406,11 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
               ...(hasThreads ? [{ id: 'thr', label: 'Studio Threads' }] : []),
             ];
             const sector = 360 / headings.length;
-            const infoR = y3SoloR;
-            const infoThick = y3SoloThickness;
-            // Content radius is moved inward by 10px
-            const contentR = infoR - 10;
+            // Fixed radius so info wheel appears in the same place for each year
+            const infoR = INFO_CONTENT_R;
+            const infoThick = y3SoloThickness_eff + 8; // maintain visual weight
+            // Content radius equals stroke center (keep in sync with reset logic above)
+            const contentR = infoR;
             const startOffsetDeg = 0; // start at top
             const items = headings.map((h, i) => {
               const start = startOffsetDeg + i * sector;
@@ -486,9 +450,11 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
           pointerEvents: (isResetting || isSpinning) ? 'none' : 'auto'
         }}>
           {(() => {
-            const progThick = baseThickness + 30;
-            const innerGap = gap + 40;
-            const progR = y3TopR - baseThickness / 2 - innerGap - progThick / 2;
+            const progThick = baseThickness + 10;
+            // Place programme ring just inside Year 1 inner edge for a larger, less compressed radius
+            const PROG_RING_INSET = 138; // px gap from Y1 inner edge to programme ring outer edge
+            const y1InnerEdge = y1SoloR - baseThickness / 2; // inner boundary of Year 1 modules
+            const progR = y1InnerEdge - PROG_RING_INSET - progThick / 2;
             const programColor = '#FDE047';
             const programHoverColor = '#FACC15';
             const programSelectedColor = '#F59E0B';
@@ -530,127 +496,63 @@ export default function CompassChart({ width = 680, height = 680, padding = 16, 
         style={{ transform: `rotate(${rotation}deg)`, transformOrigin: `${cx}px ${cy}px`, transition: `transform ${isResetting ? resetDurMs : NORMAL_TRANS_MS}ms ${TRANS_EASE}, opacity ${RESET_FADE_MS}ms ${TRANS_EASE}`, opacity: isResetting ? 0.6 : 1, willChange: WILL_CHANGE, pointerEvents: (isResetting || isSpinning) ? 'none' : 'auto' }}
         onMouseLeave={() => setHovered(null)}
       >
-        {/* Year + semester labels (top: S1, bottom: S2) */}
+        {/* Year labels only (no semesters) */}
         <g style={fadeStyleY1}>
-          <ArcLabel id="y1-s1" cx={cx} cy={cy} r={year1LabelR} start={0} end={60} text={"Year 1 — Semester 1 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
-          <ArcLabel id="y1-s2" cx={cx} cy={cy} r={year1LabelR} start={180} end={240} text={"Year 1 — Semester 2 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
+          <ArcLabel id="y1" cx={cx} cy={cy} r={year1LabelR} start={0} end={60} text={"Year 1"} fill="#000" fontSize={10} fontWeight="600" startOffset="0%" textAnchor="start" />
         </g>
         <g style={fadeStyleY2}>
-          <ArcLabel id="y2-s1" cx={cx} cy={cy} r={year2LabelR} start={0} end={60} text={"Year 2 — Semester 1 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
-          <ArcLabel id="y2-s2" cx={cx} cy={cy} r={year2LabelR} start={180} end={240} text={"Year 2 — Semester 2 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
+          <ArcLabel id="y2" cx={cx} cy={cy} r={year2LabelR} start={0} end={60} text={"Year 2"} fill="#000" fontSize={10} fontWeight="600" startOffset="0%" textAnchor="start" />
         </g>
         <g style={fadeStyleY3}>
-          <ArcLabel id="y3-s1" cx={cx} cy={cy} r={year3LabelR} start={0} end={60} text={"Year 3 — Semester 1 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
-          <ArcLabel id="y3-s2" cx={cx} cy={cy} r={year3LabelR} start={180} end={240} text={"Year 3 — Semester 2 ▸"} fill="#000" fontSize={10} fontWeight="500" startOffset="0%" textAnchor="start" />
+          <ArcLabel id="y3" cx={cx} cy={cy} r={year3LabelR} start={0} end={60} text={"Year 3"} fill="#000" fontSize={10} fontWeight="600" startOffset="0%" textAnchor="start" />
         </g>
 
         {/* Programme ring (home view) — rotates on click, fades when a module is selected */}
         {/* Counter-rotate by parent rotation so programme ring stays upright on initial view */}
 
-        {/* Year 1 group (fades when hidden) */}
+        {/* Year 1 group (single ring per year; arcs sized by credits). Use uniform stroke width and soloR for placement */}
         <g style={fadeStyleY1}>
-          {/* Solo thick segment (Pathway) with square ends */}
-          <path
-            d={arcPath(cx, cy, soloR, A.pathway.start, A.pathway.end)}
-            stroke={strokeFor('UBLL46-30-3', C.pathway)}
-            strokeWidth={soloThickness}
-            strokeLinecap="butt"
-            fill="none"
-            onMouseEnter={() => setHovered('UBLL46-30-3')}
-            onMouseLeave={() => setHovered(null)}
-            onClick={selectAndRotate('UBLL46-30-3', A.pathway)}
-            style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }}
-          />
-          {/* Hover outline removed to avoid Chrome edge line */}
-          <ArcLabel id="pathway-label" cx={cx} cy={cy} r={soloR - 4} fill={labelFillFor('UBLL46-30-3')}
-                    start={A.pathway.start + 2} end={A.pathway.end - 2}
-                    text="Pathway Studio / Practice Studio (PT/DA)" fontWeight="700" />
-
-        {/* Top band: AEA (90°), spacer (90° as empty), Exploratory (180°) */}
-          <path d={arcPath(cx, cy, topR, A.aea.start, A.aea.end)} stroke={strokeFor('UBLL48-15-3', C.aea)} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL48-15-3')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL48-15-3', A.aea)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          <ArcLabel id="aea-label" cx={cx} cy={cy} r={topR - 4} fill={labelFillFor('UBLL48-15-3')} start={A.aea.start + 2} end={A.aea.end - 2} text="Architectural Ethics & Agency" fontWeight="700" />
-
-          <path d={arcPath(cx, cy, topR, A.explore.start, A.explore.end)} stroke={strokeFor('UBLL47-30-3', C.explore)} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL47-30-3')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL47-30-3', A.explore)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          <ArcLabel id="explore-label" cx={cx} cy={cy} r={topR - 4} fill={labelFillFor('UBLL47-30-3')} start={A.explore.start + 2} end={A.explore.end - 2} text="Exploratory Design Studio" fontWeight="700" />
-
-        {/* Bottom band: CAP (90°), spacer (90°), Zero Carbon (180°) */}
-          <path d={arcPath(cx, cy, bottomR, A.cap.start, A.cap.end)} stroke={strokeFor('UBLL49-15-3', C.cap)} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL49-15-3')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL49-15-3', A.cap)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          <ArcLabel id="cap-label" cx={cx} cy={cy} r={bottomR - 4} fill={labelFillFor('UBLL49-15-3')} start={A.cap.start + 2} end={A.cap.end - 2} text="Critical Architectural Practices" fontWeight="700" />
-
-          <path d={arcPath(cx, cy, bottomR, A.zc.start, A.zc.end)} stroke={strokeFor('UBLL45-30-3', C.zc)} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL45-30-3')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL45-30-3', A.zc)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          <ArcLabel id="zc-label" cx={cx} cy={cy} r={bottomR - 4} fill={labelFillFor('UBLL45-30-3')} start={A.zc.start + 2} end={A.zc.end - 2} text="Zero Carbon Design & Innovation" fontWeight="700" />
+          {year1Arcs.map(a => {
+            const r = y1SoloR; // place all Year 1 modules on the single solo ring
+            const strokeW = baseThickness; // uniform thickness for all modules
+            const arcTrim = a.trimmed || { start: a.start, end: a.end };
+            return (
+              <g key={a.id}>
+                <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
+                <ArcLabel id={`lbl-${a.id}`} cx={cx} cy={cy} r={r - 4} start={arcTrim.start + 2} end={arcTrim.end - 2} text={a.name || a.id} fontWeight="700" fill={labelFillFor(a.id)} />
+              </g>
+            );
+          })}
         </g>
 
-        {/* Year 2 group (fades when hidden) */}
+        {/* Year 2 group (single ring sized by credits). Use uniform stroke width and effective solo radius */}
         <g style={fadeStyleY2}>
-          {/* YEAR 2: Solo segment (Design Thesis) in S1 */}
-          <path
-            d={arcPath(cx, cy, y2SoloR_eff, A2.thesisSolo.start, A2.thesisSolo.end)}
-            stroke={strokeFor('UBLL4A-60-M', '#999')}
-            strokeWidth={y2SoloThickness_eff}
-            strokeLinecap="butt"
-            fill="none"
-            onMouseEnter={() => setHovered('UBLL4A-60-M')}
-            onMouseLeave={() => setHovered(null)}
-            onClick={selectAndRotate('UBLL4A-60-M', thesisCombinedArc)}
-            style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }}
-          />
-          {/* Hover outline removed for Design Thesis (solo) */}
-          {/* Thesis label only on the wider S2 arc (below) */}
-
-        {/* YEAR 2: Top band (FA in S1, Thesis in S2) */}
-          <path d={arcPath(cx, cy, y2TopR_eff, A2.fa.start, A2.fa.end)} stroke={strokeFor('UBLL4B-15-M', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL4B-15-M')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL4B-15-M', A2.fa)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          <ArcLabel id="y2-fa" cx={cx} cy={cy} r={y2TopR_eff - 4} fill={labelFillFor('UBLL4B-15-M')} start={A2.fa.start + 2} end={A2.fa.end - 2} text="Future Architectural Practice" fontWeight="700" />
-
-          {/* Swap: Design Thesis goes on the outer concurrent band (use y2BottomR_eff) */}
-          <path d={arcPath(cx, cy, y2BottomR_eff, A2.thesisS2.start, A2.thesisS2.end)} stroke={strokeFor('UBLL4A-60-M', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL4A-60-M')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL4A-60-M', thesisCombinedArc)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          {/* Combined Design Thesis label positioned midway between bands and spanning the full joined arc */}
-          <ArcLabel id="y2-thesis-combined" cx={cx} cy={cy} r={thesisCombinedMidR + 5} fill={labelFillFor('UBLL4A-60-M')} start={A2.thesisSolo.start + 2} end={A2.thesisS2.end - 2} text="Design Thesis" fontWeight="700" />
-
-        {/* YEAR 2: Bottom band (Manifesto in S1, Ecology in S2) */}
-          <path d={arcPath(cx, cy, y2BottomR_eff, A2.manifesto.start, A2.manifesto.end)} stroke={strokeFor('UBLL4C-15-M', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL4C-15-M')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL4C-15-M', A2.manifesto)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          <ArcLabel id="y2-manifesto" cx={cx} cy={cy} r={y2BottomR_eff - 4} fill={labelFillFor('UBLL4C-15-M')} start={A2.manifesto.start + 2} end={A2.manifesto.end - 2} text="Critical Manifesto" fontWeight="700" />
-
-          {/* Swap: Ecology moves to inner concurrent band (use y2TopR_eff) */}
-          <path d={arcPath(cx, cy, y2TopR_eff, A2.eco.start, A2.eco.end)} stroke={strokeFor('UBLL4F-30-M', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('UBLL4F-30-M')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('UBLL4F-30-M', A2.eco)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          {/* Hover outline removed */}
-          <ArcLabel id="y2-eco" cx={cx} cy={cy} r={y2TopR_eff - 4} fill={labelFillFor('UBLL4F-30-M')} start={A2.eco.start + 2} end={A2.eco.end - 2} text="Ecological & Regenerative Approaches" fontWeight="700" />
+          {year2Arcs.map(a => {
+            const r = y2SoloR_eff; // place all Year 2 modules on their solo ring
+            const strokeW = baseThickness; // uniform thickness
+            const arcTrim = a.trimmed || { start: a.start, end: a.end };
+            return (
+              <g key={a.id}>
+                <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
+                <ArcLabel id={`lbl-${a.id}`} cx={cx} cy={cy} r={r - 4} start={arcTrim.start + 2} end={arcTrim.end - 2} text={a.name || a.id} fontWeight="700" fill={labelFillFor(a.id)} />
+              </g>
+            );
+          })}
         </g>
 
-        {/* Year 3 group (fades when hidden) */}
+        {/* Year 3 group (single ring sized by credits). Use uniform stroke width and effective solo radius */}
         <g style={fadeStyleY3}>
-          {/* Solo segment */}
-          <path
-            d={arcPath(cx, cy, y3SoloR, A3.solo.start, A3.solo.end)}
-            stroke={strokeFor('Y3MOD3', '#999')}
-            strokeWidth={y3SoloThickness}
-            strokeLinecap="butt"
-            fill="none"
-            onMouseEnter={() => setHovered('Y3MOD3')}
-            onMouseLeave={() => setHovered(null)}
-            onClick={selectAndRotate('Y3MOD3', A3.solo)}
-            style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }}
-          />
-          <ArcLabel id="y3-solo" cx={cx} cy={cy} r={y3SoloR - 4} fill={labelFillFor('Y3MOD3')} start={A3.solo.start + 2} end={A3.solo.end - 2} text="Comprehensive Design Project" fontWeight="700" />
-
-          {/* Top band modules */}
-          <path d={arcPath(cx, cy, y3TopR, A3.a.start, A3.a.end)} stroke={strokeFor('Y3MOD1', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD1')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD1', A3.a)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          <ArcLabel id="y3-a" cx={cx} cy={cy} r={y3TopR - 4} fill={labelFillFor('Y3MOD1')} start={A3.a.start + 2} end={A3.a.end - 2} text="Advanced Architectural Design" fontWeight="700" />
-          <path d={arcPath(cx, cy, y3TopR, A3.c.start, A3.c.end)} stroke={strokeFor('Y3MOD4', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD4')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD4', A3.c)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          <ArcLabel id="y3-c" cx={cx} cy={cy} r={y3TopR - 4} fill={labelFillFor('Y3MOD4')} start={A3.c.start + 2} end={A3.c.end - 2} text="Urban Futures" fontWeight="700" />
-
-          {/* Bottom band modules */}
-          <path d={arcPath(cx, cy, y3BottomR, A3.b.start, A3.b.end)} stroke={strokeFor('Y3MOD2', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD2')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD2', A3.b)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          <ArcLabel id="y3-b" cx={cx} cy={cy} r={y3BottomR - 4} fill={labelFillFor('Y3MOD2')} start={A3.b.start + 2} end={A3.b.end - 2} text="Professional Practice 3" fontWeight="700" />
-          <path d={arcPath(cx, cy, y3BottomR, A3.d.start, A3.d.end)} stroke={strokeFor('Y3MOD5', '#999')} strokeWidth={baseThickness} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered('Y3MOD5')} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate('Y3MOD5', A3.d)} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-          <ArcLabel id="y3-d" cx={cx} cy={cy} r={y3BottomR - 4} fill={labelFillFor('Y3MOD5')} start={A3.d.start + 2} end={A3.d.end - 2} text="Sustainable Technologies" fontWeight="700" />
+          {year3Arcs.map(a => {
+            const r = y3SoloR_eff; // place all Year 3 modules on their solo ring
+            const strokeW = baseThickness; // uniform thickness
+            const arcTrim = a.trimmed || { start: a.start, end: a.end };
+            return (
+              <g key={a.id}>
+                <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
+                <ArcLabel id={`lbl-${a.id}`} cx={cx} cy={cy} r={r - 4} start={arcTrim.start + 2} end={arcTrim.end - 2} text={a.name || a.id} fontWeight="700" fill={labelFillFor(a.id)} />
+              </g>
+            );
+          })}
         </g>
       </g>
     </svg>
