@@ -1,74 +1,56 @@
 {
-  "synopsis": "BSc Architecture @ UWE is designed to empower you to become an innovative designer, an ethical practitioner, and a catalyst for positive change in the built environment.\n\nThe BSc is a 2-year full-time programme, with options to study part-time or as part of a Level 7 degree apprenticeship.\n\nStudio design modules form the bedrock of the BSc, where you will develop architectural design proposals that integrate spatial, environmental, social, technical and artistic dimensions. Studio design is interlinked with concurrent technical modules that complement and enhance design resolution.\n\nAcross both years, you’ll also take theoretical and practice-oriented modules. These explore the architect’s role as an ethical agent of change, and critically examine the social, political, cultural and environmental contexts and narratives that shape architectural practice today.\n\nThe programme emphasises collaboration beyond traditional architectural boundaries. You’ll work with local communities, industry professionals and wider disciplines to tackle pressing societal challenges, aiming to transform cities, places and spaces for the benefit of people and the planet.\n\nThrough tailored pathways and research opportunities, you’ll develop your own specialism and be supported to make meaningful contributions to the architectural profession.\n\nYear 1 (Pathway Year): The first year focuses on grounding you in the broader context of architecture and empowering you to start shaping an emerging specialism. Modules will encourage critical thinking, design competence, interdisciplinary collaboration, and professional and technical skills to address global challenges.\n\nYear 2 (Specialism Year): The final year focuses on consolidating specialism and deepening your expertise through independent research, advanced design and technical application. The year is designed to prepare you to operate as an ethical professional ready to enter the field and influence real change.",
-  "threadsIntro": "Each of the 3 studio modules over the programme relate to one of three themes or ‘threads’. The threads outlined below allow you to develop a particular area of expertise.",
-  "threads": [
-    {
-      "title": "Adaptive Futures",
-      "keywords": "adaptive reuse; de-growth urbanism; circular design; heritage; sustainable retrofit practices",
-      "description": "The thread Adaptive Futures takes as a centre point thinking around the value of 'old' and ‘existing’ built fabric in our neighbourhoods as mechanisms for downscaling urban growth to achieve balanced, diverse neighbourhoods and ecological and social justice. It looks beyond the material/technological to consider social cohesion and cultural continuity, identity and collective memory, cultural significance and critical approaches to the consideration of existing fabric. The thread positions reuse as an inherently low carbon approach to development and a socially and culturally aware means of re-animating existing architectural fabrics in the context of a circular economy."
-    },
-    {
-      "title": "Socially Engaged Practice",
-      "keywords": "community led design, co-creation, participatory and transparent processes, cultural awareness, ethics and public impact",
-      "description": "The Socially Engaged Practice thread is rooted in direct engagement with people, communities and locationally relevant social and cultural systems. It explores why, when, how and with whom we shape place. It will address participatory methods, co-design and activism through socially and culturally inclusive approaches. Key features are humans’ relationships and processes, where co-creation shapes architecture. Shared outcomes may include spatial prototypes, toolkits, community masterplans and built interventions."
-    },
-    {
-      "title": "Emergent Technologies and Ecologies",
-      "keywords": "resilient and adaptive technologies and ecologies; environmental and behavioural responsiveness; materiality and circularity, global climatic design",
-      "description": "Emergent Technologies and Ecologies explores the evolving relationships between design and technologies and the ecosystems to which they relate. It promotes innovative, context sensitive and environmentally interrelated approaches to materials and architectural technology. It invites critiques of conventional practice and techniques through systems thinking and adaptive responsiveness to change. In this context, emergent refers to systems that arise through bottom-up, adaptive processes that are often driven by environmental feedback and interdependent relationships. Technologies and Ecologies are interpreted broadly as networks of human and non-human actors, materials, and forces."
-    }
-  ],
-  "outcomesIntro": "The Programme Learning Outcomes set out the knowledge, skills and professional attributes you’ll develop during the BSc. They represent what you should be able to do by the end of the programme and are designed to prepare you for professional practice as an architect. These outcomes cover areas such as design integration, research, leadership, ethics, communication, technology, and human-centred design. Together, they ensure you graduate as a reflective, responsible, and capable practitioner who can contribute positively to the profession and wider society.",
+  "synopsis": "The BSc (Hons) Architecture at UWE Bristol is a dynamic undergraduate degree designed to equip students with the critical, creative, and technical skills necessary for contemporary architectural practice. With a distinctive focus on the relationship between design ambition and material reality, the programme explores principles of construction, materials, and the integration of innovative building technologies. Students develop sustainable and inclusive design approaches through studio-based learning, technical workshops, and live projects, while critically engaging with the social, political, cultural, and environmental contexts of architecture.",
+  "outcomesIntro": "The Programme Learning Outcomes for the BSc (Hons) Architecture set out the knowledge, skills, and professional attributes you’ll develop across the three years. They align with current professional expectations and industry themes, ensuring you graduate with the capabilities required for progression and future architectural practice. These outcomes emphasise design, sustainability, technology, communication, ethics, cultural competence, and collaboration, preparing you to become a responsible, creative, and globally aware practitioner.",
   "outcomes": [
     {
       "code": "PO1",
-      "keyword": "Design Integration",
-      "description": "Develop advanced architectural design solutions that integrate environmental, social, artistic, spatial, and technical considerations. Demonstrate a commitment to inclusive, sustainable, and responsible design that prioritises the wellbeing of users, communities, and the environment."
+      "keyword": "Design Propositions",
+      "description": "Develop innovative, sustainable design propositions that address and integrate social, cultural, and environmental challenges across diverse contexts."
     },
     {
       "code": "PO2",
-      "keyword": "Research and Enquiry",
-      "description": "Employ research, enquiry, and experimentation techniques to develop effective, innovative solutions to architectural problems, informed by historical, culturally contextual and contemporary architectural knowledge grounded in innovative, ethical, regulatory, and sustainable practices."
+      "keyword": "Contextual Analysis",
+      "description": "Analyse contemporary designs within their social, historical, and theoretical contexts, demonstrating the application of critical thinking."
     },
     {
       "code": "PO3",
-      "keyword": "Leadership and Collaboration",
-      "description": "Exhibit leadership, project management, and collaboration skills in interdisciplinary settings, effectively coordinating with stakeholders and team members to ensure timely and effective project delivery, while maintaining professional conduct in alignment with project requirements."
+      "keyword": "Interdisciplinary Practice",
+      "description": "Examine the complexity of interdisciplinary practice by evaluating the arguments, assumptions, and behaviours that underpin productive collaboration."
     },
     {
       "code": "PO4",
-      "keyword": "Ethics and Professional Judgement",
-      "description": "Develop professional judgement in the consideration of ethical frameworks, regulatory standards, and professional conduct to produce safe, inclusive, and environmentally responsible designs that promote social value, environmental stewardship, public health and safety."
+      "keyword": "Ethical Practice",
+      "description": "Explore ethical practices and assess the designer’s role in advancing justice, social equity, and sustainable approaches in the context of the climate emergency."
     },
     {
       "code": "PO5",
-      "keyword": "Engagement and Communication",
-      "description": "Engage proactively with industry professionals, communities, and stakeholders, demonstrating accountability, professional responsibility, and effective communication throughout project lifecycles."
+      "keyword": "Regulatory Frameworks",
+      "description": "Analyse statutory frameworks and evolving industry standards for stages of development, planning, procurement, health and safety, and wellbeing, demonstrating application through reflective and simulated practice."
     },
     {
       "code": "PO6",
-      "keyword": "Reflective Practice",
-      "description": "Adopt a forward thinking and reflective approach to professional development, identifying and addressing learning needs to stay current with evolving standards, best practices, and industry advancements."
+      "keyword": "Curiosity and Identity",
+      "description": "Demonstrate a curiosity-driven approach to design by engaging with diverse cultural perspectives, backgrounds, and activities, fostering continuous learning and innovation to develop a unique design identity and address architectural challenges."
     },
     {
       "code": "PO7",
-      "keyword": "Communication of Ideas",
-      "description": "Articulate sophisticated architectural ideas to diverse audiences, including clients and stakeholders, adapting communication styles to ensure clarity, engagement, and impact across professional and academic contexts."
+      "keyword": "Communication",
+      "description": "Communicate complex architectural ideas and design concepts effectively through visual, verbal, and written methods, demonstrating clarity, creativity, and critical thinking."
     },
     {
       "code": "PO8",
-      "keyword": "Critical Practice and Technology",
-      "description": "Develop a critical practice that integrates both digital and analogue design skills to create, model, process, and present design solutions that meet complex project requirements, leveraging technology for analytical, research, and presentation purposes."
+      "keyword": "Digital and Analogue Techniques",
+      "description": "Utilise digital and analogue techniques, including CAD, BIM, and emerging technologies, to articulate and present design concepts with clarity and impact."
     },
     {
       "code": "PO9",
-      "keyword": "Technical Integration",
-      "description": "Integrate advanced structural, environmental, and technological strategies into design solutions that meet relevant performance, fire and life safety, and sustainability standards, considering resilience and long-term environmental impact."
+      "keyword": "Sustainable Integration",
+      "description": "Demonstrate a knowledge of sustainable and resilient architectural solutions by integrating structures, materials, and building systems with considerations for fire and life safety, environmental impact, and climate resilience."
     },
     {
       "code": "PO10",
-      "keyword": "Human-Centred Design",
-      "description": "Produce spatial designs that prioritise human needs, inclusivity, and experiential quality, ensuring an integration of spatial, cultural, and environmental insights to create meaningful and accessible spaces."
+      "keyword": "Spatial Design",
+      "description": "Apply spatial design strategies to enhance the relationships between space, form, and human experience across social, cultural, and environmental contexts."
     }
   ]
 }

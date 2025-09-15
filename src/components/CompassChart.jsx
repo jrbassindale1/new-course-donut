@@ -85,9 +85,9 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
   const y3TopR = y3SoloR - y3SoloThickness / 2;
   const y3BottomR = y3SoloR + y3SoloThickness / 2;
 
-  // Info Wheel placement: fixed position regardless of selected year
-  const INFO_RING_INSET = 8; // px inset from reference inner edge
-  const INFO_CONTENT_R = (y3SoloR - baseThickness / 2) - INFO_RING_INSET; // stable radius
+  // Info Wheel placement: fixed position closer to outside rings (just inside Year 2 inner edge)
+  const INFO_RING_INSET = -30; // px inset from Year 2 inner edge
+  const INFO_CONTENT_R = (y2SoloR - baseThickness / 2) - INFO_RING_INSET; // stable radius across selections
 
   // Colour palette fallback
   const C = colors || {
@@ -100,13 +100,39 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
   };
   // Swap greys: use darker grey for muted elements, lighter grey for backgrounds
   const muted = "#FFFFFF";
-  const baseStroke = "#FFFFFF"; // default white segments when nothing is selected
-  const selectedColor = "#F59E0B"; // selected module colour (deeper)
-  const hoverColor = "#FACC15";    // hover module colour (slightly lighter/different)
-  // Programme/info wheel palette for consistency
-  const infoBaseColor = '#FDE047';
-  const infoHoverColor = '#FACC15';
-  const infoSelectedColor = '#F59E0B';
+  const baseStroke = "#FFFFFF"; // fallback stroke when theme missing
+  // Color helpers: adjust brightness of a hex color
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+  const hexToRgb = (hex) => {
+    const s = hex.replace('#','');
+    const v = s.length === 3 ? s.split('').map(c => c + c).join('') : s;
+    const r = parseInt(v.slice(0,2),16);
+    const g = parseInt(v.slice(2,4),16);
+    const b = parseInt(v.slice(4,6),16);
+    return [r,g,b];
+  };
+  const rgbToHex = (r,g,b) => '#' + [r,g,b].map(x => clamp(Math.round(x),0,255).toString(16).padStart(2,'0')).join('');
+  const darken = (hex, amt=0.22) => {
+    try { const [r,g,b] = hexToRgb(hex); return rgbToHex(r*(1-amt), g*(1-amt), b*(1-amt)); } catch { return hex; }
+  };
+  const lighten = (hex, amt=0.12) => {
+    try { const [r,g,b] = hexToRgb(hex); return rgbToHex(r + (255-r)*amt, g + (255-g)*amt, b + (255-b)*amt); } catch { return hex; }
+  };
+  // Theme colours: all shades of yellow/amber for consistency
+  const THEME_BASE = {
+    'Studio': '#FDE047',                          // yellow-300
+    'Technology and Environment': '#FACC15',      // yellow-400
+    'Humanities': '#EAB308',                      // yellow-500
+    'Professional Practice and Behaviours': '#F59E0B', // amber-500
+  };
+  const THEME_HOVER = Object.fromEntries(Object.entries(THEME_BASE).map(([k, v]) => [k, lighten(v, 0.1)]));
+  const THEME_SELECTED = Object.fromEntries(Object.entries(THEME_BASE).map(([k, v]) => [k, darken(v, 0.25)]));
+  // Theme ordering around the ring
+  const THEME_ORDER = ['Studio', 'Technology and Environment', 'Humanities', 'Professional Practice and Behaviours'];
+  // Info wheel palette (Programme Synopsis, Outcomes, etc.) — set to blue
+  const infoBaseColor = '#BDE4FF';
+  const infoHoverColor = '#90D5FF';
+  const infoSelectedColor = '#90D5FF';
 
   // Tangential gap between modules (px along the arc length)
   const MODULE_GAP_PX = 8;
@@ -143,12 +169,14 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
   // Local selection + rotation state
   const [selected, setSelected] = React.useState(null);
   const [hovered, setHovered] = React.useState(null);
-  // Initial view: keep chart upright so Year 1 is at top
-  const [rotation, setRotation] = React.useState(0);
+  // Global module ring rotation offset (modules + year labels only)
+  const MODULE_ROT_OFFSET = -90; // rotate 90° counter-clockwise
+  const [rotation, setRotation] = React.useState(MODULE_ROT_OFFSET);
   const [infoRotation, setInfoRotation] = React.useState(0);
   const [infoSelected, setInfoSelected] = React.useState(null);
   const [infoHovered, setInfoHovered] = React.useState(null);
-  const [progRotation, setProgRotation] = React.useState(0);
+  // Start programme ring rotated -60° so "Programme Synopsis" centers at top
+  const [progRotation, setProgRotation] = React.useState(-60);
   const [progSelected, setProgSelected] = React.useState(null);
   const [isResetting, setIsResetting] = React.useState(false);
   const [isSpinning, setIsSpinning] = React.useState(false);
@@ -170,7 +198,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
   const [resetDurMs, setResetDurMs] = React.useState(BASE_RESET_TRANS_MS);
   React.useEffect(() => {
     // Determine if we're already in the neutral pose to shorten the reset
-    const alreadyNeutral = (selected === null && rotation === 0 && infoRotation === 0 && progRotation === 0);
+    const alreadyNeutral = (selected === null && rotation === MODULE_ROT_OFFSET && infoRotation === 0 && progRotation === -60);
     // If we are coming from a selected state, the programme ring will re-appear: fade it from 0 -> 0.6 smoothly
     const reappearing = !!selected;
     setProgReappearing(reappearing);
@@ -182,11 +210,11 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
     setIsResetting(true);
     setIsSpinning(false);
     setSelected(null);
-    setRotation(0);
+    setRotation(MODULE_ROT_OFFSET);
     setInfoRotation(0);
     setInfoSelected(null);
     setInfoHovered(null);
-    setProgRotation(0);
+    setProgRotation(-60);
     setProgSelected(null);
     const t = setTimeout(() => setIsResetting(false), dur);
     return () => { clearTimeout(t); clearTimeout(enterTimer); };
@@ -201,21 +229,27 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
     setSelected(key);
     const mid = midOf(arc);
     setIsSpinning(true);
-    setRotation(-mid); // bring arc midpoint to 0° at top
+    // When selected, ignore base offset so the module centers exactly at the top (0°)
+    setRotation(-mid);
     // Clear spinning flag after transition
     setTimeout(() => setIsSpinning(false), NORMAL_TRANS_MS + 50);
   };
 
+  const themeOf = (id) => (moduleInfo[id] && moduleInfo[id].moduleTheme) || null;
   const strokeFor = (id) => {
-    // If a selection exists, keep selected deep yellow; allow hover on others
+    const theme = themeOf(id);
+    const base = (theme && THEME_BASE[theme]) || baseStroke;
+    const hov = (theme && THEME_HOVER[theme]) || lighten(base, 0.1);
+    const sel = (theme && THEME_SELECTED[theme]) || darken(base, 0.25);
+    // If a selection exists: highlight selected with theme colour, allow hover on others, mute the rest
     if (selected) {
-      if (id === selected) return selectedColor;
-      if (hovered === id) return hoverColor;
+      if (id === selected) return sel;
+      if (hovered === id) return hov;
       return muted;
     }
-    // No selection: hovered module turns hover yellow
-    if (hovered === id) return hoverColor;
-    return baseStroke;
+    // No selection
+    if (hovered === id) return hov;
+    return base;
   };
 
   // Label fill: when a module is selected, grey out other modules' text
@@ -233,13 +267,32 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
     return '#111827';
   };
 
-  // Year selection logic
-  const year1Ids = new Set(['UBLL46-30-3','UBLL48-15-3','UBLL47-30-3','UBLL49-15-3','UBLL45-30-3']);
-  const year2Ids = new Set(['UBLL4A-60-M','UBLL4B-15-M','UBLL4C-15-M','UBLL4F-30-M']);
-  const year3Ids = new Set(['Y3MOD1','Y3MOD2','Y3MOD3','Y3MOD4','Y3MOD5']);
-  const selectedYear = selected
-    ? (year1Ids.has(selected) ? 1 : (year2Ids.has(selected) ? 2 : (year3Ids.has(selected) ? 3 : null)))
-    : null;
+  // Split long module labels over two concentric lines so they fit
+  const splitLabel = (text, maxFirst = 22, softMax = 28) => {
+    if (!text) return [""];
+    const t = String(text).replace(/\s+/g, ' ').trim();
+    if (t.length <= maxFirst) return [t];
+    // Prefer breaking at delimiters near the middle or before maxFirst
+    const prefs = [" — ", " - ", ": ", ", "];
+    for (const d of prefs) {
+      const idx = t.lastIndexOf(d, maxFirst);
+      if (idx > 8) return [t.slice(0, idx).trim(), t.slice(idx + d.length).trim()];
+    }
+    // Otherwise break at the last space before maxFirst, or first space after up to softMax
+    let bp = t.lastIndexOf(' ', maxFirst);
+    if (bp < 0 || bp < 8) bp = t.indexOf(' ', maxFirst);
+    if (bp < 0 || bp > softMax) return [t];
+    return [t.slice(0, bp).trim(), t.slice(bp + 1).trim()];
+  };
+
+  // Year selection logic (driven by moduleInfo.json metadata)
+  const getYearOf = (id) => {
+    const m = moduleInfo[id];
+    const y = m && (m['year of study'] || m.year || (m.meta && m.meta.year));
+    const n = Number(y);
+    return Number.isFinite(n) ? n : null;
+  };
+  const selectedYear = selected ? getYearOf(selected) : null;
   const showYear1 = !selectedYear || selectedYear === 1;
   const showYear2 = !selectedYear || selectedYear === 2;
   const showYear3 = !selectedYear || selectedYear === 3;
@@ -295,10 +348,36 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
   const y3SoloR_eff = expandY3 ? y1SoloR : (y3SoloR - y3InwardShift);
   const y3SoloThickness_eff = expandY3 ? soloThickness : y3SoloThickness;
 
-  // Year ordering and ids (use the same ids sets as before but in semester order)
-  const Y1_ORDER = ['UBLL48-15-3','UBLL46-30-3','UBLL47-30-3','UBLL49-15-3','UBLL45-30-3'];
-  const Y2_ORDER = ['UBLL4B-15-M','UBLL4A-60-M','UBLL4C-15-M','UBLL4F-30-M'];
-  const Y3_ORDER = ['Y3MOD1','Y3MOD3','Y3MOD2','Y3MOD4','Y3MOD5'];
+  // Build dynamic year orders from moduleInfo.json
+  const getSemester = (id) => {
+    const m = moduleInfo[id];
+    const s = m && Array.isArray(m.keyInfo) && m.keyInfo.find(k => k.label === 'Semester');
+    const v = s && s.value;
+    const n = Number(v);
+    // Default missing/non-numeric to a large number so they sort to the end
+    return Number.isFinite(n) ? n : 99;
+  };
+  const idsByYear = (y) => Object.keys(moduleInfo).filter(id => getYearOf(id) === y);
+  const sortYearIds = (ids) => ids.slice().sort((a, b) => {
+    const ta = themeOf(a);
+    const tb = themeOf(b);
+    const ia = THEME_ORDER.indexOf(ta);
+    const ib = THEME_ORDER.indexOf(tb);
+    const oa = ia === -1 ? 99 : ia;
+    const ob = ib === -1 ? 99 : ib;
+    if (oa !== ob) return oa - ob; // primary: theme order Studio -> Tech -> Humanities -> Prof
+    // Secondary: semester if present
+    const sa = getSemester(a);
+    const sb = getSemester(b);
+    if (sa !== sb) return sa - sb;
+    // Tertiary: name for stable layout
+    const na = (moduleInfo[a] && moduleInfo[a].moduleName) || a;
+    const nb = (moduleInfo[b] && moduleInfo[b].moduleName) || b;
+    return String(na).localeCompare(String(nb));
+  });
+  const Y1_ORDER = sortYearIds(idsByYear(1));
+  const Y2_ORDER = sortYearIds(idsByYear(2));
+  const Y3_ORDER = sortYearIds(idsByYear(3));
 
   const year1Arcs = buildYearArcs(Y1_ORDER, y1SoloR);
   const year2Arcs = buildYearArcs(Y2_ORDER, y2SoloR_eff);
@@ -332,7 +411,6 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
         { id: 'key' },
         { id: 'syn' },
         { id: 'out' },
-        { id: 'arb' },
         ...(hasThreads ? [{ id: 'thr' }] : []),
       ];
       const sector = 360 / headings.length;
@@ -395,20 +473,19 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
       {showInfoWheel && (
         <g style={{ transform: `rotate(${infoRotation}deg)`, transformOrigin: `${cx}px ${cy}px`, transition: `transform ${isResetting ? resetDurMs : NORMAL_TRANS_MS}ms ${TRANS_EASE}`, willChange: WILL_CHANGE, pointerEvents: (isResetting || isSpinning) ? 'none' : 'auto' }}>
           {(() => {
-            // Build headings dynamically: include Threads only when present for the selected module
+            // Build headings dynamically: include Threads only when present for the selected module (ARB removed)
             const hasThreads = selected && moduleInfo[selected] && Array.isArray(moduleInfo[selected].threads) && moduleInfo[selected].threads.length > 0;
             const headings = [
               { id: 'key', label: 'Key Info' },
               { id: 'syn', label: 'Synopsis' },
               { id: 'out', label: 'Module Outcomes' },
-              { id: 'arb', label: 'ARB Competencies' },
               // Conditionally include Threads
               ...(hasThreads ? [{ id: 'thr', label: 'Studio Threads' }] : []),
             ];
             const sector = 360 / headings.length;
             // Fixed radius so info wheel appears in the same place for each year
             const infoR = INFO_CONTENT_R;
-            const infoThick = y3SoloThickness_eff + 8; // maintain visual weight
+            const infoThick = baseThickness + 6; // slimmer band, closer to outside rings
             // Content radius equals stroke center (keep in sync with reset logic above)
             const contentR = infoR;
             const startOffsetDeg = 0; // start at top
@@ -422,7 +499,7 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
                 setInfoSelected(h.id);
                 setInfoRotation(-mid);
                 if (onInfoSelect && selected) {
-                  const keyMap = { key: 'keyInfo', syn: 'synopsis', out: 'outcomes', arb: 'arb', thr: 'threads' };
+                  const keyMap = { key: 'keyInfo', syn: 'synopsis', out: 'outcomes', thr: 'threads' };
                   onInfoSelect(selected, keyMap[h.id] || 'keyInfo');
                 }
               };
@@ -455,9 +532,9 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
             const PROG_RING_INSET = 138; // px gap from Y1 inner edge to programme ring outer edge
             const y1InnerEdge = y1SoloR - baseThickness / 2; // inner boundary of Year 1 modules
             const progR = y1InnerEdge - PROG_RING_INSET - progThick / 2;
-            const programColor = '#FDE047';
-            const programHoverColor = '#FACC15';
-            const programSelectedColor = '#F59E0B';
+            const programColor = '#BDE4FF';
+            const programHoverColor = '#90D5FF';
+            const programSelectedColor = '#90D5FF';
             const heads = [
               { id: 'prog-syn', label: 'Programme Synopsis' },
               { id: 'prog-thr', label: 'Studio Threads' },
@@ -516,25 +593,38 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
             const r = y1SoloR; // place all Year 1 modules on the single solo ring
             const strokeW = baseThickness; // uniform thickness for all modules
             const arcTrim = a.trimmed || { start: a.start, end: a.end };
+            const lines = splitLabel(a.name || a.id);
+            const hasTwo = !!lines[1];
+            const rFirst = hasTwo ? (r + 4) : (r - 2); // when split, push first line outward
+            const rSecond = r - 10; // bring second line a touch closer to centre
             return (
               <g key={a.id}>
                 <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-                <ArcLabel id={`lbl-${a.id}`} cx={cx} cy={cy} r={r - 4} start={arcTrim.start + 2} end={arcTrim.end - 2} text={a.name || a.id} fontWeight="700" fill={labelFillFor(a.id)} />
+                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[0]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                {lines[1] && (
+                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[1]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                )}
               </g>
             );
           })}
         </g>
 
-        {/* Year 2 group (single ring sized by credits). Use uniform stroke width and effective solo radius */}
         <g style={fadeStyleY2}>
           {year2Arcs.map(a => {
             const r = y2SoloR_eff; // place all Year 2 modules on their solo ring
             const strokeW = baseThickness; // uniform thickness
             const arcTrim = a.trimmed || { start: a.start, end: a.end };
+            const lines = splitLabel(a.name || a.id);
+            const hasTwo = !!lines[1];
+            const rFirst = hasTwo ? (r + 6) : (r - 2);
+            const rSecond = r - 8;
             return (
               <g key={a.id}>
                 <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-                <ArcLabel id={`lbl-${a.id}`} cx={cx} cy={cy} r={r - 4} start={arcTrim.start + 2} end={arcTrim.end - 2} text={a.name || a.id} fontWeight="700" fill={labelFillFor(a.id)} />
+                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[0]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                {lines[1] && (
+                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[1]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                )}
               </g>
             );
           })}
@@ -546,10 +636,17 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
             const r = y3SoloR_eff; // place all Year 3 modules on their solo ring
             const strokeW = baseThickness; // uniform thickness
             const arcTrim = a.trimmed || { start: a.start, end: a.end };
+            const lines = splitLabel(a.name || a.id);
+            const hasTwo = !!lines[1];
+            const rFirst = hasTwo ? (r + 6) : (r - 2);
+            const rSecond = r - 8;
             return (
               <g key={a.id}>
                 <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-                <ArcLabel id={`lbl-${a.id}`} cx={cx} cy={cy} r={r - 4} start={arcTrim.start + 2} end={arcTrim.end - 2} text={a.name || a.id} fontWeight="700" fill={labelFillFor(a.id)} />
+                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[0]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                {lines[1] && (
+                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[1]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                )}
               </g>
             );
           })}

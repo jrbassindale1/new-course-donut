@@ -1,285 +1,254 @@
 {
-  "UBLL48-15-3": {
-    "id": "UBLL48-15-3",
-    "moduleName": "Architectural Ethics & Agency",
-    "keyInfo": [
-      { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "1" },
-      { "label": "Assessment", "value": "You’ll produce an illustrated reflective development report and a professional development plan (up to 2,000 words). Choose a real or hypothetical ethical dilemma, use the Architects’ Code to frame your judgement, discuss duties around health, safety and welfare, and finish with a PDP that identifies what you need to develop next and how you’ll do it." }
-    ],
-    "synopsis": "The AEA module introduces students to the architect’s role as an ethical agent of change, examining how architectural practice shapes, influences, and has responsibility to society, the environment, communities, clients and the industry. The module aims to give students a grounding in what it means to be an architect in a rapidly changing world and how they might develop as future practitioners. Students explore how diverse pathways shape different architectural practices and gain an insight into how practices prioritise different agendas. They explore how these priorities affect practice culture, project selection, client relationships and best practice working methods.",
-    "outcomes": [
-      "MO1 Recognise the role of architects in society, including their responsibilities within the design team and construction industry, and of acting ethically in accordance with the Architects Code of Conduct. (Mapped ARB Outcomes: CK2, PE1)",
-      "MO2 Demonstrate how sustainable, responsible, and ethical principles inform architectural practice, recognising the architect’s duties of care toward clients, users, the public, and collaborators. (Mapped ARB Outcomes: M1, PE6)",
-      "MO3 Demonstrate an understanding of the obligations to protect the health and safety of building users, the public, and construction workers, showing how ethical judgement informs professional decision-making. (Mapped ARB Outcomes: PE4)",
-      "MO4 Reflect critically on your professional limits, competence, and expertise, evaluating how ethical and regulatory frameworks guide responsible architectural practice. (Mapped ARB Outcomes: PE8)"
-    ],
-    "arb": [
-      "CK2: The role of architects in society, the design team and the construction industry. (Knowledge)",
-      "M1: Make use of the principles of sustainable, responsible and ethical practice, and recognise how they relate to running an architect’s practice. (Knowledge)",
-      "PE1: Recognise the significance of the Architects Code of Conduct, and the need for architects to act always in an ethical and professional manner. (Knowledge)",
-      "PE4: Uphold the architect’s obligations to the health and safety of the public and building users and building constructors. (Understanding)",
-      "PE6: Recognise the responsibilities and duties of care that architects have towards their clients, users, the public and those with whom they work. (Understanding)",
-      "PE8: Acknowledge and work within the limits of their competence, expertise, and experience. (Knowledge)"
-    ]
-  },
-  "UBLL49-15-3": {
-    "id": "UBLL49-15-3",
-    "moduleName": "Critical Architectural Practices",
-    "keyInfo": [
-      { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "1" },
-      { "label": "Assessment", "value": "You’ll write a critical design philosophy and inquiry (up to 2,000 words) that weaves together theory, precedents and context. Show how global, cultural, social, technological, economic and environmental factors shape practice, use credible research methods, and make a clear statement of your own position." }
-    ],
-    "synopsis": "Critical Architectural Practices combines theoretical rigour with practical experimentation to examine how architecture interacts with political, social, cultural, and environmental conditions. The module stresses interdisciplinarity and invites students to approach practice with openness, curiosity, and self-reflection. Through lectures, seminars, workshops, and reflective inquiry, students critically engage with architectural theories, precedents, and case studies while testing ideas through hands-on exploration. The aim is to develop an initial personal critical philosophy of design that integrates thinking and making. Structured over six weeks plus an introductory session, the module concludes with the launch of the Architectural Theory Mini Magazine series.",
-    "outcomes": [
-      "MO1 Critically analyse how diverse global, cultural, social, technological, economic, and environmental factors influence architectural practices and urban design approaches. (Mapped ARB Outcome: CK1)",
-      "MO2 Locate and evaluate diverse and potentially conflicting sources of architectural knowledge, using research methodologies to inform a specialised design perspective and to establish a foundation for specialisation. (Mapped ARB Outcome: RE5)",
-      "MO3 Make judgements and draw conclusions about architectural practice and theory, and their societal implications, demonstrating how these inform the development of a personal design philosophy. (Mapped ARB Outcome: RE5)"
-    ],
-    "arb": [
-      "CK1: How diverse global, cultural, social, technological, economic factors and building technology influence aspects of architecture and urban design. (Knowledge)",
-      "RE5: Locate and evaluate evidence that may be incomplete or contradictory, critically evaluating the quality of knowledge sources, making judgements and drawing appropriate conclusions that can inform architectural practice. (Ability)"
-    ]
-  },
-  "UBLL46-30-3": {
-    "id": "UBLL46-30-3",
-    "moduleName": "Pathway Studio / Practice Studio (PT/DA)",
+  "UBLL4S-30-1": {
+    "id": "UBLL4S-30-1",
+    "year of study": "1",
+    "moduleName": "Studio 1.1 - Form and Context",
+    "moduleTheme": "Studio",
     "keyInfo": [
       { "label": "Credits", "value": "30" },
       { "label": "Semester", "value": "1" },
-      { "label": "Assessment", "value": "As a group you’ll curate a public‑facing exhibition that communicates your pathway’s enquiry and outcomes. Alongside this, submit a short individual reflection explaining your contribution, how you collaborated and led, and what you learned." }
+      { "label": "Assessment", "value": "Portfolio (Pass/Fail): A curated portfolio showing iterative analogue design processes (hand‑drawing, physical models), contextual analysis and critical reflection." }
     ],
-    "synopsis": "Pathway Studio enables students to select a specialised studio aligned to their interests and to develop advanced, contextually grounded design work through collaborative, problem‑solving approaches.\n\nBuilding on earlier modules, the studio tackles complex social and environmental challenges—including biodiversity loss and climate change—while advancing inclusive, human‑centred and sustainable design practice. Teaching blends pathway‑specific seminars, skills workshops, critiques and collaborative studio sessions, culminating in a professional‑level exhibition and an individual reflective component.\n\nStudents investigate themes such as urban greening, zero‑carbon strategies and advanced structural integration; apply research, analysis and synthesis to produce informed proposals; and learn to communicate complex ideas to specialist and non‑specialist audiences.\n\nThe module reinforces ethical and design competencies, encouraging consideration of social value and inclusive design, and develops the teamworking, leadership and communication skills required for large‑scale, stakeholder‑rich projects.\n\nPart-time and Degree Apprenticeship students undertake the Practice Studio module in their second year, focusing on real-world applications of their learning within professional contexts.",
+    "synopsis": "Introduces foundational principles of architectural design through analogue techniques, iteration and contextual responsiveness. Students explore form, scale, proportion and materiality, and connect design decisions to cultural and environmental contexts. Teaching blends studio tutorials, workshops and critiques, culminating in a portfolio evidencing process and outcomes.",
     "outcomes": [
-      "MO1 Develop advanced design solutions within a specialised pathway, integrating social sustainability, social value, and inclusive design considerations to address complex architectural challenges. (Mapped to ARB Outcome: CK3)",
-      "MO2 Demonstrate knowledge of the principles of climate change mitigation, biodiversity, and ecological responsibility, and explain how these relate to the role of architecture in addressing environmental challenges. (Mapped to ARB Outcome: CK4)",
-      "MO3 Produce spatial design solutions that prioritise human needs and inclusivity, showcasing expertise in integrating diverse cultural and contextual insights. (Mapped to ARB Outcome: D6)",
-      "MO4 Work constructively within a team, demonstrating leadership, effective communication, and a clear understanding of the roles, needs, and priorities of other disciplines, stakeholders, and clients. (Mapped to ARB Outcome: PE3)"
+      "MO1 Demonstrate foundational skills in spatial design—including form, proportion and materiality—through iterative experimentation, feedback and reflection.",
+      "MO2 Articulate relationships between architectural form, contextual influences and conceptual frameworks, drawing on precedents to inform decisions.",
+      "MO3 Communicate design ideas effectively through drawing and modelling, using architectural conventions."
     ],
-    "arb": [
-      "CK3: The principles and relevance of social sustainability, social value and inclusive design. (Knowledge)",
-      "CK4: The principles of climate change and biodiversity as relevant to design and construction. (Knowledge)",
-      "D6: Produce the designs that consider the relationship between people and built environment, between buildings and their context, and the need to relate buildings and the spaces between them to human needs, inclusivity, user experience and scale. (Ability)",
-      "PE3: Work constructively with and within a broader team, exercising leadership, effective communication and personal responsibility. (Ability)"
-    ],
-    "threads": [
-  { "label": "Emergent Technologies & Ecologies", "value": "Exploring the intersection of technology, ecology, and design" },
-  { "label": "Socially Engaged Practice", "value": "Devices and desires.\nWe want to learn how to arrive\nand to learn how to listen and\nwe want to be better neighbours and\nwe want to care with ferocity and\nwe want to be yes and, not no but, and\nwe want to spin tales that change things and\nwe want to arrive without projecting and\nwe want to meet on common ground and\nwe want to grow things together\nwe want to dismantle and resensitise\nwe want to be aware of what conditions us and\nwe want to dream beyond this chaos and\nwe want to remember old desires and\nwe want to make our way together and\nwe want to fall in love with the future and\nwe need to acknowledge how we got here\nand we want to vision somewhere better and\nwe want your minds and hands here with us." },
-  { "label": "Adaptive Futures", "value": "The Adaptive Future thread invites students to look again and differently at architectural context and offers critical architectural, and discursive tools for the critical representation, analysis of and speculation on the pre-existing. The studio focuses on the care-ful study of existing architectural fabrics, expanding equal attention and spatial presence to the material, social, cultural and technological realities that they offer as fertile infrastructures for the re-appropriation and critical expansion of our built environment. Here, criticality emerges in the understanding and recognition and nurture of architectural value wherever possible, in an attempt to appreciate and appropriate what is already there to its maximum potential." }
-  ]
+    "arb": []
   },
-  "UBLL47-30-3": {
-    "id": "UBLL47-30-3",
-    "moduleName": "Exploratory Design Studio",
+  "UBLL4Y-30-1": {
+    "id": "UBLL4Y-30-1",
+    "year of study": "1",
+    "moduleName": "Studio 1.2 - People and Environment",
+    "moduleTheme": "Studio",
     "keyInfo": [
       { "label": "Credits", "value": "30" },
       { "label": "Semester", "value": "2" },
-      { "label": "Assessment", "value": "You’ll submit an individual design portfolio that traces your project from research and brief through to a resolved proposal. Show how you integrated spatial, environmental, social and contextual thinking, and include a concise critical reflection on key decisions and iterations." }
-
+      { "label": "Assessment", "value": "Portfolio (Pass/Fail): A design portfolio for a small building demonstrating site analysis, human‑centred design, and integration of analogue and digital techniques." }
     ],
-    "synopsis": "Exploratory Design Studio is a full‑semester module in which students join interdisciplinary, collaborative think‑tanks to develop architectural design proposals that respond to complex societal and environmental challenges.\n\nGuided by both academics and industry professionals, the studio fosters creativity, critical thinking, and innovation while connecting design to real‑world contexts. Students prepare, appraise, and refine briefs that respond to client, user, site, environmental and contextual requirements, and then explore inclusive, adaptive, and sustainable approaches to design.\n\nThe module complements the concurrent Zero Carbon Design & Innovation module, ensuring that technical strategies are integrated with creative exploration. Through research‑led design processes, collaborative reviews, workshops with professionals, and iterative prototyping, students deepen their design capabilities, expand their specialisation, and develop strategic, contextually aware proposals.\n\nEmphasis is placed on equity, diversity, inclusion, and the social value of architecture, equipping students to deliver meaningful, professional‑level design outcomes.",
+    "synopsis": "Builds on Studio 1.1 by asking students to design a small building that meaningfully engages with users, community and context. Emphasises site analysis, sustainability and experiential qualities (light, movement, thresholds) while integrating analogue and digital methods. Delivered via tutorials, workshops, reviews and fieldwork.",
     "outcomes": [
-      "MO1 Engage with clients, and other stakeholders to develop an appropriate brief and agenda responding to user needs, constraints and opportunities that integrates cultural, environmental, and contextual insights. (Mapped ARB Outcomes: D2, RE2)",
-      "MO2 Integrate cultural, environmental, and contextual knowledge to develop and communicate a complex design proposal that address the needs of clients and users, and the specific requirements of a site and its contexts (Mapped ARB Outcome: D1).",
-      "MO3 Plan, implement, and document architectural project tasks effectively, both independently and collaboratively, to achieve defined goals within time and resource constraints (Mapped ARB Outcome: M10).",
-      "MO4 Apply principles of equity, diversity, and inclusion in the design of environments and in building respectful, collaborative relationships with colleagues, clients, and communities (Mapped ARB Outcome: PE2)."
+      "MO1 Develop proposals responding to site‑specific, environmental and user needs, demonstrating human‑centred design.",
+      "MO2 Integrate analogue and digital techniques across the design process and representation.",
+      "MO3 Explore and apply experiential qualities—light, movement and thresholds—to enhance architectural experience.",
+      "MO4 Demonstrate teamwork principles and interdisciplinary perspectives in collaboratively refining ideas."
     ],
-    "arb": [
-      "D1: Prepare and present architectural design projects of diverse scale, complexity, and type in a variety of contexts, using a range of media, responding critically to a brief. (Ability)",
-      "D2: Prepare, appraise, refine and engage with building briefs of diverse scales and types, accounting for client, user, site, environmental and contextual requirements. (Ability)",
-      "RE2: Work with clients and other stakeholders to gain a mutual understanding of constraints and opportunities, identify immediate and long‑term interests, set project agendas, define desirable and feasible project outcomes, and develop appropriate briefs for projects. (Understanding)",
-      "M10: Resource, plan, implement and record project tasks to achieve stated goals, either individually or within a team. (Understanding) ",
-      "PE2: Display a committed approach to equity, diversity and inclusion, including in their approach to designing environments and in their relationships with colleagues, employees, clients and communities. (Ability)"
-    ],
-        "threads": [
-  { "label": "Emergent Technologies & Ecologies", "value": "This studio investigates encounters between human and non-human actors, and their environment, treating the interdependent networks as the basis for emergent design processes and architectural solutions. We explore how architecture can arise from within shifting ecological, material, technological, and social systems, and how it might evolve through responsiveness and adaptation. Within this framework, our focus this year is water—as flow, surface, atmosphere, and resource. We will critically examine its roles as energy, nourishment, infrastructure, and cultural medium and engage with it as a concrete material and ecological force that shapes design practices in architecture. The studio will culminate in architectural propositions that not only respond to immediate design challenges but also situate projects within wider ecological and technological contexts/frameworks, offering critical, experimental, and imaginative contributions to future practice." },
-  { "label": "Socially Engaged Practice", "value": "Designing for social impact and community engagement" },
-  { "label": "Adaptive Futures", "value": "Innovating for resilience and adaptability in architecture" }
-  ]
+    "arb": []
   },
-  "UBLL45-30-3": {
-    "id": "UBLL45-30-3",
-    "moduleName": "Zero Carbon Design & Innovation",
+  "UBLL5S-15-1": {
+    "id": "UBLL5S-15-1",
+    "year of study": "1",
+    "moduleName": "Professional Principles and Digital Practice",
+    "moduleTheme": "Professional Practice and Behaviours",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Assessment", "value": "Project (Pass/Fail): PDF portfolio of 2D/3D outputs plus a short reflection on professional ethics and the architect’s role." }
+    ],
+    "synopsis": "Introduces the architect’s role in society, ethical responsibilities and project workflows (incl. RIBA Plan of Work) alongside foundational software skills: accurate 2D drafting, basic 3D modelling and rendering. Teaching combines lectures, case studies and scaffolded software tutorials.",
+    "outcomes": [
+      "MO1 Demonstrate proficiency in 2D CAD, basic 3D modelling and rendering to professional drawing conventions.",
+      "MO2 Reflect on the architect’s role, responsibilities and workflows in practice and society.",
+      "MO3 Communicate architectural ideas clearly using digital media, meeting professional standards."
+    ],
+    "arb": []
+  },
+  "UBLL6T-30-1": {
+    "id": "UBLL6T-30-1",
+    "year of study": "1",
+    "moduleName": "Making Sustainable Architecture",
+    "moduleTheme": "Technology and Environment",
+    "keyInfo": [
+      { "label": "Credits", "value": "30" },
+      { "label": "Duration", "value": "Full Year" },
+      { "label": "Assessment", "value": "Two reports (50% + 50%): (1) Technical report on thermal performance and material/assembly strategy; (2) Environmental design report documenting a small sustainable building proposal with details." }
+    ],
+    "synopsis": "Foundations in sustainable design and building science: heat transfer, passive strategies, envelope performance, material selection and ethical sourcing, and sustainable construction detailing (insulation, membranes, air‑tightness, water control). Applies theory in a small‑scale design project integrating environmental principles with user‑centred design.",
+    "outcomes": [
+      "MO1 Analyse and apply principles of thermal performance, appropriate structural systems and ethical considerations.",
+      "MO2 Develop sustainable construction details addressing insulation, air‑tightness and material impacts.",
+      "MO3 Design and represent a small‑scale sustainable building integrating environmental principles, material science and construction sequencing.",
+      "MO4 Communicate sustainable concepts through clear visual, verbal and technical outputs with reference to ethical/environmental considerations."
+    ],
+    "arb": []
+  },
+  "UBLL58-15-1": {
+    "id": "UBLL58-15-1",
+    "year of study": "1",
+    "moduleName": "Contexts of Architecture 1 - Cities and Society",
+    "moduleTheme": "Humanities",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Assessment", "value": "Exhibition (Pass/Fail): Curated display integrating sketches, diagrams, photographs and short texts connecting history/culture to contemporary practice." }
+    ],
+    "synopsis": "Introduces architectural history and cultural contexts, examining how political, social and diverse cultural perspectives shape the built environment. Uses local urban walks, sketching and photography to connect precedents to contemporary design, with curation/presentation skills leading to a public‑facing exhibition.",
+    "outcomes": [
+      "MO1 Record and represent architectural spaces/movements via sketches, diagrams and photographs, reflecting on historical/cultural significance.",
+      "MO2 Explore relationships between architecture, politics and cultural movements with attention to diverse and underrepresented perspectives.",
+      "MO3 Analyse precedents and communicate their relevance to contemporary design through creative and critical outputs."
+    ],
+    "arb": []
+  },
+  "UBLL74-30-2": {
+    "id": "UBLL74-30-2",
+    "year of study": "2",
+    "moduleName": "Studio 2.1 - Living",
+    "moduleTheme": "Studio",
+    "keyInfo": [
+      { "label": "Credits", "value": "30" },
+      { "label": "Semester", "value": "1" },
+      { "label": "Assessment", "value": "Portfolio (100%): Design portfolio with drawings, models and written reflections; verbal presentation." }
+    ],
+    "synopsis": "Housing-focused studio exploring socio-political, environmental and cultural contexts. Students analyse typologies, neighbourhood-scale urbanism and user needs, integrating energy performance and construction methods into proposals.",
+    "outcomes": [
+      "MO1 Develop housing designs for a specific user group that address urban, cultural and environmental contexts while satisfying user needs.",
+      "MO2 Integrate sustainable construction and environmental principles into housing design.",
+      "MO3 Communicate architectural concepts effectively through drawings, models and written reflections, applying professional conventions.",
+      "MO4 Evaluate planning and socio-political structures that inform housing design in different contexts."
+    ],
+    "arb": []
+  },
+  "UBLL75-30-2": {
+    "id": "UBLL75-30-2",
+    "year of study": "2",
+    "moduleName": "Architecture Studio 2.2",
+    "moduleTheme": "Studio",
     "keyInfo": [
       { "label": "Credits", "value": "30" },
       { "label": "Semester", "value": "2" },
-      { "label": "Assessment", "value": "You’ll compile an individual, portfolio‑based technical report. Part 1 sets out your zero‑carbon design strategy—materials, assemblies, services and lifecycle thinking. Part 2 documents your technical analysis (modelling/simulation, digital workflows and key detailing, including fire and life safety), ideally aligned to your studio project." }
+      { "label": "Assessment", "value": "Portfolio (100%): Urban/public design portfolio evidencing analysis, iterative development and final proposal; verbal presentation." }
     ],
-    "synopsis": "The Zero Carbon Design & Innovation module runs in parallel with the Exploratory Design Studio to provide students with a technical foundation for their projects, with a focus on sustainability, carbon reduction, environmental responsibility in architecture, and improving the well-being of occupants. It equips students with the knowledge of key principles and essential computational skills to design zero-carbon buildings that also enhance occupant wellbeing. The module helps students embed and validate zero-carbon strategies in their design projects through research-driven and reflective approaches, including the use of digital tools, computational modelling, lifecycle analysis, and digital fabrication.",
+    "synopsis": "Live/simulated public or community project connecting design with professional standards and stakeholder needs. Emphasises social value, context, climate resilience and iterative design through models, drawings and presentations.",
     "outcomes": [
-      "MO1 Apply principles of building construction, services, structure, materials use, assembly and manufacture to propose integrated technical strategies responding to a project’s brief and context. (Mapped ARB Outcomes: CK5, D5)",
-      "MO2 Apply principles of building physics, environmental design, modelling and post-occupancy evaluation to inform and refine design proposals (Mapped ARB Outcomes: CK6, RE6).",
-      "MO3 Understand how to ensure safety across the building lifecycle from construction to deconstruction and evaluate the environmental benefits and implications of reuse and retrofit in existing buildings (Mapped ARB Outcomes: CK7, D10).",
-      "MO4 Utilise appropriate digital systems to create, model, process, present, and share architectural and technical information effectively (Mapped ARB Outcomes: D12)."
+      "MO1 Identify, analyse and model relevant parameters for architectural design in context, addressing social, cultural and environmental challenges through iteration.",
+      "MO2 Develop a well‑organised building proposal integrating context, user needs and environmental performance.",
+      "MO3 Communicate architectural and urban design ideas effectively through drawings, models and verbal presentations.",
+      "MO4 Explore and reflect on social and cultural contexts, integrating interdisciplinary approaches to address societal and environmental challenges."
     ],
-    "arb": [
-      "CK5 – The principles of building construction, services, structure, materials use, assembly and manufacture.",
-      "CK6 – The principles of building physics and environmental design.",
-      "CK7 – The principles required to ensure that buildings are safe to construct, inhabit, use and maintain, refurbish, re-use and deconstruct.",
-      "D5 – Propose strategies for structure, construction technology, materials, services, ventilation, thermal environment and lighting and acoustics that are appropriate to a project’s brief and context.",
-      "D10 – Understand the implications and benefits of working with existing buildings including potential for re-use and retrofit, and the resulting environmental impact.",
-      "D12 – Use appropriate digital systems for creating, modelling, processing, presenting, and sharing design, building and project information.",
-      "RE6 – Understand how modelling and post occupancy evaluation inform design."
-    ]
+    "arb": []
   },
-  "UBLL4A-60-M": {
-    "id": "UBLL4A-60-M",
-    "moduleName": "Design Thesis",
+  "UBLL7B-30-2": {
+    "id": "UBLL7B-30-2",
+    "year of study": "2",
+    "moduleName": "Environmental Design Strategies and Innovations",
+    "moduleTheme": "Technology and Environment",
+    "keyInfo": [
+      { "label": "Credits", "value": "30" },
+      { "label": "Assessment", "value": "Two reports (50% + 50%): (1) Technical report using simulation to evaluate performance and detailing; (2) Design report synthesising environmental strategies and construction detailing into a proposal." }
+    ],
+    "synopsis": "Advances environmental design and sustainable construction systems with simulation‑led performance analysis (thermal comfort, daylight, energy). Integrates innovative materials and systems with architectural intent under statutory and ethical frameworks.",
+    "outcomes": [
+      "MO1 Analyse and optimise building performance using simulation tools and digital workflows, focusing on environmental comfort and energy efficiency.",
+      "MO2 Integrate sustainable construction systems and innovative materials into architectural designs.",
+      "MO3 Develop detailed design proposals balancing environmental performance, structural integration and architectural expression.",
+      "MO4 Apply statutory frameworks and industry standards—including fire/life safety, energy and environmental regulations—to ensure compliance and ethical practice."
+    ],
+    "arb": []
+  },
+  "UBLL7C-15-2": {
+    "id": "UBLL7C-15-2",
+    "year of study": "2",
+    "moduleName": "Collaboration and Coordination",
+    "moduleTheme": "Professional Practice and Behaviours",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Assessment", "value": "Project (100%): Digital Report (60%) developing a BIM model with metadata and extracted schedules/drawings; Team BIM Execution Plan (40%)." }
+    ],
+    "synopsis": "Introduces BIM as a core tool for collaborative design and coordination. Links to Studio 2.1 outputs or an equivalent project; develops technical proficiency, teamwork and alignment with professional standards and the RIBA Plan of Work.",
+    "outcomes": [
+      "MO1 Collaborate within teams to develop and present an effective BIM Execution Plan for an architectural project.",
+      "MO2 Apply BIM and digital workflows to create coordinated and collaborative design outputs.",
+      "MO3 Reflect critically on ethical responsibilities, professional standards and statutory requirements in collaborative practice."
+    ],
+    "arb": []
+  },
+  "UBLL7D-15-2": {
+    "id": "UBLL7D-15-2",
+    "year of study": "2",
+    "moduleName": "Contexts of Architecture 2 - Histories and Theories",
+    "moduleTheme": "Humanities",
+    "keyInfo": [
+      { "label": "Credits", "value": "15" },
+      { "label": "Assessment", "value": "Portfolio (100%): Lecture Notebook, Historical Study (e.g., model/film/photographic or 1500‑word essay) and a 500‑word Written Commentary." }
+    ],
+    "synopsis": "Extends architectural history and theory with global, cultural and technological perspectives, including postcolonial and feminist lenses. Encourages interdisciplinary analysis and links to contemporary design practice.",
+    "outcomes": [
+      "MO1 Explore and critically analyse global historical contexts and architectural traditions to develop curiosity‑driven insights that inspire innovative thinking.",
+      "MO2 Investigate and compare architectural typologies and cultural precedents using interdisciplinary approaches to inform theory and practice.",
+      "MO3 Communicate historical and theoretical insights effectively using visual and written media."
+    ],
+    "arb": []
+  },
+  "UBLL7Y-60-3": {
+    "id": "UBLL7Y-60-3",
+    "year of study": "3",
+    "moduleName": "Architecture Studio 3",
+    "moduleTheme": "Studio",
     "keyInfo": [
       { "label": "Credits", "value": "60" },
       { "label": "Duration", "value": "Full Year" },
-      { "label": "Assessment", "value": "You’ll produce two linked submissions. (1) A Design Thesis Portfolio (70%) that tracks your project from research question and site/context analysis through to a fully resolved proposal, using drawings, models and clear narrative to show how ideas develop and integrate. (2) A Professional Substantiation Portfolio (30%) that evidences your technical and regulatory thinking—structure, materials, environmental strategies, access and safety—explaining how the scheme meets standards and why key decisions were made." }
+      { "label": "Assessment", "value": "Design Research Exhibition (30%) + Design Portfolio (70%)." }
     ],
-    "synopsis": "The Design Thesis is the capstone module of the BSc programme, enabling students to conceive, research, and deliver an advanced architectural project that integrates technical, spatial, environmental, and social considerations.\n\nThrough rigorous research and experimentation, students develop a self-initiated thesis question that informs a comprehensive design proposal across multiple scales, from urban strategy to detailed construction. Projects must embed statutory and regulatory frameworks, including fire and life safety, inclusivity, and sustainability, alongside artistic, spatial, and experiential design ambitions.\n\nThe module culminates in a professional portfolio and a substantiation dossier, evidencing both creative design resolution and compliance with architectural standards. Working within a studio framework, students refine their communication skills, engage critically with precedent and context, and demonstrate their readiness for professional practice.",
+    "synopsis": "Capstone studio spanning the full year. Students formulate briefs, undertake contextual/site research, and iteratively develop a resolved proposal that integrates conceptual, technical, environmental and regulatory considerations. Thematic studios support critical, research‑driven design with a focus on resilience, sustainability and safe design.",
     "outcomes": [
-      "MO1 Use techniques of architectural research, enquiry and experimentation to develop an original design proposition, demonstrating the ability to synthesise complex contextual, theoretical, and spatial concerns. (Mapped to ARB Outcome: RE1)",
-      "MO2 Demonstrate a critical and creative approach to architectural design, formulating responses that reflect innovation and ethical awareness. (Mapped to ARB Outcome: D3)",
-      "MO3 Prepare and present a coherent architectural design project of appropriate scale and complexity, responding critically to a self-initiated brief and communicating effectively with both specialist and non-specialist audiences using a range of media. (Mapped to ARB Outcomes: D1, M11)",
-      "MO4 Demonstrate the integration of statutory, regulatory and sustainability requirements, with artistic, spatial, social, and contextual considerations to form a coherent architectural design narrative. (Mapped to ARB Outcome: D4)",
-      "MO5 Demonstrate the resolution of a Design Thesis project through both regulatory compliance and at human centric experiential level. (Mapped to ARB Outcome: D6)",
-      "MO6 Identify, evaluate and apply all relevant legislation, regulations, standards, professional codes and policies inform and justify design decisions during the development of the thesis project. (Mapped to ARB Outcome: RE4)",
-      "MO7 Critically evaluate their personal and professional development throughout the design process, identifying ongoing learning needs and aligning with current architectural standards and codes. (Mapped to ARB Outcome: PE7)"
+      "MO1 Conduct contextual research and analysis, including environmental and sustainability considerations, to inform key design ideas using appropriate media.",
+      "MO2 Develop and resolve a complex design proposal that responds to complex briefs, integrating innovative and sustainable approaches to articulate a clear architectural intention.",
+      "MO3 Apply statutory frameworks and material performance criteria to develop spatial strategies that enhance relationships between space, form, and user experience in complex contexts.",
+      "MO4 Communicate a well‑resolved design proposal effectively using professional standards of media and architectural conventions."
     ],
-    "arb": [
-      "D1: Prepare and present architectural design projects of diverse scale, complexity, and type in a variety of contexts, using a range of media, responding critically to a brief. (Ability)",
-      "D3: Demonstrate a critical and creative approach to architectural design. (Ability)",
-      "D4: Produce designs that integrate the artistic, spatial, environmental, social and experiential aspects of a building with the technical requirements of its construction. (Ability)",
-      "D6: Produce the designs that consider the relationship between people and built environment, between buildings and their context, and the need to relate buildings and the spaces between them to human needs, inclusivity, user experience and scale. (Ability)",
-      "M11: Communicate effectively with both specialists and non-specialist audiences through a range of media. (Understanding)",
-      "RE1: Use techniques of research, enquiry and experimentation to develop effective solutions to architectural problems and to broaden their knowledge base. (Ability)",
-      "RE4: Locate, evaluate and apply relevant legislation, regulations, standards, codes of practice and policies related to the development of the built environment. (Understanding)",
-      "PE7: Adopt a reflective approach to their work by identifying individual learning needs required for further development within the profession, ensuring they are up to date with current standards and best practice. (Ability)"
-    ],
-        "threads": [
-  { "label": "Emergent Technologies & Ecologies", "value": "Come back later for further information." },
-  { "label": "Socially Engaged Practice", "value": "Come back later for further information." },
-  { "label": "Adaptive Futures", "value": "Come back later for further information." }
-  ]
+    "arb": []
   },
-  "UBLL4B-15-M": {
-    "id": "UBLL4B-15-M",
-    "moduleName": "Future Architectural Practice",
-    "keyInfo": [
-      { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "1" },
-      { "label": "Assessment", "value": "You’ll write a Project Lifecycle Analysis Report (100%) that walks a project through the RIBA stages. Explain your chosen procurement route, outline how you’d manage contracts, cost and risk, and show how planning, building regulations and health‑and‑safety arrangements would be planned, managed and communicated. Aim to demonstrate practical, ethical decision‑making at each stage." }
-    ],
-    "synopsis": "Future Practice in Architecture equips students with a practical understanding of how architectural projects are structured, managed, and delivered through the RIBA Plan of Work.\n\nUsing a theoretical project framework, students explore the full project lifecycle, from strategic definition through to handover, learning how responsibilities evolve across each stage. The module introduces key aspects of practice such as contracts, fees, procurement strategies, cost management, and regulatory frameworks, focusing on how these interact with professional responsibility, public accountability, and ethical practice.\n\nBy critically analysing procurement routes, contractual structures, and financial strategies, students gain insights into the challenges of managing projects in alignment with sustainability, inclusivity, and safety obligations. The module ensures graduates develop the skills required to navigate the realities of professional practice, combining regulatory awareness with leadership, communication, and ethical responsibility.",
-    "outcomes": [
-      "MO1 Apply the RIBA Plan of Work to structure architectural projects, demonstrating understanding of project stages, regulatory and statutory responsibilities, contract administration and resolution of construction-related challenges. (Mapped to ARB Outcome: M4)",
-      "MO2 Evaluate and coordinate the inter-relationships of individuals, organisations, statutory bodies, and professionals involved in architectural project delivery, recognising their roles within legal, contractual, and ethical frameworks. (Mapped to ARB Outcome: M5)",
-      "MO3 Evaluate the risks and implications of procurement routes, delivery methods, and contract administration strategies to different parties, applying principles of contract selection, cost management, and budgeting to support sustainable, ethical, and financially responsible project delivery. (Mapped to ARB Outcomes: M6, M8)",
-      "MO4 Articulate how risk management, liabilities, insurance, and health and safety responsibilities are planned, managed, monitored and communicated in construction projects in line with current legislation. (Mapped to ARB Outcomes: M7, M9)"
-    ],
-    "arb": [
-      "M4: Manage and structure projects, administer construction contracts and resolve common construction-related challenges. (Understanding)",
-      "M5: Manage the inter-relationships of individuals, organisations, statutory bodies, and professions involved in procuring and delivering architectural projects, recognising how these are defined through contractual and organisational structures. (Understanding)",
-      "M6: Select appropriate procurement routes and means of delivery, recognising their relative risks to contractual parties, their implications for sustainable design outcomes and how these influence the selection and management of construction contracts. (Understanding)",
-      "M7: Apply the principles of risk management, liabilities, and insurance to architectural projects. (Understanding)",
-      "M8: Apply the principles of cost management, control, and budgeting to architectural projects. (Understanding)",
-      "M9: Plan, manage, monitor and communicate health and safety arrangements for construction projects as required by current legislation. (Understanding)"
-    ]
-  },
-  "UBLL4C-15-M": {
-    "id": "UBLL4C-15-M",
-    "moduleName": "Critical Manifesto",
-    "keyInfo": [
-      { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "2" },
-      { "label": "Assessment", "value": "You’ll submit an illustrated Personal Critical Manifesto (100%). Set out a clear position on the questions that matter to you, frame a focused research question, and develop a brief that responds to context, users and environment. Use precedents and theory to justify your stance, and communicate it crisply in words and visuals." }
-    ],
-    "synopsis": "Critical Manifesto enables students to develop a research-informed, self-directed manifesto that articulates their personal architectural stance and serves as the conceptual foundation for their Design Thesis.\n\nThe module positions brief writing as a critical inquiry process, encouraging students to explore global, cultural, social, technological, and environmental contexts that shape architecture. Through theoretical engagement, precedent analysis, and reflective writing, students formulate a manifesto and accompanying brief that define a line of inquiry grounded in architectural discourse and professional values.\n\nBy considering contemporary issues such as climate change, inequality, decolonisation, and identity, students develop a critical framework that situates their practice within broader cultural and ethical contexts. The module develops students’ ability to research, analyse, and communicate their architectural philosophy, producing a manifesto that is theoretically robust, ethically aware, and strategically aligned with their future Design Thesis.",
-    "outcomes": [
-      "MO1 Articulate a critical manifesto that situates your architectural interests within wider global, cultural, social economic, and environmental contexts, showing how these shape your emerging design ethos and future direction. (Mapped to ARB Outcomes: CK1)",
-      "MO2 Formulate a project brief that defines the scope, intentions, and spatial conditions of your proposed thesis, responding to specific client, user, site, environmental, and contextual requirements. (Mapped to ARB Outcomes: D2)",
-      "MO3 Develop a design position through a critical reading of architectural precedents, theoretical frameworks, and case studies that substantiate your manifesto’s claims. (Mapped to ARB Outcomes: RE3)",
-      "MO4 Construct an informed and evidence-based research question that identifies a line of design inquiry, demonstrating critical engagement with diverse and potentially conflicting sources. (Mapped to ARB Outcomes: RE5)"
-    ],
-    "arb": [
-      "CK1: How diverse global, cultural, social, technological, economic factors and building technology influence aspects of architecture and urban design. (Knowledge)",
-      "D2: Prepare, appraise, refine and engage with building briefs of diverse scales and types, accounting for client, user, site, environmental and contextual requirements. (Ability)",
-      "RE3: Critically evaluate a diverse range of architectural precedents in order to inform design thinking. (Ability)",
-      "RE5: Locate and evaluate evidence that may be incomplete or contradictory, critically evaluating the quality of knowledge sources, making judgements and drawing appropriate conclusions that can inform architectural practice. (Ability)"
-    ]
-  },
-  "UBLL4F-30-M": {
-    "id": "UBLL4F-30-M",
-    "moduleName": "Ecological & Regenerative Approaches",
+  "UBLL7W-30-3": {
+    "id": "UBLL7W-30-3",
+    "year of study": "3",
+    "moduleName": "Connected Construction and Digital Design",
+    "moduleTheme": "Technology and Environment",
     "keyInfo": [
       { "label": "Credits", "value": "30" },
       { "label": "Duration", "value": "Full Year" },
-      { "label": "Assessment", "value": "You’ll compile a Connected Design Portfolio (100%) that plugs directly into your Thesis. Show the evidence behind your claims: environmental analysis, passive strategies, material and lifecycle thinking, and inclusive access and safety measures. Make clear how these choices lift performance and shape design decisions, with concise drawings, data and notes." }
+      { "label": "Assessment", "value": "Pre‑Recorded Presentation (50%) + Detailed Design Report with drawings and 1:20 section (50%)." }
     ],
-    "synopsis": "Ecological and Regenerative Approaches equips students to move beyond ‘less harm’ sustainability towards regenerative practice that delivers positive outcomes for ecosystems and communities. Running in parallel with the Design Thesis, the module provides systems-thinking frameworks and technical tools that students apply directly to their thesis projects, integrating low‑ and high‑tech strategies, lifecycle assessment, and safety‑critical considerations. Through expert seminars, modelling workshops and project‑based application, students develop evidence‑led approaches to biodiversity, resource cycles, ethical sourcing and supply chains, and climate‑resilient design. The emphasis is on substantiating design claims with data and documentation—demonstrating how strategies for structure, materials and environmental systems meet or exceed performance standards, while foregrounding fire and life safety, inclusivity and long‑term social value.",
+    "synopsis": "Advanced construction technologies, environmental strategies and digital workflows aligned to Studio 3. Emphasis on performance modelling, integrated detailing, lifecycle and carbon considerations, and regulatory compliance including fire and life safety.",
     "outcomes": [
-      "MO1 Critically evaluate how regenerative design and ethical sourcing and supply chain decisions can enhance environmental, client, and community value across a project’s lifecycle, exceeding minimum standards. (Mapped to ARB Outcomes: D7, D9)",
-      "MO2 Propose and justify architectural strategies for structure, construction technology, materials, and environmental systems, including ventilation, thermal comfort, lighting, and acoustics, that are appropriate to the project’s brief and context and meet or exceed relevant performance standards. (Mapped to ARB Outcomes: D5, D8)",
-      "MO3 Prepare and document design proposals demonstrating appropriate consideration of fire safety, life safety, and the wellbeing and inclusivity of users, the public, and construction teams throughout the design and construction process. (Mapped to ARB Outcomes: D11)",
-      "MO4 Demonstrate ethical and professional responsibility by articulating the architect’s obligation to the environment, society, and the wellbeing of current and future generations through critical reflection on the long-term impact of design decisions. (Mapped to ARB Outcome: PE5)"
+      "MO1 Apply digital strategies to optimise building performance.",
+      "MO2 Develop integrated technology and environmental strategies that balance architectural expression, user needs and performance requirements.",
+      "MO3 Identify and apply statutory frameworks, safety requirements and material performance criteria addressing structural, environmental, regulatory and fire safety requirements.",
+      "MO4 Evaluate innovative and sustainable construction technologies, integrating material, component and system choices into detailed architectural elements."
     ],
-    "arb": [
-      "D5: Propose strategies for structure, construction technology, materials, services, ventilation, thermal environment and lighting and acoustics that are appropriate to a project’s brief and context. (Ability)",
-      "D7: Understand the consequences of design decision making on value to clients and communities over the life-cycle of built projects and the costs to the environment. (Understanding)",
-      "D8: Propose design solutions that achieve or exceed relevant performance standards and requirements. (Ability)",
-      "D9: Understand the implications and benefits of regenerative design solutions and ethical sourcing and supply chains throughout the life cycle of architectural projects that meet or go beyond minimum standards. (Understanding)",
-      "D11: Prepare and document designs that demonstrate appropriate consideration of fire safety, life safety and wellbeing and inclusivity of users, the public and building constructors. (Ability)",
-      "PE5: Uphold the architect’s obligation to the environment, society, and the wellbeing and quality of lives of current and future generations. (Understanding)"
-    ]
+    "arb": []
   },
-  "Y3MOD1": {
-    "id": "Y3MOD1",
-    "moduleName": "Advanced Architectural Design",
+  "UBLL7K-15-3": {
+    "id": "UBLL7K-15-3",
+    "year of study": "3",
+    "moduleName": "Employability, Ethics, and Enterprise",
+    "moduleTheme": "Professional Practice and Behaviours",
     "keyInfo": [
       { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "1" }
+      { "label": "Assessment", "value": "Project (100%): Personal & Practice Identity (e.g., pitch video, business plan, website, or live presentation) plus reflective components (CV + learning plan + 1,000‑word essay)." }
     ],
-    "synopsis": "Sample synopsis for the Advanced Architectural Design module in year three.",
-    "outcomes": ["Develop design proposals with increased complexity."],
-    "arb": ["Sample ARB mapping"]
+    "synopsis": "Prepares students for professional practice: ethics and Architects’ Code, statutory frameworks (health & safety, planning, sustainability), employability and reflective practice. Outputs articulate a coherent professional identity aligned with inclusive and sustainable values.",
+    "outcomes": [
+      "MO1 Demonstrate a critical understanding of professional and ethical responsibilities, including compliance with the Architects’ Code of Conduct and statutory frameworks.",
+      "MO2 Reflect on personal and professional growth, identifying strategies for lifelong learning and readiness for industry roles.",
+      "MO3 Develop and articulate a professional identity that integrates employability strategies, sustainability, inclusivity and health & safety principles."
+    ],
+    "arb": []
   },
-  "Y3MOD2": {
-    "id": "Y3MOD2",
-    "moduleName": "Professional Practice 3",
+  "UBLL7T-15-3": {
+    "id": "UBLL7T-15-3",
+    "year of study": "3",
+    "moduleName": "Critical Contexts",
+    "moduleTheme": "Humanities",
     "keyInfo": [
       { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "1" }
+      { "label": "Assessment", "value": "Independent Research Project (100%) – equivalent to ~5,000 words; flexible formats (essay/illustrated report/visual or multimedia)." }
     ],
-    "synopsis": "Overview of professional practice considerations for final year students.",
-    "outcomes": ["Understand professional responsibilities."],
-    "arb": ["Sample ARB mapping"]
-  },
-  "Y3MOD3": {
-    "id": "Y3MOD3",
-    "moduleName": "Comprehensive Design Project",
-    "keyInfo": [
-      { "label": "Credits", "value": "30" },
-      { "label": "Semester", "value": "1" }
+    "synopsis": "Independent research project connecting theory and practice. Students frame a focused thesis, apply advanced research methods and communicate findings effectively through written/visual/multimedia outputs.",
+    "outcomes": [
+      "MO1 Formulate a clear, focused research question or thesis exploring architectural, cultural or technological challenges.",
+      "MO2 Apply advanced research methodologies to analyse and interpret issues critically and creatively.",
+      "MO3 Communicate research findings effectively using appropriate media and correct referencing."
     ],
-    "synopsis": "Capstone design project bringing together prior learning.",
-    "outcomes": ["Deliver an integrated architectural proposal."],
-    "arb": ["Sample ARB mapping"]
-  },
-  "Y3MOD4": {
-    "id": "Y3MOD4",
-    "moduleName": "Urban Futures",
-    "keyInfo": [
-      { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "2" }
-    ],
-    "synopsis": "Explores future scenarios for urban development.",
-    "outcomes": ["Analyse urban challenges and propose responses."],
-    "arb": ["Sample ARB mapping"]
-  },
-  "Y3MOD5": {
-    "id": "Y3MOD5",
-    "moduleName": "Sustainable Technologies",
-    "keyInfo": [
-      { "label": "Credits", "value": "15" },
-      { "label": "Semester", "value": "2" }
-    ],
-    "synopsis": "Technical strategies for sustainable architecture.",
-    "outcomes": ["Evaluate sustainable building technologies."],
-    "arb": ["Sample ARB mapping"]
+    "arb": []
   }
 }
