@@ -68,7 +68,12 @@ export default function CarouselPage({ onNavigate }) {
           })}
         </div>
         <div className="carousel-controls">
-          <button type="button" className="btn ghost" onClick={() => goToSlide(activeIndex - 1)} aria-label="Previous image">
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => goToSlide(activeIndex - 1)}
+            aria-label="Previous image"
+          >
             ‹
           </button>
           <div className="carousel-dots" role="tablist" aria-label="Image slides">
@@ -84,7 +89,12 @@ export default function CarouselPage({ onNavigate }) {
               />
             ))}
           </div>
-          <button type="button" className="btn ghost" onClick={() => goToSlide(activeIndex + 1)} aria-label="Next image">
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => goToSlide(activeIndex + 1)}
+            aria-label="Next image"
+          >
             ›
           </button>
         </div>
