@@ -200,3 +200,130 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   /* Let the detail panel breathe horizontally and remove strict max-height */
   .details-panel { font-size: 13px; max-height: none; }
 }
+
+.page-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.btn.secondary {
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
+}
+
+.btn.secondary:hover,
+.btn.secondary:focus-visible {
+  background: #1f2937;
+  border-color: #1f2937;
+}
+
+.btn.ghost {
+  background: rgba(17, 24, 39, 0.05);
+  border-color: rgba(17, 24, 39, 0.2);
+  color: #111827;
+}
+
+.btn.ghost:hover,
+.btn.ghost:focus-visible {
+  background: rgba(17, 24, 39, 0.12);
+}
+
+.carousel-page {
+  padding-bottom: 48px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.carousel-header {
+  margin-bottom: 24px;
+}
+
+.carousel-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.2);
+}
+
+.carousel-slide {
+  display: none;
+  margin: 0;
+}
+
+.carousel-slide.is-active {
+  display: block;
+}
+
+.carousel-image {
+  display: block;
+  width: 100%;
+  height: clamp(260px, 50vh, 480px);
+  object-fit: cover;
+}
+
+.carousel-caption {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #1f2937;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(17, 24, 39, 0.25);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.carousel-dot.is-active {
+  background: #111827;
+}
+
+.carousel-counter {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(17, 24, 39, 0.7);
+}
+
+@media (max-width: 640px) {
+  .carousel-page {
+    padding-bottom: 32px;
+  }
+
+  .carousel-image {
+    height: clamp(220px, 45vh, 360px);
+  }
+
+  .page-actions {
+    justify-content: center;
+  }
+}
