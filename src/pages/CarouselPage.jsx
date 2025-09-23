@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-const VIEW_HOME = "home";
-
 const PLACEHOLDER_IMAGES = [
   {
     src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
@@ -41,7 +39,7 @@ export default function CarouselPage({ onNavigate }) {
   const handleNavigateHome = (event) => {
     if (onNavigate) {
       event?.preventDefault?.();
-      onNavigate(VIEW_HOME);
+      onNavigate("chart");
     }
   };
 
@@ -49,7 +47,7 @@ export default function CarouselPage({ onNavigate }) {
     <div className="app-shell carousel-page">
       <header className="page-header carousel-header">
         <h1 className="page-title">Studio Image Carousel</h1>
-        <a className="btn secondary" href="#/" onClick={handleNavigateHome}>
+        <a className="btn secondary" href="#/chart" onClick={handleNavigateHome}>
           Back to Programme Overview
         </a>
       </header>
@@ -70,7 +68,12 @@ export default function CarouselPage({ onNavigate }) {
           })}
         </div>
         <div className="carousel-controls">
-          <button type="button" className="btn ghost" onClick={() => goToSlide(activeIndex - 1)} aria-label="Previous image">
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => goToSlide(activeIndex - 1)}
+            aria-label="Previous image"
+          >
             ‹
           </button>
           <div className="carousel-dots" role="tablist" aria-label="Image slides">
@@ -86,7 +89,12 @@ export default function CarouselPage({ onNavigate }) {
               />
             ))}
           </div>
-          <button type="button" className="btn ghost" onClick={() => goToSlide(activeIndex + 1)} aria-label="Next image">
+          <button
+            type="button"
+            className="btn ghost"
+            onClick={() => goToSlide(activeIndex + 1)}
+            aria-label="Next image"
+          >
             ›
           </button>
         </div>

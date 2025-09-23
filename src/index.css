@@ -176,7 +176,7 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
     align-self: start;
   }
 
-  /* Give more width to the left text column in the 2‑column layout */
+  /* Give more width to the left text column in the 2-column layout */
   @media (min-width: 640px) {
     .page-grid { grid-template-columns: 1.2fr 1.8fr; }
   }
@@ -325,5 +325,154 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
 
   .page-actions {
     justify-content: center;
+  }
+}
+
+/* Frontage landing page */
+.frontage-page {
+  position: relative;
+  min-height: var(--vh);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 6vw, 64px);
+  color: #0f172a;
+  background: radial-gradient(circle at center, #fde68a 0%, #fbbf24 55%, #f59e0b 100%);
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.frontage-page:focus {
+  outline: none;
+}
+
+.frontage-page:focus-visible {
+  outline: 3px solid #111827;
+  outline-offset: 6px;
+}
+
+.frontage-inner {
+  position: relative;
+  width: min(900px, 100%);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .frontage-inner {
+    height: min(70vh, 640px);
+  }
+}
+
+.frontage-title {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.8vw, 12px);
+  padding: clamp(18px, 4vw, 32px) clamp(22px, 5vw, 44px);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
+  backdrop-filter: blur(6px);
+}
+
+.frontage-title-line {
+  font-size: clamp(28px, 7vw, 72px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #0f172a;
+  line-height: 1.05;
+}
+
+.frontage-title-line.secondary {
+  font-size: clamp(24px, 5.5vw, 58px);
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.frontage-cloud {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 42px;
+}
+
+.frontage-word {
+  position: absolute;
+  display: inline-block;
+  font-weight: 600;
+  font-size: clamp(16px, 2.8vw, 34px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(15, 23, 42, 0.82);
+  text-shadow: 0 3px 8px rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  transition-timing-function: ease-in-out;
+}
+
+.frontage-hint {
+  position: absolute;
+  bottom: clamp(16px, 5vh, 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(12px, 2.4vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.72);
+  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 18px;
+  border-radius: 999px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.frontage-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 768px) {
+  .frontage-title {
+    padding: clamp(16px, 5vw, 28px) clamp(18px, 6vw, 36px);
+    border-radius: 24px;
+  }
+
+  .frontage-word {
+    font-size: clamp(14px, 4.2vw, 28px);
+  }
+}
+
+@media (max-width: 480px) {
+  .frontage-page {
+    padding: clamp(20px, 8vw, 36px);
+  }
+
+  .frontage-title {
+    gap: 6px;
+  }
+
+  .frontage-hint {
+    bottom: clamp(12px, 6vh, 32px);
+    padding: 8px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frontage-word {
+    transition: none !important;
   }
 }

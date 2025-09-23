@@ -1,20 +1,38 @@
 import { useCallback, useEffect, useState } from "react";
 import CarouselPage from "./pages/CarouselPage.jsx";
+import FrontagePage from "./pages/FrontagePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 
-const VIEW_HOME = "home";
+const VIEW_FRONT = "front";
+const VIEW_CHART = "chart";
 const VIEW_GALLERY = "gallery";
 
-const hashToView = (hash) => (hash === "#/gallery" ? VIEW_GALLERY : VIEW_HOME);
+const hashToView = (hash) => {
+  switch (hash) {
+    case "#/gallery":
+      return VIEW_GALLERY;
+    case "#/chart":
+    case "#/home":
+      return VIEW_CHART;
+    default:
+      return VIEW_FRONT;
+  }
+};
 
 const viewToHash = (view) => {
-  if (view === VIEW_GALLERY) return "#/gallery";
-  return "#/";
+  switch (view) {
+    case VIEW_GALLERY:
+      return "#/gallery";
+    case VIEW_CHART:
+      return "#/chart";
+    default:
+      return "#/";
+  }
 };
 
 export default function App() {
   const [view, setView] = useState(() => {
-    if (typeof window === "undefined") return VIEW_HOME;
+    if (typeof window === "undefined") return VIEW_FRONT;
     return hashToView(window.location.hash);
   });
 
@@ -44,5 +62,9 @@ export default function App() {
     return <CarouselPage onNavigate={navigate} />;
   }
 
-  return <HomePage onNavigate={navigate} />;
+  if (view === VIEW_CHART) {
+    return <HomePage onNavigate={navigate} />;
+  }
+
+  return <FrontagePage onNavigate={navigate} />;
 }
