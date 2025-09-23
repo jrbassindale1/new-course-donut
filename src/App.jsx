@@ -64,7 +64,13 @@ export default function App() {
                   const sectionLabel = (() => {
                     if (infoKey === 'threads') return 'Studio Threads';
                     if (infoKey === 'outcomes') return isProgramme ? 'Outcomes' : 'Module Outcomes';
-                    return ({ keyInfo:'Key Info', synopsis:'Synopsis' }[infoKey] || infoKey);
+                    return ({
+                      keyInfo:'Key Info',
+                      synopsis:'Synopsis',
+                      learningAndTeaching:'Learning & Teaching',
+                      supportAndFacilities:'Support & Facilities',
+                      professionalRecognition:'Professional Recognition',
+                    }[infoKey] || infoKey);
                   })();
                   const titleLeft = isProgramme ? 'Programme' : ((moduleInfo[infoModuleId] && moduleInfo[infoModuleId].moduleName) || infoModuleId);
                   return (

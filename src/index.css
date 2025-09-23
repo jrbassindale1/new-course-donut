@@ -20,13 +20,13 @@
   .details-panel { grid-column: 1; grid-row: 2; }
   .chart-panel { grid-column: 2; grid-row: 2; }
   /* Keep the chart anchored while the text panel scrolls */
-  .chart-panel { position: sticky; top: calc(var(--app-pad-top) + 8px); }
+  .chart-panel { position: sticky; top: var(--app-pad-top); }
 }
 
 /* Basic, predictable UI styling (independent of Tailwind) */
 html, body { height: 100%; }
 body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova", Arial, Helvetica, sans-serif; }
-:root { --app-pad-top: 20px; --app-pad-bottom: 12px; --vh: 100vh; --header-space: 60px; }
+:root { --app-pad-top: 20px; --app-pad-bottom: 12px; --vh: 100vh; --header-space: 32px; }
 @supports (height: 100svh) { :root { --vh: 100svh; } }
 @supports (height: 100dvh) { :root { --vh: 100dvh; } }
 .app-shell { min-height: var(--vh); padding: var(--app-pad-top) 12px var(--app-pad-bottom); display: flex; flex-direction: column; }
@@ -52,7 +52,7 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
 .link { appearance: none; border: none; background: transparent; color: #4f46e5; padding: 0; cursor: pointer; font-size: 13px; }
 .link:hover { text-decoration: underline; }
 
-.chart-wrapper { width: 100%; flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; height: calc(var(--vh) - var(--app-pad-top) - var(--app-pad-bottom) - var(--header-space)); }
+.chart-wrapper { width: 100%; flex: 1; min-height: 0; display: flex; align-items: flex-start; justify-content: center; height: calc(var(--vh) - var(--app-pad-top) - var(--app-pad-bottom) - var(--header-space)); }
 @supports (height: 100dvh) { /* using var(--vh) for consistency across browsers */ }
 /* On phones, avoid big top/bottom gaps by aligning to top */
 @media (max-width: 639px) {

@@ -35,7 +35,7 @@ function ArcLabel({ id, cx, cy, r, start, end, text, fill = "#111827", fontSize 
 }
 
 // CompassChart renders three bands: top concurrent, bottom concurrent, and a thick solo Pathway overlay.
-export default function CompassChart({ width = 680, height = 680, padding = 6, colors, onSelect, onInfoSelect, resetSignal }) {
+export default function CompassChart({ width = 700, height = 700, padding = 3, colors, onSelect, onInfoSelect, resetSignal }) {
   const W = width;
   const H = height;
   const cx = W / 2;
@@ -537,7 +537,9 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
             const programSelectedColor = '#90D5FF';
             const heads = [
               { id: 'prog-syn', label: 'Programme Synopsis' },
-              { id: 'prog-thr', label: 'Studio Threads' },
+              { id: 'prog-lt',  label: 'Learning & Teaching' },
+              { id: 'prog-sup', label: 'Support & Facilities' },
+              { id: 'prog-pro', label: 'Professional Recognition' },
               { id: 'prog-mlo', label: 'Programme Outcomes' },
             ];
             const sector = 360 / heads.length;
@@ -551,7 +553,13 @@ export default function CompassChart({ width = 680, height = 680, padding = 6, c
                 setProgRotation(-mid);
                 setProgSelected(h.id);
                 if (onInfoSelect) {
-                  const keyMap = { 'prog-syn': 'synopsis', 'prog-thr': 'threads', 'prog-mlo': 'outcomes' };
+                  const keyMap = {
+                    'prog-syn': 'synopsis',
+                    'prog-lt':  'learningAndTeaching',
+                    'prog-sup': 'supportAndFacilities',
+                    'prog-pro': 'professionalRecognition',
+                    'prog-mlo': 'outcomes',
+                  };
                   onInfoSelect('PROGRAMME', keyMap[h.id]);
                 }
               };
