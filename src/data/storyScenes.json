@@ -524,7 +524,18 @@
       ],
       "apply": {
         "label": "Apply now",
-        "href": "https://info.uwe.ac.uk/admissions/applications/undergrad_applic.asp?ippcode=K100&ippyear=2026/27"
+        "href": "https://info.uwe.ac.uk/admissions/applications/undergrad_applic.asp?ippcode=K100&ippyear=2026/27",
+        "details": [
+          { "label": "Entry year", "value": "2026/27" },
+          { "label": "Course code", "value": "K100" },
+          { "label": "Application", "value": "UCAS" },
+          { "label": "Level", "value": "Undergraduate" },
+          { "label": "School", "value": "School of Architecture and Environment" },
+          { "label": "Tariff points", "value": "136" },
+          { "label": "Campus", "value": "Frenchay" },
+          { "label": "Duration", "value": "Three years" },
+          { "label": "Delivery", "value": "Full-time" }
+        ]
       }
     }
   ]
