@@ -532,6 +532,14 @@
         {
           "label": "UWE Accommodation",
           "href": "https://www.uwe.ac.uk/life/accommodation"
+        },
+        {
+          "label": "Undergraduate Applications",
+          "href": "https://www.uwe.ac.uk/courses/applying/undergraduate-applications"
+        },
+        {
+          "label": "International applications",
+          "href": "https://www.uwe.ac.uk/international/applying"
         }
       ],
       "apply": {
