@@ -510,8 +510,12 @@
       ],
       "links": [
         {
-          "label": "Course overview",
+          "label": "BSc Architecture Course Page",
           "href": "https://courses.uwe.ac.uk/K100/architecture"
+        },
+        {
+          "label": "Our Foundation Year",
+          "href": "https://courses.uwe.ac.uk/K10F/architecture-with-foundation-year"
         },
         {
           "label": "Our Campus",
