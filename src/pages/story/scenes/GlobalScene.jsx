@@ -39,7 +39,10 @@ function EuropeMapVisual() {
 }
 
 export default function GlobalScene({ scene }) {
-  const partners = Array.isArray(scene?.partners) ? scene.partners : [];
+  const partners = useMemo(
+    () => (Array.isArray(scene?.partners) ? scene.partners : []),
+    [scene],
+  );
   const [activeId, setActiveId] = useState(null);
   const [hoverId, setHoverId] = useState(null);
 

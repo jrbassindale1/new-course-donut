@@ -115,9 +115,6 @@ function pushOutOfExclusion(word, exclusion) {
   const ry1 = y1 + r;
   const inside = (x > rx0 && x < rx1 && y > ry0 && y < ry1);
   if (!inside) return word;
-  const mag = Math.hypot(dx, dy) || 1;
-  const ux = dx / mag;
-  const uy = dy / mag;
   // Move the point to the edge of the inflated rect plus a small padding
   const targetX = x < cx ? rx0 - 6 : rx1 + 6;
   const targetY = y < cy ? ry0 - 6 : ry1 + 6;
@@ -129,13 +126,6 @@ function pushOutOfExclusion(word, exclusion) {
   return { ...word, left: leftPct, top: topPct };
 }
 
-
-function radiusToPct(word, exclusion) {
-  if (!exclusion) return 0; // defer until we can measure; tick loop will re-run
-  const rpx = estimateRadius(word);
-  const ref = Math.min(exclusion.cw || 1000, exclusion.ch || 1000);
-  return (rpx / ref) * 100; // percent of the limiting side
-}
 
 // Rectangle-based sizing & collision helpers
 function getSizePct(word, exclusion) {
@@ -289,6 +279,7 @@ export default function FrontagePage({ onNavigate }) {
   const wordRefs = useRef(new Map()); // id -> HTMLElement
   const [exclusion, setExclusion] = useState(null); // {x0,y0,x1,y1} in container pixels
   const exitTimerRef = useRef(null);
+  const initialisedRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.matchMedia) return undefined;
@@ -330,6 +321,10 @@ export default function FrontagePage({ onNavigate }) {
 
   // Initialize active words on mount
   useEffect(() => {
+    if (initialisedRef.current) {
+      return;
+    }
+    initialisedRef.current = true;
     setActive(() => {
       const initial = [];
       while (initial.length < MAX_VISIBLE) {
@@ -344,7 +339,7 @@ export default function FrontagePage({ onNavigate }) {
       // We do not push out here because exclusion may be null, rely on animation tick
       return initial;
     });
-  }, []);
+  }, [exclusion]);
 
   useEffect(() => {
     if (reduceMotion) {

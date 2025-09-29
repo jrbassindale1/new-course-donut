@@ -58,15 +58,6 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
   // Center the solo band so it spans both concurrent bands plus the gap
   const soloR = outerR - (soloThickness / 2);
 
-  // Thin outer guide ring just outside modules
-  // Place thin ring so its inner edge touches the module outer edge
-  const thinR = outerR + thinBand / 2;   // inner edge = outerR
-
-  // Thin inner guide ring (Year 2) just inside modules (between Y1 and Y2)
-  const innerEdge = (topR - baseThickness / 2);               // inner boundary of Y1 modules
-  const ringGap = 6;                                          // desired radial gap between Y1 inner edge and Y2 ring
-  const innerThinR = innerEdge - ringGap - thinBand / 2;      // ring outer edge = innerEdge - ringGap
-
   // Year spacing: choose uniform spacing between the centre of each year's solo ring
   const YEAR_SPACING = 65; // px between centre of year solo rings (smaller -> rings closer together)
   // Use Year 1 soloR as the reference outermost module ring and compute Year 2/3 positions
@@ -79,8 +70,6 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
   const y2BottomR = y2SoloR + y2SoloThickness / 2;
 
   // Year 3 band geometry (centered on computed soloR)
-  const innerEdge2 = y2TopR - baseThickness / 2; // inner boundary of Y2 modules
-  const innerThinR2 = innerEdge2 - ringGap - thinBand / 2; // separation ring to Y3 (kept for reference)
   const y3SoloThickness = baseThickness * 2 + gap;
   const y3TopR = y3SoloR - y3SoloThickness / 2;
   const y3BottomR = y3SoloR + y3SoloThickness / 2;

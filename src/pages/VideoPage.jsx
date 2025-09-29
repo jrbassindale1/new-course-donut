@@ -29,7 +29,7 @@ function loadYouTubeIframeApi() {
       if (typeof previous === "function") {
         try {
           previous();
-        } catch (error) {
+        } catch {
           // ignore failures from earlier hooks
         }
       }
@@ -114,7 +114,7 @@ export default function VideoPage({ onNavigate }) {
       if (playerRef.current) {
         try {
           playerRef.current.destroy();
-        } catch (_err) {
+        } catch {
           // ignore cleanup errors
         }
         playerRef.current = null;

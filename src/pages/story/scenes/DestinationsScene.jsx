@@ -3,7 +3,10 @@ import SceneHeading from "../components/SceneHeading.jsx";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion.js";
 
 export default function DestinationsScene({ scene }) {
-  const companies = scene?.companies || [];
+  const companies = useMemo(
+    () => (Array.isArray(scene?.companies) ? scene.companies : []),
+    [scene],
+  );
   const reduceMotion = usePrefersReducedMotion();
 
   const gridItems = useMemo(() => {
