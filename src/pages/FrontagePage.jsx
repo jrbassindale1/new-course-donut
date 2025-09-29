@@ -524,7 +524,7 @@ export default function FrontagePage({ onNavigate }) {
           style={{ background: "transparent", boxShadow: "none", backdropFilter: "none", color: "#000", zIndex: 1 }}
         >
           <span className="frontage-title-line" style={{ fontSize: "clamp(20px, 5vw, 42px)", color: "#000" }}>
-            BSc Architecture
+            BSc (Hons) Architecture
           </span>
           <span className="frontage-title-line secondary" style={{ fontSize: "clamp(16px, 4vw, 32px)", color: "#000" }}>
             @ UWE Bristol
