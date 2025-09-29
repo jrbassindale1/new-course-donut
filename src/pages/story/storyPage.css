@@ -634,6 +634,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: clamp(16px, 3vw, 24px);
+  align-items: stretch;
 }
 
 .story-contact-block {
@@ -643,6 +644,29 @@
   box-shadow: 0 20px 46px rgba(17, 24, 39, 0.12);
   display: grid;
   gap: 12px;
+  align-content: start;
+}
+
+.story-contact-qr {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 18px;
+  background: rgba(17, 24, 39, 0.04);
+  border: 1px dashed rgba(17, 24, 39, 0.16);
+}
+
+.story-contact-qr img {
+  width: 148px;
+  height: auto;
+}
+
+.story-contact-qr span {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.58);
 }
 
 .story-contact-block h2 {
@@ -683,9 +707,86 @@
   text-decoration: underline;
 }
 
+.story-contact-links {
+  gap: 12px;
+  justify-items: center;
+}
+
+.story-contact-links__item {
+  list-style: none;
+}
+
+.story-contact-link {
+  display: block;
+  width: min(100%, 260px);
+  padding: 14px 18px;
+  border-radius: 18px;
+  background: rgba(17, 24, 39, 0.05);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.story-contact-link:hover,
+.story-contact-link:focus-visible {
+  background: linear-gradient(135deg, #1f2937, #4b5563);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.26);
+  box-shadow: 0 12px 22px rgba(17, 24, 39, 0.2);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
 .story-contact-apply {
   align-content: start;
   justify-items: start;
+}
+
+.story-contact-apply-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 32px;
+  font-size: 16px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  overflow: hidden;
+  box-shadow: 0 22px 50px rgba(17, 24, 39, 0.22);
+  isolation: isolate;
+  width: 100%;
+}
+
+.story-contact-apply-btn::after {
+  content: "";
+  position: absolute;
+  inset: -60% auto auto -110%;
+  width: 38%;
+  height: 220%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.5) 48%,
+      transparent 100%);
+  transform: rotate(12deg);
+  animation: story-contact-apply-shine 4.5s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+@keyframes story-contact-apply-shine {
+  0% {
+    transform: translateX(0) rotate(12deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(320%) rotate(12deg);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(320%) rotate(12deg);
+    opacity: 0;
+  }
 }
 
 .story-scene--leaders {
