@@ -2,15 +2,20 @@ import { useCallback, useEffect, useState } from "react";
 import CarouselPage from "./pages/CarouselPage.jsx";
 import FrontagePage from "./pages/FrontagePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import StoryPage from "./pages/StoryPage.jsx";
 
 const VIEW_FRONT = "front";
 const VIEW_CHART = "chart";
 const VIEW_GALLERY = "gallery";
+const VIEW_STORY = "story";
 
 const hashToView = (hash) => {
-  switch (hash) {
+  const cleanHash = hash.split("?")[0];
+  switch (cleanHash) {
     case "#/gallery":
       return VIEW_GALLERY;
+    case "#/story":
+      return VIEW_STORY;
     case "#/chart":
     case "#/home":
       return VIEW_CHART;
@@ -23,6 +28,8 @@ const viewToHash = (view) => {
   switch (view) {
     case VIEW_GALLERY:
       return "#/gallery";
+    case VIEW_STORY:
+      return "#/story";
     case VIEW_CHART:
       return "#/chart";
     default:
@@ -60,6 +67,10 @@ export default function App() {
 
   if (view === VIEW_GALLERY) {
     return <CarouselPage onNavigate={navigate} />;
+  }
+
+  if (view === VIEW_STORY) {
+    return <StoryPage onNavigate={navigate} />;
   }
 
   if (view === VIEW_CHART) {
