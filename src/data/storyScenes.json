@@ -510,7 +510,7 @@
       ],
       "links": [
         {
-          "label": "BSc Architecture Course Page",
+          "label": "BSc Architecture Page",
           "href": "https://courses.uwe.ac.uk/K100/architecture"
         },
         {
@@ -520,14 +520,6 @@
         {
           "label": "Our Campus",
           "href": "https://www.uwe.ac.uk/life/campus-and-facilities"
-        },
-        {
-          "label": "Architecture Virtual Tour",
-          "href": "https://explore.uwe.ac.uk/explore/architecture?study_level=undergraduate&subject_area=architecture"
-        },
-         {
-          "label": "Our Digital Showcase",
-          "href": "https://showcase.uwe.ac.uk/architecture/"
         },
         {
           "label": "UWE Accommodation",
