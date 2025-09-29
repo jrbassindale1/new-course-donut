@@ -105,7 +105,7 @@
       "year": "1",
       "tiles": [
         {
-          "track": "Design",
+          "track": "Design Studio",
           "deliverable": "Exploring your first neighbourhood project",
           "image": "images/journey/year1-design.jpg",
           "themes": ["Studio"]
@@ -133,7 +133,7 @@
       "year": "2",
       "tiles": [
         {
-          "track": "Design",
+          "track": "Design Studio",
           "deliverable": "Designing larger urban spaces",
           "image": "images/journey/year2-design.jpg",
           "themes": ["Studio"]
@@ -161,7 +161,7 @@
       "year": "3",
       "tiles": [
         {
-          "track": "Design",
+          "track": "Design Studio",
           "deliverable": "Your final design thesis",
           "image": "images/journey/year3-design.jpg",
           "themes": ["Studio"]

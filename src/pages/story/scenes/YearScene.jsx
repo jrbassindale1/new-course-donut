@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import SceneHeading from "../components/SceneHeading.jsx";
-import programmeInfo from "../../../data/programmeInfo.json";
 
 export default function YearScene({ scene }) {
   const tiles = Array.isArray(scene?.tiles) ? scene.tiles : [];
@@ -21,15 +20,6 @@ export default function YearScene({ scene }) {
       return current;
     });
   }, [slides.length]);
-
-  const programmeOutcomes = useMemo(() => {
-    if (!Array.isArray(scene?.outcomeCodes) || !Array.isArray(programmeInfo?.outcomes)) {
-      return [];
-    }
-    return scene.outcomeCodes
-      .map((code) => programmeInfo.outcomes.find((outcome) => outcome?.code === code))
-      .filter(Boolean);
-  }, [scene?.outcomeCodes]);
 
   const handleSelectSlide = (index) => {
     if (!Number.isInteger(index)) return;
@@ -88,7 +78,12 @@ export default function YearScene({ scene }) {
                   handleKeyDown(event, slideIndex);
                 }}
               >
-                <p className="story-journey-track">{tile.track}</p>
+                <div className="story-year-theme-header">
+                  <h3 className="story-year-theme-title">{tile.track}</h3>
+                  {tile?.deliverable ? (
+                    <p className="story-year-theme-subtitle">{tile.deliverable}</p>
+                  ) : null}
+                </div>
               </article>
             );
           })}
@@ -148,20 +143,6 @@ export default function YearScene({ scene }) {
           </div>
         ) : null}
       </div>
-      {programmeOutcomes.length ? (
-        <div className="story-year-outcomes">
-          <h3 className="story-year-outcomes-title">Programme outcomes highlighted this year</h3>
-          <ul>
-            {programmeOutcomes.map((outcome) => (
-              <li key={outcome.code}>
-                <span className="story-year-outcome-code">{outcome.code}</span>
-                <span className="story-year-outcome-text">{outcome.description}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-      {scene?.footnote ? <p className="story-footnote">{scene.footnote}</p> : null}
     </div>
   );
 }
