@@ -710,6 +710,7 @@
 .story-contact-links {
   gap: 12px;
   justify-items: center;
+  width: 100%;
 }
 
 .story-contact-links__item {
