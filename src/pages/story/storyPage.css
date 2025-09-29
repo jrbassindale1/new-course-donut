@@ -213,6 +213,28 @@
   outline: none;
 }
 
+.story-year-theme-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.story-year-theme-title {
+  margin: 0;
+  font-size: clamp(15px, 2.2vw, 18px);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.75);
+}
+
+.story-year-theme-subtitle {
+  margin: 0;
+  font-size: clamp(13px, 2vw, 15px);
+  line-height: 1.45;
+  color: rgba(17, 24, 39, 0.68);
+}
+
 .story-year-theme-card[aria-disabled="true"] {
   cursor: default;
   opacity: 0.7;
@@ -380,47 +402,6 @@
   .story-year-carousel {
     order: -1;
   }
-}
-
-.story-year-outcomes {
-  background: rgba(255, 255, 255, 0.72);
-  border-radius: 18px;
-  padding: clamp(14px, 2.4vw, 20px);
-  display: grid;
-  gap: 10px;
-  box-shadow: 0 10px 28px rgba(17, 24, 39, 0.12);
-}
-
-.story-year-outcomes-title {
-  margin: 0;
-  font-size: clamp(15px, 2.2vw, 18px);
-  color: #111827;
-}
-
-.story-year-outcomes ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.story-year-outcomes li {
-  display: grid;
-  gap: 6px;
-}
-
-.story-year-outcome-code {
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(17, 24, 39, 0.6);
-}
-
-.story-year-outcome-text {
-  font-size: 13px;
-  line-height: 1.5;
-  color: rgba(17, 24, 39, 0.85);
 }
 
 .story-scene {
@@ -661,15 +642,6 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: rgba(17, 24, 39, 0.55);
-}
-
-.story-journey-track {
-  margin: 0;
-  font-size: clamp(16px, 2.4vw, 20px);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: rgba(17, 24, 39, 0.75);
 }
 
 .story-journey-image {
