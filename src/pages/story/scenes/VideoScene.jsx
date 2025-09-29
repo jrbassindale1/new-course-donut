@@ -27,7 +27,7 @@ function loadYouTubeIframeApi() {
       if (typeof previous === "function") {
         try {
           previous();
-        } catch (error) {
+        } catch {
           // ignore errors from previous handlers
         }
       }
@@ -85,7 +85,7 @@ export default function VideoScene({ scene }) {
       if (playerRef.current) {
         try {
           playerRef.current.destroy();
-        } catch (_err) {
+        } catch {
           // ignore cleanup failures
         }
         playerRef.current = null;

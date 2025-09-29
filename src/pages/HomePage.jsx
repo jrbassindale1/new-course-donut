@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CompassChart from "../components/CompassChart.jsx";
 import moduleInfo from "../data/moduleInfo.json";
 import programmeInfo from "../data/programmeInfo.json";
+
+const MotionDiv = motion.div;
 
 export default function HomePage({ onNavigate }) {
   const [infoModuleId, setInfoModuleId] = useState(null);
@@ -55,7 +57,7 @@ export default function HomePage({ onNavigate }) {
         <div className="panel details-panel">
           <AnimatePresence mode="wait">
             {!infoKey && (
-              <motion.div
+              <MotionDiv
                 key="programme"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -79,7 +81,7 @@ export default function HomePage({ onNavigate }) {
                     </div>
                   );
                 })()}
-              </motion.div>
+              </MotionDiv>
             )}
             {infoKey && infoModuleId && (
               <div>
