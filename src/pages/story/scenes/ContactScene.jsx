@@ -6,12 +6,15 @@ export default function ContactScene({ scene }) {
     <div className="story-scene story-scene--contact">
       <SceneHeading scene={scene} />
       <div className="story-contact-grid">
-        <div className="story-contact-block">
-          <h2>Contact</h2>
+        <div className="story-contact-block story-contact-block--qr-only">
+          <h2>Explore this presentation</h2>
           <div className="story-contact-qr">
             <img src={qrPlaceholder} alt="Scan the QR code to save these contact details" />
             <span>Scan to save our details</span>
           </div>
+        </div>
+        <div className="story-contact-block story-contact-block--details">
+          <h2>Contact</h2>
           <ul>
             {(scene?.contacts || []).map((item) => (
               <li key={item.label}>
@@ -46,16 +49,6 @@ export default function ContactScene({ scene }) {
         </div>
         <div className="story-contact-block story-contact-apply">
           <h2>How to apply</h2>
-          {scene?.apply?.href ? (
-            <a
-              className="btn story-contact-apply-btn"
-              href={scene.apply.href}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {scene.apply.label || "Apply now"}
-            </a>
-          ) : null}
           {Array.isArray(scene?.apply?.details) && scene.apply.details.length > 0 ? (
             <ul className="story-contact-apply-details">
               {scene.apply.details.map((row) => (
@@ -65,6 +58,16 @@ export default function ContactScene({ scene }) {
                 </li>
               ))}
             </ul>
+          ) : null}
+          {scene?.apply?.href ? (
+            <a
+              className="btn story-contact-apply-btn"
+              href={scene.apply.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {scene.apply.label || "Apply now"}
+            </a>
           ) : null}
         </div>
       </div>
