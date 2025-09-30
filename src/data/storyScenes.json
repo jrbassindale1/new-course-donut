@@ -107,19 +107,19 @@
         {
           "track": "Design Studio",
           "deliverable": "Exploring your first neighbourhood project",
-          "image": "images/journey/year1-design.jpg",
+          "imageFolder": "firstyear/studio",
           "themes": ["Studio"]
         },
         {
           "track": "Technology & Environment",
           "deliverable": "Learning how buildings respond to climate",
-          "image": "images/journey/year1-technology.jpg",
+          "imageFolder": "firstyear/tech",
           "themes": ["Technology and Environment"]
         },
         {
           "track": "Practice & Context",
           "deliverable": "Discovering how places and people shape design",
-          "image": "images/journey/year1-humanities.jpg",
+          "imageFolder": "firstyear/context",
           "themes": ["Professional Practice and Behaviours", "Humanities"]
         }
       ],
@@ -135,19 +135,19 @@
         {
           "track": "Design Studio",
           "deliverable": "Designing larger urban spaces",
-          "image": "images/journey/year2-design.jpg",
+          "imageFolder": "secondyear/studio",
           "themes": ["Studio"]
         },
         {
           "track": "Technology & Environment",
           "deliverable": "Exploring building performance and comfort",
-          "image": "images/journey/year2-technology.jpg",
+          "imageFolder": "secondyear/tech",
           "themes": ["Technology and Environment"]
         },
         {
           "track": "Practice & Context",
           "deliverable": "Learning how design and practice fit together",
-          "image": "images/journey/year2-humanities.jpg",
+          "imageFolder": "secondyear/context",
           "themes": ["Professional Practice and Behaviours", "Humanities"]
         }
       ],
@@ -163,19 +163,19 @@
         {
           "track": "Design Studio",
           "deliverable": "Your final design thesis",
-          "image": "images/journey/year3-design.jpg",
+          "imageFolder": "thirdyear/studio",
           "themes": ["Studio"]
         },
         {
           "track": "Technology & Environment",
           "deliverable": "Showing how your ideas work in detail",
-          "image": "images/journey/year3-technology.jpg",
+          "imageFolder": "thirdyear/tech",
           "themes": ["Technology and Environment"]
         },
         {
           "track": "Practice & Context",
           "deliverable": "Presenting yourself as a future architect",
-          "image": "images/journey/year3-humanities.jpg",
+          "imageFolder": "thirdyear/context",
           "themes": ["Professional Practice and Behaviours", "Humanities"]
         }
       ],
