@@ -1844,3 +1844,30 @@
     min-height: auto;
     padding: 20px 18px;
   }
+
+
+.story-pathway-logos {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.story-pathway-logo {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.story-pathway-logo img {
+  max-height: 72px;
+  width: auto;
+}
+
+.story-pathway-logo-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
