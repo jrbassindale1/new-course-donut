@@ -98,7 +98,16 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   :root { --header-space: 46px; }
 
   /* Reset landscape overrides when returning to portrait on phones */
-  .app-shell { overflow: auto; }
+  .app-shell {
+    overflow: auto;
+  }
+
+  .app-shell,
+  .frontage-page,
+  .story-page,
+  .video-page {
+    margin-bottom: 16px;
+  }
   .page-grid { height: auto; }
   .chart-panel { margin-top: 0 !important; z-index: 1; }
   .details-panel { z-index: 0; }
