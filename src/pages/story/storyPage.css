@@ -1279,14 +1279,35 @@
 .story-global-map {
   position: relative;
   width: 100%;
-  aspect-ratio: 1000 / 684;
+  aspect-ratio: 1000 / 624;
   border-radius: 36px;
   overflow: hidden;
   box-shadow: 0 24px 64px rgba(15, 23, 42, 0.28);
   background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.35), transparent 60%),
     #0f172a;
-  display: flex;
-  align-items: flex-start;
+  --story-map-crop-offset: 6%;
+  --story-map-scale: 1.08;
+}
+
+.story-global-map-contents {
+  position: absolute;
+  inset: 0;
+  transform-origin: top center;
+  transform: translateY(calc(var(--story-map-crop-offset) * -1)) scale(var(--story-map-scale));
+}
+
+@media (max-width: 900px) {
+  .story-global-map {
+    --story-map-crop-offset: 4.5%;
+    --story-map-scale: 1.06;
+  }
+}
+
+@media (max-width: 640px) {
+  .story-global-map {
+    --story-map-crop-offset: 3.5%;
+    --story-map-scale: 1.04;
+  }
 }
 
 .story-global-europe {
@@ -1303,7 +1324,7 @@
   padding: 0;
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 2;
 }
 
 .story-global-pin {
@@ -1803,3 +1824,23 @@
     transition: none !important;
   }
 }
+
+  .story-pathway-track {
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .story-pathway-step:not(:last-child)::after {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: -22px;
+    width: 4px;
+    height: 22px;
+    transform: translateX(-50%);
+  }
+
+  .story-pathway-card {
+    min-height: auto;
+    padding: 20px 18px;
+  }

@@ -83,53 +83,55 @@ export default function GlobalScene({ scene }) {
       <SceneHeading scene={scene} />
       <div className="story-global-layout">
         <div className="story-global-map" onMouseLeave={handleClearHighlight}>
-          <EuropeMapVisual />
-          <ul className="story-global-pins" role="list">
-            {partners.map((partner) => {
-              const hasLatLon = Number.isFinite(partner.latitude) && Number.isFinite(partner.longitude);
-              const hasMapPosition = Number.isFinite(partner.mapX) && Number.isFinite(partner.mapY);
-              if (!hasLatLon && !hasMapPosition) {
-                return null;
-              }
-              const position = getPartnerPosition(partner);
-              const isSelected = activeId === partner.id;
-              const isHighlighted = highlightedId === partner.id;
-              return (
-                <li
-                  key={partner.id}
-                  className={`story-global-pin${isSelected ? " is-active" : ""}${
-                    isHighlighted ? " is-highlighted" : ""
-                  }`}
-                  style={position}
-                  onMouseLeave={handleClearHighlight}
-                >
-                  <button
-                    type="button"
-                    className="story-global-pin-button"
-                    aria-pressed={isSelected}
-                    aria-label={`${partner.institution}${partner.city ? `, ${partner.city}` : ""}`}
-                    onMouseEnter={() => handleHighlight(partner.id)}
-                    onFocus={() => handleHighlight(partner.id)}
-                    onClick={() => handleSelect(partner.id)}
-                    onBlur={(event) => {
-                      if (!event.currentTarget.contains(event.relatedTarget)) {
-                        handleClearHighlight();
-                      }
-                    }}
-                  />
-                  {isHighlighted ? (
-                    <div className="story-global-tooltip" role="status">
-                      {partner.city ? <p className="story-global-tooltip-label">{partner.city}</p> : null}
-                      <p className="story-global-tooltip-title">{partner.institution}</p>
-                      {partner.duration ? (
-                        <p className="story-global-tooltip-detail">{partner.duration}</p>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </li>
-              );
-            })}
-          </ul>
+          <div className="story-global-map-contents">
+            <EuropeMapVisual />
+            <ul className="story-global-pins" role="list">
+              {partners.map((partner) => {
+                const hasLatLon = Number.isFinite(partner.latitude) && Number.isFinite(partner.longitude);
+                const hasMapPosition = Number.isFinite(partner.mapX) && Number.isFinite(partner.mapY);
+                if (!hasLatLon && !hasMapPosition) {
+                  return null;
+                }
+                const position = getPartnerPosition(partner);
+                const isSelected = activeId === partner.id;
+                const isHighlighted = highlightedId === partner.id;
+                return (
+                  <li
+                    key={partner.id}
+                    className={`story-global-pin${isSelected ? " is-active" : ""}${
+                      isHighlighted ? " is-highlighted" : ""
+                    }`}
+                    style={position}
+                    onMouseLeave={handleClearHighlight}
+                  >
+                    <button
+                      type="button"
+                      className="story-global-pin-button"
+                      aria-pressed={isSelected}
+                      aria-label={`${partner.institution}${partner.city ? `, ${partner.city}` : ""}`}
+                      onMouseEnter={() => handleHighlight(partner.id)}
+                      onFocus={() => handleHighlight(partner.id)}
+                      onClick={() => handleSelect(partner.id)}
+                      onBlur={(event) => {
+                        if (!event.currentTarget.contains(event.relatedTarget)) {
+                          handleClearHighlight();
+                        }
+                      }}
+                    />
+                    {isHighlighted ? (
+                      <div className="story-global-tooltip" role="status">
+                        {partner.city ? <p className="story-global-tooltip-label">{partner.city}</p> : null}
+                        <p className="story-global-tooltip-title">{partner.institution}</p>
+                        {partner.duration ? (
+                          <p className="story-global-tooltip-detail">{partner.duration}</p>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
         <aside className={`story-global-info${activePartner ? " is-detail" : ""}`}>
           {activePartner ? (
