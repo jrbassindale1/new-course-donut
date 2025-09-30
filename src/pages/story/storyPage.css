@@ -739,7 +739,8 @@
 
 .story-chart {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* left column wider, right column narrower */
+  grid-template-columns: minmax(380px, 1.6fr) minmax(220px, 0.6fr);
   gap: clamp(18px, 4vw, 36px);
   align-items: stretch;
 }
@@ -750,20 +751,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: stretch;
+  /* make the left panel taller */
+  min-height: clamp(380px, 35vh, 760px);
 }
 
 .story-chart-canvas svg {
-  width: min(100%, 420px);
+  width: min(100%, 720px);
   height: auto;
+  max-height: 100%;
 }
 
 .story-chart-detail {
   background: rgba(255, 255, 255, 0.88);
   border-radius: 24px;
-  padding: clamp(18px, 3vw, 32px);
+  /* slightly reduced padding so the right column reads narrower */
+  padding: clamp(16px, 2.6vw, 24px);
   box-shadow: 0 24px 60px rgba(17, 24, 39, 0.14);
   display: grid;
   gap: 12px;
+  /* don't stretch vertically to match the taller left column */
+  align-self: start;
 }
 
 .story-chart-detail h2 {
@@ -1003,6 +1011,7 @@
   aspect-ratio: 4 / 5;
   width: 100%;
   max-height: clamp(180px, calc((100vh - 260px) / 1.2), 300px);
+
   background-size: cover;
   background-position: center;
 }
