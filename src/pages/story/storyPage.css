@@ -277,6 +277,7 @@
   background-size: cover;
   background-position: center;
   border-radius: 22px;
+  margin: 0;
   opacity: 0;
   transform: scale(0.96);
   transition: opacity 420ms ease, transform 420ms ease;
@@ -316,6 +317,19 @@
   opacity: 0.85;
 }
 
+.story-year-carousel-detail {
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.story-year-carousel-meta {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
 
 .story-year-carousel-nav {
   position: absolute;
@@ -333,6 +347,11 @@
   display: grid;
   place-items: center;
   transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.story-year-carousel-nav:disabled {
+  opacity: 0.45;
+  cursor: default;
 }
 
 .story-year-carousel-nav--previous {
@@ -380,6 +399,25 @@
 .story-year-carousel-dot:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.85);
   outline-offset: 2px;
+}
+
+.story-year-carousel--empty {
+  display: flex;
+  align-items: center;
+}
+
+.story-year-carousel-placeholder {
+  flex: 1;
+  min-height: clamp(240px, 36vw, 420px);
+  border-radius: 22px;
+  background: rgba(17, 24, 39, 0.1);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: rgba(17, 24, 39, 0.68);
+  font-size: clamp(14px, 2vw, 16px);
+  letter-spacing: 0.02em;
+  padding: 24px;
 }
 
 .sr-only {
