@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import SceneHeading from "../components/SceneHeading.jsx";
 
 const YEAR_CAROUSEL_GALLERIES = buildYearCarouselGalleries();
-const AUTO_ADVANCE_INTERVAL = 6000;
+const AUTO_ADVANCE_INTERVAL = 10000;
 
 function buildYearCarouselGalleries() {
   const modules = import.meta.glob(
