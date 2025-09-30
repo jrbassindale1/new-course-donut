@@ -482,6 +482,12 @@
       "headline": "Part 1 (BSc) → Practice → Part 2 → Part 3 → Register with ARB.",
       "steps": [
         {
+          "id": "prestudy",
+          "stage": "Pre-study",
+          "title": "Entry Qualifications",
+          "description": "A-Levels, BTEC, foundation diploma or equivalent preparation."
+        },
+        {
           "id": "part1",
           "stage": "Part I",
           "title": "BSc Architecture",
