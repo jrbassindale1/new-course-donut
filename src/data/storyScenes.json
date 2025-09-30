@@ -481,11 +481,55 @@
       "title": "Next steps - Your Professional Pathway",
       "headline": "Part 1 (BSc) → Practice → Part 2 → Part 3 → Register with ARB.",
       "steps": [
-        "BSc Architecture (Part 1)",
-        "Practice experience",
-        "MArch / Part 2",
-        "Part 3 Professional Exam",
-        "Register with ARB"
+        {
+          "id": "part1",
+          "stage": "Part I",
+          "title": "BSc Architecture",
+          "description": "Three-year honours degree giving you a RIBA Part 1-ready foundation."
+        },
+        {
+          "id": "practice",
+          "stage": "Practice",
+          "title": "Professional Experience",
+          "description": "Log at least 12 months of PEDR-recorded experience in practice."
+        },
+        {
+          "id": "part2",
+          "stage": "Part II",
+          "title": "MArch Architecture",
+          "description": "Advance your design research and complete the RIBA Part 2 award."
+        },
+        {
+          "id": "part3",
+          "stage": "Part III",
+          "title": "Professional Practice",
+          "description": "Prepare for final assessments covering contracts, law and management."
+        },
+        {
+          "id": "arb",
+          "stage": "Register",
+          "title": "Join the ARB",
+          "description": "Apply for UK registration and continue your lifelong CPD."
+        }
+      ],
+      "note": {
+        "title": "PEDR professional practice",
+        "description": "Your experience is recorded between academic stages using the RIBA PEDR logbook, keeping you on track for chartered status."
+      },
+      "accreditationDescription": "Our BSc Architecture is accredited by the Royal Institute of British Architects (RIBA) and recognised by the Board of Architects Malaysia, giving your degree global portability.",
+      "accreditations": [
+        {
+          "id": "riba",
+          "label": "RIBA Validated",
+          "image": "images/story/riba-2.gif",
+          "alt": "Royal Institute of British Architects validation logo"
+        },
+        {
+          "id": "lam",
+          "label": "Board of Architects Malaysia",
+          "image": "images/story/BAM.gif",
+          "alt": "Board of Architects Malaysia (LAM) accreditation logo"
+        }
       ],
       "cta": {
         "label": "Request a visit",
