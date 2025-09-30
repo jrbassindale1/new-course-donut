@@ -274,14 +274,6 @@ export default function YearScene({ scene }) {
                     >
                       <figcaption>
                         <span className="story-year-carousel-track">{slide.track}</span>
-                        {slide.imageLabel ? (
-                          <span className="story-year-carousel-detail">{slide.imageLabel}</span>
-                        ) : null}
-                        {slide.slideCount > 1 ? (
-                          <span className="story-year-carousel-meta">
-                            {slide.slideIndex + 1} of {slide.slideCount}
-                          </span>
-                        ) : null}
                       </figcaption>
                     </figure>
                   );

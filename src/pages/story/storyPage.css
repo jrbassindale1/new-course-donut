@@ -347,6 +347,7 @@
   display: grid;
   place-items: center;
   transition: background 0.2s ease, transform 0.2s ease;
+  z-index: 500;
 }
 
 .story-year-carousel-nav:disabled {
