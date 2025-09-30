@@ -33,7 +33,7 @@ export default function StoryPage({ onNavigate }) {
   return (
     <div className={`story-page${isShareMode ? " story-page--share" : ""}`}>
       <StoryTopBar
-        brand={{ logo: uweLogo, label: "BSc Architecture" }}
+        brand={{ logo: uweLogo, label: "BSc (Hons) Architecture" }}
         canGoBack={canGoBack}
         canGoForward={canGoForward}
         onBack={handlePrev}

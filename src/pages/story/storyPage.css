@@ -1002,7 +1002,7 @@
 .story-leader-photo {
   aspect-ratio: 4 / 5;
   width: 100%;
-  max-height: clamp(180px, calc((100vh - 260px) / 2.6), 260px);
+  max-height: clamp(180px, calc((100vh - 260px) / 1.2), 300px);
   background-size: cover;
   background-position: center;
 }
