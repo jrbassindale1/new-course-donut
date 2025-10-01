@@ -1682,16 +1682,20 @@
   --story-pathway-color: #0f172a;
   position: relative;
   border-radius: 24px;
-  padding: clamp(22px, 3.2vw, 30px) clamp(18px, 4vw, 28px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border: 1px solid color-mix(in srgb, var(--story-pathway-color) 28%, transparent);
+  padding: clamp(22px, 3.2vw, 30px)
+           clamp(14px, 3vw, 18px)
+           clamp(12px, 2vw, 12px)
+           clamp(14px, 3vw, 18px);
   background: #ffffff;
   background: color-mix(in srgb, var(--story-pathway-color) 8%, #ffffff 92%);
   box-shadow: 0 18px 36px -28px rgba(15, 23, 42, 0.55);
+
   display: grid;
+  grid-template-rows: auto auto 1fr;  /* stage, title, description fills */
   gap: 12px;
   text-align: center;
-  min-height: 186px;
+  min-height: 150px;
+  z-index: 2;
 }
 
 .story-pathway-card::before {
@@ -1700,9 +1704,10 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 6px;
+  height: 24px;
   border-radius: 24px 24px 0 0;
   background: var(--story-pathway-color);
+  z-index: 2;
 }
 
 .story-pathway-card:not(:last-child)::after {
@@ -1715,10 +1720,11 @@
   height: clamp(24px, 4vw, 34px);
   background: rgba(15, 23, 42, 0.22);
   background: color-mix(in srgb, var(--story-pathway-color) 60%, transparent);
+  z-index: 1;
 }
 
 .story-pathway-stage {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 600;
@@ -1726,13 +1732,13 @@
 }
 
 .story-pathway-title {
-  font-size: clamp(1.1rem, 3vw, 1.35rem);
+  font-size: clamp(1rem, 2vw, 1rem);
   font-weight: 700;
   color: #0f172a;
 }
 
 .story-pathway-description {
-  font-size: clamp(0.95rem, 2.6vw, 1.05rem);
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
   color: #374151;
 }
 
@@ -1827,7 +1833,7 @@
 
 @media (min-width: 960px) {
   .story-pathway-track {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(7, minmax(0, 0.6fr));
     align-items: stretch;
   }
 
@@ -1839,10 +1845,11 @@
     left: auto;
     bottom: auto;
     top: 50%;
-    right: clamp(-20px, -4vw, -16px);
-    width: clamp(32px, 4vw, 48px);
+    right: clamp(-30px, -4vw, 0px);
+    width: clamp(30px, 5vw, 5px);
     height: 4px;
-    transform: translateY(-50%);
+    transform: translateY(50%);
+    z-index: 1;
   }
 }
 

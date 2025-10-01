@@ -479,7 +479,7 @@
       "id": "pathway",
       "label": "Next",
       "title": "Next steps - Your Professional Pathway",
-      "headline": "Part 1 (BSc) → Practice → Part 2 → Part 3 → Register with ARB.",
+      "headline": "From UWE Bristol to ARB registration",
       "steps": [
         {
           "id": "prestudy",
@@ -489,9 +489,9 @@
         },
         {
           "id": "part1",
-          "stage": "Part I",
-          "title": "BSc Architecture",
-          "description": "Three-year honours degree giving you a RIBA Part 1-ready foundation."
+          "stage": "RIBA Part I",
+          "title": "BSc (Hons) Architecture",
+          "description": "Three-year honours degree giving you a RIBA Part 1."
         },
         {
           "id": "practice",
@@ -501,19 +501,25 @@
         },
         {
           "id": "part2",
-          "stage": "Part II",
+          "stage": "RIBA Part II",
           "title": "MArch Architecture",
-          "description": "Advance your design research and complete the RIBA Part 2 award."
+          "description": "You will need a qualification that meets ARB's Academic Outcomes from a provider accredited by ARB."
+        },
+        {
+          "id": "practice",
+          "stage": "Practice",
+          "title": "Professional Experience",
+          "description": "Log at least 12 months of PEDR-recorded experience in practice."
         },
         {
           "id": "part3",
-          "stage": "Part III",
+          "stage": "RIBA Part III",
           "title": "Professional Practice",
-          "description": "Prepare for final assessments covering contracts, law and management."
+          "description": "Final assessments covering contracts, law and management. You will need a qualification that meets ARB's Practice Outcomes."
         },
         {
           "id": "arb",
-          "stage": "Register",
+          "stage": "Post-Study",
           "title": "Join the ARB",
           "description": "Apply for UK registration and continue your lifelong CPD."
         }
@@ -527,20 +533,16 @@
         {
           "id": "riba",
           "label": "RIBA Validated",
-          "image": "images/story/riba-2.gif",
+          "image": "/images/story/riba-2.gif",
           "alt": "Royal Institute of British Architects validation logo"
         },
         {
           "id": "lam",
           "label": "Board of Architects Malaysia",
-          "image": "images/story/BAM.gif",
+          "image": "/images/story/BAM.gif",
           "alt": "Board of Architects Malaysia (LAM) accreditation logo"
         }
-      ],
-      "cta": {
-        "label": "Request a visit",
-        "href": "https://uwe.ac.uk/courses/architecture"
-      }
+      ]
     },
     {
       "id": "contact",
