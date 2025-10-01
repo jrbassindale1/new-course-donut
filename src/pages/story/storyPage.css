@@ -1670,9 +1670,15 @@
 .story-pathway {
   display: grid;
   gap: clamp(24px, 4vw, 40px);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "track"
+    "note"
+    "accreditation";
 }
 
 .story-pathway-track {
+  grid-area: track;
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(18px, 4vw, 28px);
@@ -1763,6 +1769,7 @@
 }
 
 .story-pathway-note {
+  grid-area: note;
   text-align: center;
   max-width: min(520px, 90%);
   margin: 0 auto;
@@ -1780,6 +1787,7 @@
 }
 
 .story-pathway-accreditation {
+  grid-area: accreditation;
   display: grid;
   gap: clamp(18px, 3vw, 26px);
   text-align: center;
@@ -1828,6 +1836,76 @@
 @media (max-width: 959px) {
   .story-pathway-card {
     min-height: auto;
+  }
+
+  .story-pathway {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "track track"
+      "note accreditation";
+    align-items: start;
+  }
+
+  .story-pathway-note,
+  .story-pathway-accreditation {
+    text-align: left;
+    margin: 0;
+  }
+
+  .story-pathway-note {
+    max-width: none;
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .story-pathway-accreditation {
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .story-pathway-accreditation > p {
+    margin: 0;
+    max-width: none;
+  }
+
+  .story-pathway-logos {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .story-pathway {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "track"
+      "note"
+      "accreditation";
+  }
+
+  .story-pathway-note,
+  .story-pathway-accreditation {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .story-pathway-note {
+    max-width: min(520px, 90%);
+    width: auto;
+    justify-self: center;
+  }
+
+  .story-pathway-accreditation {
+    max-width: min(640px, 92%);
+    justify-self: center;
+  }
+
+  .story-pathway-accreditation > p {
+    margin: 0 auto;
+    max-width: min(640px, 92%);
+  }
+
+  .story-pathway-logos {
+    justify-content: center;
   }
 }
 
