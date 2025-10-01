@@ -1,5 +1,33 @@
 import SceneHeading from "../components/SceneHeading.jsx";
 
+const STORY_ASSET_MAP = buildStoryAssetMap();
+
+function buildStoryAssetMap() {
+  const modules = import.meta.glob("../../../../images/story/**/*", {
+    eager: true,
+    query: "?url",
+    import: "default",
+  });
+
+  const assets = {};
+
+  for (const [modulePath, url] of Object.entries(modules)) {
+    if (!url) continue;
+
+    const normalisedModulePath = modulePath.replace(/\\/g, "/");
+    const afterImagesSegment = normalisedModulePath.split("/images/")[1];
+    if (!afterImagesSegment) continue;
+
+    const withImagesPrefix = `images/${afterImagesSegment}`;
+    const normalisedKey = withImagesPrefix.replace(/^\/+/, "");
+
+    assets[normalisedKey] = url;
+    assets[normalisedKey.toLowerCase()] = url;
+  }
+
+  return assets;
+}
+
 function resolveAsset(path) {
   if (!path) {
     return "";
@@ -9,12 +37,13 @@ function resolveAsset(path) {
     return path;
   }
 
-  try {
-    return new URL(`../../../../${path}`, import.meta.url).href;
-  } catch (error) {
-    console.warn("Unable to resolve asset", path, error);
-    return path;
-  }
+  const normalisedPath = path.replace(/\\/g, "/").replace(/^\/+/, "");
+
+  return (
+    STORY_ASSET_MAP[normalisedPath] ||
+    STORY_ASSET_MAP[normalisedPath.toLowerCase()] ||
+    path
+  );
 }
 
 export default function PathwayScene({ scene }) {
@@ -27,8 +56,14 @@ export default function PathwayScene({ scene }) {
       <div className="story-pathway">
         <div className="story-pathway-track" role="list">
           {steps.map((step, index) => {
-            const key = step?.id || step?.title || index;
-            const cardClass = ["story-pathway-card", step?.id ? `story-pathway-card--${step.id}` : ""].filter(Boolean).join(" ");
+            const uniqueKeyBase = step?.id || step?.title;
+            const key = uniqueKeyBase ? `${uniqueKeyBase}-${index}` : index;
+            const cardClass = [
+              "story-pathway-card",
+              step?.id ? `story-pathway-card--${step.id}` : "",
+            ]
+              .filter(Boolean)
+              .join(" ");
 
             return (
               <article key={key} className={cardClass} role="listitem">
