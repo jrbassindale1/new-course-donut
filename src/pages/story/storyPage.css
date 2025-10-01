@@ -739,7 +739,6 @@
 
 .story-chart-canvas {
   border-radius: 28px;
-  padding: clamp(12px, 3vw, 24px);
   display: flex;
   align-items: center;
   justify-content: center;
