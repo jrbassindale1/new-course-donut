@@ -42,6 +42,30 @@
       ]
     },
     {
+      "id": "bristol",
+      "label": "Bristol",
+      "title": "Bristol: Your City Studio",
+      "headline": "Live, study and create in one of the UK’s most creative and sustainable cities.",
+      "sections": [
+        {
+          "title": "Culture & Creativity",
+          "copy": "Independent galleries, design festivals and Bristol’s street art scene keep inspiration close."
+        },
+        {
+          "title": "Green Capital",
+          "copy": "The UK’s first European Green Capital with ambitious climate goals and city-wide live projects."
+        },
+        {
+          "title": "Connected Campus",
+          "copy": "City Campus sites are minutes apart by bus or bike, with harbour-side spots for crits and meetups."
+        }
+      ],
+      "link": {
+        "label": "Discover Bristol — uwe.ac.uk",
+        "href": "https://www.uwe.ac.uk/life/discover-bristol"
+      }
+    },
+    {
       "id": "welcome",
       "label": "Welcome",
       "title": "Why Architecture at UWE?",
@@ -71,30 +95,6 @@
       "link": {
         "label": "See full course details",
         "href": "https://courses.uwe.ac.uk/K100/architecture"
-      }
-    },
-    {
-      "id": "bristol",
-      "label": "Bristol",
-      "title": "Bristol: Your City Studio",
-      "headline": "Live, study and create in one of the UK’s most creative and sustainable cities.",
-      "sections": [
-        {
-          "title": "Culture & Creativity",
-          "copy": "Independent galleries, design festivals and Bristol’s street art scene keep inspiration close."
-        },
-        {
-          "title": "Green Capital",
-          "copy": "The UK’s first European Green Capital with ambitious climate goals and city-wide live projects."
-        },
-        {
-          "title": "Connected Campus",
-          "copy": "City Campus sites are minutes apart by bus or bike, with harbour-side spots for crits and meetups."
-        }
-      ],
-      "link": {
-        "label": "Discover Bristol — uwe.ac.uk",
-        "href": "https://www.uwe.ac.uk/life/discover-bristol"
       }
     },
     {
@@ -250,86 +250,6 @@
           "title": "Sustainability",
           "image": "images/projects/sustainability.jpg",
           "caption": "Studio questions circular materials and resilient systems."
-        }
-      ]
-    },
-    {
-      "id": "destinations",
-      "label": "Destinations",
-      "title": "Where our graduates go",
-      "headline": "Architecture and design practices our graduates have joined.",
-      "companies": [
-        {
-          "id": "aecom",
-          "name": "AECOM",
-          "logo": "images/practices/logos/AECOM_logo.png",
-          "image": "images/practices/projects/aecom-image.jpg",
-          "alt": "AECOM Crossrail project",
-          "link": "https://aecom.com/"
-        },
-        {
-          "id": "buro-happold",
-          "name": "Buro Happold",
-          "logo": "images/practices/logos/buro_happold.png",
-          "image": "images/practices/projects/burohappold-image.jpg",
-          "alt": "Buro Happold Louvre Abu Dhabi",
-          "link": "https://www.burohappold.com/"
-        },
-        {
-          "id": "stride-treglown",
-          "name": "Stride Treglown",
-          "logo": "images/practices/logos/stride_treglown.jpeg",
-          "image": "images/practices/projects/stride-treglown.jpg",
-          "alt": "Stride Treglown Gloucestershire College",
-          "link": "https://www.stridetreglown.com/"
-        },
-        {
-          "id": "fcbstudios",
-          "name": "Feilden Clegg Bradley Studios",
-          "logo": "images/practices/logos/fcb-studios.webp",
-          "image": "images/practices/projects/fcbstudios.jpg",
-          "alt": "FCBStudios Accordia Housing",
-          "link": "https://fcbstudios.com/"
-        },
-        {
-          "id": "zha",
-          "name": "Zaha Hadid Architects",
-          "logo": "images/practices/logos/zaha_hadid.png",
-          "image": "images/practices/projects/zaha-hadid.jpg",
-          "alt": "ZHA MAXXI Museum",
-          "link": "https://www.zaha-hadid.com/"
-        },
-        {
-          "id": "rshp",
-          "name": "Rogers Stirk Harbour + Partners",
-          "logo": "images/practices/logos/rshp.jpg",
-          "image": "images/practices/projects/rshp-image.JPG",
-          "alt": "RSHP Leadenhall Building",
-          "link": "https://www.rshp.com/"
-        },
-        {
-          "id": "ahmm",
-          "name": "AHMM",
-          "logo": "images/practices/logos/ahmm.png",
-          "image": "images/practices/projects/ahmm-burntwood.jpg",
-          "alt": "AHMM Burntwood School",
-          "link": "https://www.ahmm.co.uk/"
-        },
-        {
-          "id": "bdp",
-          "name": "BDP",
-          "logo": "images/practices/logos/bdp.png",
-          "image": "images/practices/projects/bdp-image.webp",
-          "alt": "BDP Manchester Library",
-          "link": "https://www.bdp.com/"
-        },
-        {
-          "id": "atkinsrealis",
-          "name": "AtkinsRéalis",
-          "logo": "images/practices/logos/atkins_realis.png",
-          "image": "images/practices/projects/atkins-image.jpg",
-          "alt": "AtkinsRéalis Bahrain WTC",
-          "link": "https://www.atkinsrealis.com/"
         }
       ]
     },
@@ -541,6 +461,86 @@
           "label": "Board of Architects Malaysia",
           "image": "/images/story/BAM.gif",
           "alt": "Board of Architects Malaysia (LAM) accreditation logo"
+        }
+      ]
+    },
+    {
+      "id": "destinations",
+      "label": "Destinations",
+      "title": "Where our graduates go",
+      "headline": "Architecture and design practices our graduates have joined.",
+      "companies": [
+        {
+          "id": "aecom",
+          "name": "AECOM",
+          "logo": "images/practices/logos/AECOM_logo.png",
+          "image": "images/practices/projects/aecom-image.jpg",
+          "alt": "AECOM Crossrail project",
+          "link": "https://aecom.com/"
+        },
+        {
+          "id": "buro-happold",
+          "name": "Buro Happold",
+          "logo": "images/practices/logos/buro_happold.png",
+          "image": "images/practices/projects/burohappold-image.jpg",
+          "alt": "Buro Happold Louvre Abu Dhabi",
+          "link": "https://www.burohappold.com/"
+        },
+        {
+          "id": "stride-treglown",
+          "name": "Stride Treglown",
+          "logo": "images/practices/logos/stride_treglown.jpeg",
+          "image": "images/practices/projects/stride-treglown.jpg",
+          "alt": "Stride Treglown Gloucestershire College",
+          "link": "https://www.stridetreglown.com/"
+        },
+        {
+          "id": "fcbstudios",
+          "name": "Feilden Clegg Bradley Studios",
+          "logo": "images/practices/logos/fcb-studios.webp",
+          "image": "images/practices/projects/fcbstudios.jpg",
+          "alt": "FCBStudios Accordia Housing",
+          "link": "https://fcbstudios.com/"
+        },
+        {
+          "id": "zha",
+          "name": "Zaha Hadid Architects",
+          "logo": "images/practices/logos/zaha_hadid.png",
+          "image": "images/practices/projects/zaha-hadid.jpg",
+          "alt": "ZHA MAXXI Museum",
+          "link": "https://www.zaha-hadid.com/"
+        },
+        {
+          "id": "rshp",
+          "name": "Rogers Stirk Harbour + Partners",
+          "logo": "images/practices/logos/rshp.jpg",
+          "image": "images/practices/projects/rshp-image.JPG",
+          "alt": "RSHP Leadenhall Building",
+          "link": "https://www.rshp.com/"
+        },
+        {
+          "id": "ahmm",
+          "name": "AHMM",
+          "logo": "images/practices/logos/ahmm.png",
+          "image": "images/practices/projects/ahmm-burntwood.jpg",
+          "alt": "AHMM Burntwood School",
+          "link": "https://www.ahmm.co.uk/"
+        },
+        {
+          "id": "bdp",
+          "name": "BDP",
+          "logo": "images/practices/logos/bdp.png",
+          "image": "images/practices/projects/bdp-image.webp",
+          "alt": "BDP Manchester Library",
+          "link": "https://www.bdp.com/"
+        },
+        {
+          "id": "atkinsrealis",
+          "name": "AtkinsRéalis",
+          "logo": "images/practices/logos/atkins_realis.png",
+          "image": "images/practices/projects/atkins-image.jpg",
+          "alt": "AtkinsRéalis Bahrain WTC",
+          "link": "https://www.atkinsrealis.com/"
         }
       ]
     },
