@@ -8,7 +8,7 @@ const KEYWORDS = [
   "Sustainability Focused",
   "Digitally Able",
   "Local and Regional Impact",
-  "Opportunity to Thrive and Flourish",
+  "Opportunity to Thrive",
   "Global Reach",
 ];
 
