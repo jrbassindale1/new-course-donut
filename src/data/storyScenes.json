@@ -23,6 +23,7 @@
           "name": "Dr. Yahya Lavaf-Pour",
           "role": "Programme Leader (Studio & Design)",
           "bio": "Yahya makes sure studio projects are exciting and connected to real communities, and he’s passionate about creative design ideas that make a difference.",
+          "link": "https://people.uwe.ac.uk/Person/YahyaLavafPour",
           "image": "images/leaders/yahya-lavafpour.jpg"
         },
         {
@@ -30,6 +31,7 @@
           "name": "Dr. Eleonora Nicoletti",
           "role": "Programme Leader (Technology & Environment)",
           "bio": "Eleonora focuses on how buildings use energy and how design can help tackle climate change. She encourages students to explore new materials, technology and zero-carbon design.",
+          "link": "https://people.uwe.ac.uk/Person/EleonoraNicoletti",
           "image": "images/leaders/eleonora-nicoletti.jpg"
         },
         {
@@ -37,6 +39,7 @@
           "name": "Dr. Eduardo Costa",
           "role": "Programme Leader (Digital Design)",
           "bio": "Eduardo helps students use digital tools to design and make things. From 3D modelling to laser-cutting and new software, he shows how technology can expand your creativity.",
+          "link": "https://people.uwe.ac.uk/Person/EduardoCosta",
           "image": "images/leaders/eduardo-costa.jpg"
         }
       ]
@@ -49,15 +52,21 @@
       "sections": [
         {
           "title": "Culture & Creativity",
-          "copy": "Independent galleries, design festivals and Bristol’s street art scene keep inspiration close."
+          "copy": "Independent galleries, design festivals and Bristol’s street art scene keep inspiration close.",
+          "image": "images/story/bristol1.jpg",
+          "alt": "Crowds celebrating at St Paul's Carnival in Bristol"
         },
         {
           "title": "Green Capital",
-          "copy": "The UK’s first European Green Capital with ambitious climate goals and city-wide live projects."
+          "copy": "The UK’s first European Green Capital with ambitious climate goals and city-wide live projects.",
+          "image": "images/story/bristol2.jpg",
+          "alt": "View across Bristol's harbourside with colourful houses"
         },
         {
           "title": "Connected Campus",
-          "copy": "City Campus sites are minutes apart by bus or bike, with harbour-side spots for crits and meetups."
+          "copy": "City Campus sites are minutes apart by bus or bike, with harbour-side spots for crits and meetups.",
+          "image": "images/story/bristol3.jpg",
+          "alt": "Students cycling through Bristol city centre"
         }
       ],
       "link": {
@@ -71,11 +80,26 @@
       "title": "Why Architecture at UWE?",
       "headline": "A RIBA Part 1 route with studio-first learning, live briefs and strong professional pathways.",
       "sections": [
-        { "title": "Professional route", "copy": "RIBA Part 1 validated – your first step to becoming a registered architect." },
-        { "title": "Learn by doing", "copy": "Studio projects, technical workshops and live briefs with real sites and clients." },
-        { "title": "Design for the future", "copy": "Sustainability, climate resilience and inclusive places are built into the curriculum." },
-        { "title": "Support that counts", "copy": "Strong studio culture with clear feedback and guidance from tutors and technicians." },
-        { "title": "Clear next steps", "copy": "Progress to Part 2/ARB recognition at master’s level after this degree." }
+        {
+          "title": "Professional route",
+          "copy": "RIBA Part 1 validated – your first step to becoming a registered architect."
+        },
+        {
+          "title": "Learn by doing",
+          "copy": "Studio projects, technical workshops and live briefs with real sites and clients."
+        },
+        {
+          "title": "Design for the future",
+          "copy": "Sustainability, climate resilience and inclusive places are built into the curriculum."
+        },
+        {
+          "title": "Support that counts",
+          "copy": "Strong studio culture with clear feedback and guidance from tutors and technicians."
+        },
+        {
+          "title": "Clear next steps",
+          "copy": "Progress to Part 2/ARB recognition at master’s level after this degree."
+        }
       ],
       "background": {
         "type": "image",
@@ -87,14 +111,6 @@
           "Digitally Able",
           "Enterprising"
         ]
-      },
-      "qr": {
-        "label": "Share",
-        "href": "https://courses.uwe.ac.uk/K100/architecture"
-      },
-      "link": {
-        "label": "See full course details",
-        "href": "https://courses.uwe.ac.uk/K100/architecture"
       }
     },
     {
@@ -108,22 +124,34 @@
           "track": "Design Studio",
           "deliverable": "Exploring your first neighbourhood project",
           "imageFolder": "firstyear/studio",
-          "themes": ["Studio"]
+          "themes": [
+            "Studio"
+          ]
         },
         {
           "track": "Technology & Environment",
           "deliverable": "Learning how buildings respond to climate",
           "imageFolder": "firstyear/tech",
-          "themes": ["Technology and Environment"]
+          "themes": [
+            "Technology and Environment"
+          ]
         },
         {
           "track": "Practice & Context",
           "deliverable": "Discovering how places and people shape design",
           "imageFolder": "firstyear/context",
-          "themes": ["Professional Practice and Behaviours", "Humanities"]
+          "themes": [
+            "Professional Practice and Behaviours",
+            "Humanities"
+          ]
         }
       ],
-      "outcomeCodes": ["PO1", "PO2", "PO7", "PO8"]
+      "outcomeCodes": [
+        "PO1",
+        "PO2",
+        "PO7",
+        "PO8"
+      ]
     },
     {
       "id": "year2",
@@ -136,22 +164,34 @@
           "track": "Design Studio",
           "deliverable": "Designing larger urban spaces",
           "imageFolder": "secondyear/studio",
-          "themes": ["Studio"]
+          "themes": [
+            "Studio"
+          ]
         },
         {
           "track": "Technology & Environment",
           "deliverable": "Exploring building performance and comfort",
           "imageFolder": "secondyear/tech",
-          "themes": ["Technology and Environment"]
+          "themes": [
+            "Technology and Environment"
+          ]
         },
         {
           "track": "Practice & Context",
           "deliverable": "Learning how design and practice fit together",
           "imageFolder": "secondyear/context",
-          "themes": ["Professional Practice and Behaviours", "Humanities"]
+          "themes": [
+            "Professional Practice and Behaviours",
+            "Humanities"
+          ]
         }
       ],
-      "outcomeCodes": ["PO3", "PO4", "PO9", "PO10"]
+      "outcomeCodes": [
+        "PO3",
+        "PO4",
+        "PO9",
+        "PO10"
+      ]
     },
     {
       "id": "year3",
@@ -164,22 +204,34 @@
           "track": "Design Studio",
           "deliverable": "Your final design thesis",
           "imageFolder": "thirdyear/studio",
-          "themes": ["Studio"]
+          "themes": [
+            "Studio"
+          ]
         },
         {
           "track": "Technology & Environment",
           "deliverable": "Showing how your ideas work in detail",
           "imageFolder": "thirdyear/tech",
-          "themes": ["Technology and Environment"]
+          "themes": [
+            "Technology and Environment"
+          ]
         },
         {
           "track": "Practice & Context",
           "deliverable": "Presenting yourself as a future architect",
           "imageFolder": "thirdyear/context",
-          "themes": ["Professional Practice and Behaviours", "Humanities"]
+          "themes": [
+            "Professional Practice and Behaviours",
+            "Humanities"
+          ]
         }
       ],
-      "outcomeCodes": ["PO3", "PO5", "PO6", "PO9"],
+      "outcomeCodes": [
+        "PO3",
+        "PO5",
+        "PO6",
+        "PO9"
+      ],
       "footnote": "The BSc satisfies the academic requirement for ARB Part 1. Part 2 and Part 3 follow through postgraduate study and professional practice."
     },
     {
@@ -215,7 +267,7 @@
       "id": "chart",
       "label": "Chart",
       "title": "Programme Explorer",
-      "headline": "Use the compass chart to see how modules interlock across the three years.",
+      "headline": "Explore the modules, themes and learning outcomes.",
       "cta": {
         "label": "Open full chart view",
         "href": "#/chart"
@@ -414,12 +466,6 @@
           "description": "Three-year honours degree giving you a RIBA Part 1."
         },
         {
-          "id": "practice",
-          "stage": "Practice",
-          "title": "Professional Experience",
-          "description": "Log at least 12 months of PEDR-recorded experience in practice."
-        },
-        {
           "id": "part2",
           "stage": "RIBA Part II",
           "title": "MArch Architecture",
@@ -429,26 +475,26 @@
           "id": "practice",
           "stage": "Practice",
           "title": "Professional Experience",
-          "description": "Log at least 12 months of PEDR-recorded experience in practice."
+          "description": "Log at least 12 months of PEDR-recorded experience after Part I, and another 12 months after Part II, to prepare for Part III."
         },
         {
           "id": "part3",
           "stage": "RIBA Part III",
           "title": "Professional Practice",
-          "description": "Final assessments covering contracts, law and management. You will need a qualification that meets ARB's Practice Outcomes."
+          "description": "A course covering contracts, law and management that meets ARB's Practice Outcomes."
         },
         {
           "id": "arb",
           "stage": "Post-Study",
           "title": "Join the ARB",
-          "description": "Apply for UK registration and continue your lifelong CPD."
+          "description": "Apply for UK registration as a qualified 'Architect' prepared for a career in architecture."
         }
       ],
       "note": {
         "title": "PEDR professional practice",
         "description": "Your experience is recorded between academic stages using the RIBA PEDR logbook, keeping you on track for chartered status."
       },
-      "accreditationDescription": "Our BSc Architecture is accredited by the Royal Institute of British Architects (RIBA) and recognised by the Board of Architects Malaysia, giving your degree global portability.",
+      "accreditationDescription": "Our BSc (Hons) Architecture course at UWE Bristol is validated by the Royal Institute of British Architects (RIBA). It is also accredited by the Board of Architects Malaysia (LAM), giving your degree global portability. Successful completion provides the academic requirement for progression to postgraduate study and eventual Architects Registration Board (ARB) registration in the UK.",
       "accreditations": [
         {
           "id": "riba",
@@ -545,6 +591,30 @@
       ]
     },
     {
+      "id": "support",
+      "label": "Support",
+      "title": "We'll Support You on Your Journey",
+      "headline": "Dedicated teams across UWE Bristol are ready to help whenever you need it.",
+      "services": [
+        "Academic Personal Tutor",
+        "Student Success Coaches",
+        "Wellbeing service",
+        "Careers and Employment Services",
+        "Student Money service",
+        "University Health Care",
+        "Students' Union Advice Service",
+        "Chaplaincy",
+        "Out of Hours team counselling (evenings & weekends)",
+        "Skills workshops"
+      ],
+      "link": {
+        "label": "More on mental health and wellbeing support",
+        "href": "https://www.uwe.ac.uk/life/health-and-wellbeing"
+      },
+      "image": "images/story/counsellor-305x305.png",
+      "imageAlt": "Student meeting with UWE Bristol wellbeing counsellor"
+    },
+    {
       "id": "contact",
       "label": "Contact",
       "title": "Stay in touch",
@@ -555,10 +625,26 @@
           "value": "BScArchitecture@uwe.ac.uk",
           "href": "mailto:BScArchitecture@uwe.ac.uk"
         },
-        { "label": "Email (UK applicants)", "value": "Admissions@uwe.ac.uk", "href": "mailto:Admissions@uwe.ac.uk" },
-        { "label": "Email (International/EU applicants)", "value": "International@uwe.ac.uk", "href": "mailto:International@uwe.ac.uk" },
-        { "label": "Telephone (UK applicants)", "value": "+44 (0)117 32 83333", "href": "tel:+441173283333" },
-        { "label": "Telephone (International/EU applicants)", "value": "+44 (0)117 32 86644", "href": "tel:+441173286644" }
+        {
+          "label": "Email (UK applicants)",
+          "value": "Admissions@uwe.ac.uk",
+          "href": "mailto:Admissions@uwe.ac.uk"
+        },
+        {
+          "label": "Email (International/EU applicants)",
+          "value": "International@uwe.ac.uk",
+          "href": "mailto:International@uwe.ac.uk"
+        },
+        {
+          "label": "Telephone (UK applicants)",
+          "value": "+44 (0)117 32 83333",
+          "href": "tel:+441173283333"
+        },
+        {
+          "label": "Telephone (International/EU applicants)",
+          "value": "+44 (0)117 32 86644",
+          "href": "tel:+441173286644"
+        }
       ],
       "links": [
         {
@@ -590,13 +676,34 @@
         "label": "Apply now",
         "href": "https://info.uwe.ac.uk/admissions/applications/undergrad_applic.asp?ippcode=K100&ippyear=2026/27",
         "details": [
-          { "label": "Course code", "value": "K100" },
-          { "label": "Level", "value": "Undergraduate" },
-          { "label": "School", "value": "School of Architecture and Environment" },
-          { "label": "Tariff points", "value": "136" },
-          { "label": "Campus", "value": "Frenchay" },
-          { "label": "Duration", "value": "Three years" },
-          { "label": "Delivery", "value": "Full-time" }
+          {
+            "label": "Course code",
+            "value": "K100"
+          },
+          {
+            "label": "Level",
+            "value": "Undergraduate"
+          },
+          {
+            "label": "School",
+            "value": "School of Architecture and Environment"
+          },
+          {
+            "label": "Tariff points",
+            "value": "136"
+          },
+          {
+            "label": "Campus",
+            "value": "Frenchay"
+          },
+          {
+            "label": "Duration",
+            "value": "Three years"
+          },
+          {
+            "label": "Delivery",
+            "value": "Full-time"
+          }
         ]
       }
     }

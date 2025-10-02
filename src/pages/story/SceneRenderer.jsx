@@ -10,10 +10,11 @@ import ProjectsScene from "./scenes/ProjectsScene.jsx";
 import GlobalScene from "./scenes/GlobalScene.jsx";
 import OutcomesScene from "./scenes/OutcomesScene.jsx";
 import PathwayScene from "./scenes/PathwayScene.jsx";
+import SupportScene from "./scenes/SupportScene.jsx";
 import ContactScene from "./scenes/ContactScene.jsx";
 import SceneHeading from "./components/SceneHeading.jsx";
 
-export default function SceneRenderer({ scene, onOpenFullChart }) {
+export default function SceneRenderer({ scene }) {
   if (!scene) {
     return (
       <div className="story-scene">
@@ -41,7 +42,7 @@ export default function SceneRenderer({ scene, onOpenFullChart }) {
     case "studio":
       return <StudioScene scene={scene} />;
     case "chart":
-      return <ChartScene scene={scene} onOpenFullChart={onOpenFullChart} />;
+      return <ChartScene scene={scene} />;
     case "projects":
       return <ProjectsScene scene={scene} />;
     case "global":
@@ -50,6 +51,8 @@ export default function SceneRenderer({ scene, onOpenFullChart }) {
       return <OutcomesScene scene={scene} />;
     case "pathway":
       return <PathwayScene scene={scene} />;
+    case "support":
+      return <SupportScene scene={scene} />;
     case "contact":
       return <ContactScene scene={scene} />;
     default:

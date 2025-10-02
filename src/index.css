@@ -15,10 +15,10 @@
   grid-template-rows: 30px auto;
 }
 @media (min-width: 640px) {
-  .page-grid { grid-template-columns: 0.8fr 2.2fr; }
+  .page-grid { grid-template-columns: 2.2fr 0.8fr; }
   .page-title { grid-column: 1 / -1; grid-row: 1; }
-  .details-panel { grid-column: 1; grid-row: 2; }
-  .chart-panel { grid-column: 2; grid-row: 2; }
+  .chart-panel { grid-column: 1; grid-row: 2; }
+  .details-panel { grid-column: 2; grid-row: 2; }
   /* Keep the chart anchored while the text panel scrolls */
   .chart-panel { position: sticky; top: var(--app-pad-top); }
 }
@@ -65,6 +65,28 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   width: var(--chart-size);
   height: var(--chart-size);
   min-height: 280px;
+  position: relative;
+}
+.chart-reset-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  padding: 6px 12px;
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(17, 24, 39, 0.68);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  transition: background 180ms ease, transform 180ms ease;
+}
+.chart-reset-button:hover,
+.chart-reset-button:focus {
+  background: rgba(17, 24, 39, 0.82);
+  transform: translateY(-1px);
+}
+.chart-reset-button:active {
+  transform: translateY(0);
 }
 .details-panel { overflow: auto; min-height: 0; max-height: calc(100vh - var(--app-pad-top) - var(--app-pad-bottom) - 50px); }
 @supports (height: 100dvh) {
@@ -185,9 +207,9 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
     align-self: start;
   }
 
-  /* Give more width to the left text column in the 2-column layout */
+  /* Give more width to the left chart column in the 2-column layout */
   @media (min-width: 640px) {
-    .page-grid { grid-template-columns: 1.2fr 1.8fr; }
+    .page-grid { grid-template-columns: 1.8fr 1.2fr; }
   }
 
   /* Reduce reserved header space so the chart can grow vertically */

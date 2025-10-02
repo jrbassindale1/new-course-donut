@@ -1,11 +1,50 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import CompassChart from "../../../components/CompassChart.jsx";
 import moduleInfo from "../../../data/moduleInfo.json";
 import programmeInfo from "../../../data/programmeInfo.json";
 import SceneHeading from "../components/SceneHeading.jsx";
 
-export default function ChartScene({ scene, onOpenFullChart }) {
+export default function ChartScene({ scene }) {
   const [selected, setSelected] = useState({ moduleId: null, key: null });
+  const [resetSignal, setResetSignal] = useState(0);
+  const [chartSize, setChartSize] = useState(480);
+  const canvasRef = useRef(null);
+
+  const handleReset = () => {
+    setSelected({ moduleId: null, key: null });
+    setResetSignal((value) => value + 1);
+  };
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const node = canvasRef.current;
+    if (!node) return undefined;
+
+    const getSafeSize = () => {
+      const rect = node.getBoundingClientRect();
+      const width = rect.width || 0;
+      const height = rect.height || 0;
+      const top = rect.top || 0;
+      const viewportHeight = window.innerHeight || height;
+      const verticalAllowance = viewportHeight - top - 32;
+      const maxHeight = Math.max(260, Math.min(height, verticalAllowance));
+      const maxWidth = Math.max(260, width - 24);
+      const size = Math.max(260, Math.min(maxWidth, maxHeight));
+      setChartSize(size);
+    };
+
+    getSafeSize();
+    let resizeObserver;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => getSafeSize());
+      resizeObserver.observe(node);
+    }
+    window.addEventListener("resize", getSafeSize);
+    return () => {
+      resizeObserver?.disconnect?.();
+      window.removeEventListener("resize", getSafeSize);
+    };
+  }, []);
 
   const detail = useMemo(() => {
     const { moduleId, key } = selected;
@@ -81,28 +120,25 @@ export default function ChartScene({ scene, onOpenFullChart }) {
     <div className="story-scene story-scene--chart">
       <SceneHeading scene={scene} />
       <div className="story-chart">
-        <div className="story-chart-canvas">
-          <CompassChart
-            width={480}
-            height={480}
-            onInfoSelect={(moduleId, key) => setSelected({ moduleId, key })}
-          />
-        </div>
         <aside className="story-chart-detail">
           <h2>{detail.title}</h2>
           {detail.body.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
-          {scene?.cta?.href ? (
-            <button
-              type="button"
-              className="btn secondary"
-              onClick={() => onOpenFullChart && onOpenFullChart()}
-            >
-              {scene.cta.label || "Open full chart view"}
-            </button>
-          ) : null}
         </aside>
+        <div className="story-chart-canvas" ref={canvasRef}>
+          <button className="btn story-chart-reset" type="button" onClick={handleReset}>
+            Reset Chart
+          </button>
+          <div className="story-chart-inner" style={{ width: chartSize, height: chartSize }}>
+            <CompassChart
+              width={chartSize}
+              height={chartSize}
+              resetSignal={resetSignal}
+              onInfoSelect={(moduleId, key) => setSelected({ moduleId, key })}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

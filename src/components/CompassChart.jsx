@@ -42,10 +42,10 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
   const cy = H / 2;
 
   // Radii and thickness
-  const baseThickness = 40; // thinner concurrent band thickness so all modules fit
+  const baseThickness = 24; // slimmer concurrent bands to open up the centre
   const gap = 0;            // space between bands (within a year)
   // Elements that extend beyond module outer edge
-  const bandExtra = 18;     // px extra outward thickness for background bands (wider for clearer year labels)
+  const bandExtra = 10;     // px extra outward thickness for background bands (wider for clearer year labels)
   const thinBand = 0;      // px – thin guide ring
   // Ensure the SVG viewBox always has enough breathing room so strokes don't clip.
   // The furthest outward element is max(bandExtra, thinBand). Add a small safety margin (3px).
@@ -54,12 +54,12 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
   const outerR = Math.min(W, H) / 2 - PAD; // fixed outer radius with safe padding
   const bottomR = outerR - baseThickness / 2;  // center radius for bottom band stroke
   const topR = outerR - baseThickness - gap - baseThickness / 2; // center radius for top band stroke
-  const soloThickness = baseThickness * 2 + gap; // double thickness + gap to span both
+  const soloThickness = baseThickness * 2.2 + gap; // double thickness + gap to span both
   // Center the solo band so it spans both concurrent bands plus the gap
   const soloR = outerR - (soloThickness / 2);
 
   // Year spacing: choose uniform spacing between the centre of each year's solo ring
-  const YEAR_SPACING = 65; // px between centre of year solo rings (smaller -> rings closer together)
+  const YEAR_SPACING = 42; // px between centre of year solo rings (smaller -> rings closer together)
   // Use Year 1 soloR as the reference outermost module ring and compute Year 2/3 positions
   const y1SoloR = soloR + 0; // nudge all modules slightly outward for a larger radius
   const y2SoloR = y1SoloR - YEAR_SPACING;
@@ -75,7 +75,7 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
   const y3BottomR = y3SoloR + y3SoloThickness / 2;
 
   // Info Wheel placement: fixed position closer to outside rings (just inside Year 2 inner edge)
-  const INFO_RING_INSET = -30; // px inset from Year 2 inner edge
+  const INFO_RING_INSET = -48; // px inset from Year 2 inner edge
   const INFO_CONTENT_R = (y2SoloR - baseThickness / 2) - INFO_RING_INSET; // stable radius across selections
 
   // Colour palette fallback
@@ -124,7 +124,7 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
   const infoSelectedColor = '#90D5FF';
 
   // Tangential gap between modules (px along the arc length)
-  const MODULE_GAP_PX = 8;
+  const MODULE_GAP_PX = 3;
   const gapAngle = (r) => (MODULE_GAP_PX / (2 * Math.PI * r)) * 360;
   const trim = (arc, r) => {
     const g = gapAngle(r) / 2;
@@ -256,8 +256,15 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
     return '#111827';
   };
 
+  const LABEL_FONT_SIZE = 8;
+  const LABEL_FONT_WEIGHT = '600';
+  const SINGLE_LINE_OFFSET = -baseThickness * 0.1;
+  const DOUBLE_LINE_OUTER_OFFSET = baseThickness * 0.2;
+  const DOUBLE_LINE_INNER_OFFSET = -baseThickness * 0.38;
+  const LABEL_ARC_INSET = 1;
+
   // Split long module labels over two concentric lines so they fit
-  const splitLabel = (text, maxFirst = 22, softMax = 28) => {
+  const splitLabel = (text, maxFirst = 16, softMax = 24) => {
     if (!text) return [""];
     const t = String(text).replace(/\s+/g, ' ').trim();
     if (t.length <= maxFirst) return [t];
@@ -385,7 +392,7 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
   const y3BgOuter = y3BgInner + y3BgThick;
 
   // Year label radii positioned near outer edge of background bands
-  const labelInset = 14; // px inside the band outer edge (bring labels slightly inward)
+  const labelInset = 10; // px inside the band outer edge (bring labels slightly inward)
   const year1LabelR = y1BgOuter - labelInset;
   const year2LabelR = y2BgOuter - labelInset;
   const year3LabelR = y3BgOuter - labelInset;
@@ -496,7 +503,7 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
                 <g key={h.id}>
                   <path d={arcPath(cx, cy, contentR, trimmed.start, trimmed.end)} stroke={infoStrokeFor(h.id)} strokeWidth={infoThick} strokeLinecap="butt" fill="none" style={{ cursor: 'pointer', transition: 'stroke 200ms ease' }} onClick={onClick} />
                   <path d={arcPath(cx, cy, contentR, trimmed.start, trimmed.end)} stroke="transparent" strokeWidth={infoThick + 16} fill="none" style={{ cursor: 'pointer' }} onClick={onClick} onMouseEnter={() => setInfoHovered(h.id)} onMouseLeave={() => setInfoHovered(null)} />
-                  <ArcLabel id={`info-${h.id}`} cx={cx} cy={cy} r={contentR - 6} start={trimmed.start} end={trimmed.end} text={h.label} fontSize={11} fontWeight={infoSelected === h.id ? '700' : '600'} fill={infoLabelFillFor(h.id)} />
+                  <ArcLabel id={`info-${h.id}`} cx={cx} cy={cy} r={contentR - 6} start={trimmed.start} end={trimmed.end} text={h.label} fontSize={10} fontWeight={infoSelected === h.id ? '700' : '600'} fill={infoLabelFillFor(h.id)} />
                 </g>
               );
             });
@@ -516,9 +523,9 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
           pointerEvents: (isResetting || isSpinning) ? 'none' : 'auto'
         }}>
           {(() => {
-            const progThick = baseThickness + 10;
+            const progThick = baseThickness + 14;
             // Place programme ring just inside Year 1 inner edge for a larger, less compressed radius
-            const PROG_RING_INSET = 138; // px gap from Y1 inner edge to programme ring outer edge
+            const PROG_RING_INSET = 96; // px gap from Y1 inner edge to programme ring outer edge
             const y1InnerEdge = y1SoloR - baseThickness / 2; // inner boundary of Year 1 modules
             const progR = y1InnerEdge - PROG_RING_INSET - progThick / 2;
             const programColor = '#BDE4FF';
@@ -558,7 +565,7 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
               return (
                 <g key={h.id}>
                   <path d={arcPath(cx, cy, progR, trimmed.start, trimmed.end)} stroke={stroke} strokeWidth={progThick} strokeLinecap="butt" fill="none" style={{ cursor: 'pointer', transition: `stroke ${HOVER_TRANS_MS}ms ${TRANS_EASE}` }} onMouseEnter={() => setHovered(h.id)} onMouseLeave={() => setHovered(null)} onClick={onClick} />
-                  <ArcLabel id={`prog-${h.id}`} cx={cx} cy={cy} r={progR - 4} start={trimmed.start} end={trimmed.end} text={h.label} fontSize={11} fontWeight="700" fill={labelFill} />
+                  <ArcLabel id={`prog-${h.id}`} cx={cx} cy={cy} r={progR - 4} start={trimmed.start} end={trimmed.end} text={h.label} fontSize={10} fontWeight="700" fill={labelFill} />
                 </g>
               );
             });
@@ -572,13 +579,13 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
       >
         {/* Year labels only (no semesters) */}
         <g style={fadeStyleY1}>
-          <ArcLabel id="y1" cx={cx} cy={cy} r={year1LabelR} start={0} end={60} text={"Year 1"} fill="#000" fontSize={10} fontWeight="600" startOffset="0%" textAnchor="start" />
+          <ArcLabel id="y1" cx={cx} cy={cy} r={year1LabelR} start={0} end={60} text={"Year 1"} fill="#000" fontSize={9} fontWeight="600" startOffset="0%" textAnchor="start" />
         </g>
         <g style={fadeStyleY2}>
-          <ArcLabel id="y2" cx={cx} cy={cy} r={year2LabelR} start={0} end={60} text={"Year 2"} fill="#000" fontSize={10} fontWeight="600" startOffset="0%" textAnchor="start" />
+          <ArcLabel id="y2" cx={cx} cy={cy} r={year2LabelR} start={0} end={60} text={"Year 2"} fill="#000" fontSize={9} fontWeight="600" startOffset="0%" textAnchor="start" />
         </g>
         <g style={fadeStyleY3}>
-          <ArcLabel id="y3" cx={cx} cy={cy} r={year3LabelR} start={0} end={60} text={"Year 3"} fill="#000" fontSize={10} fontWeight="600" startOffset="0%" textAnchor="start" />
+          <ArcLabel id="y3" cx={cx} cy={cy} r={year3LabelR} start={0} end={60} text={"Year 3"} fill="#000" fontSize={9} fontWeight="600" startOffset="0%" textAnchor="start" />
         </g>
 
         {/* Programme ring (home view) — rotates on click, fades when a module is selected */}
@@ -592,14 +599,14 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
             const arcTrim = a.trimmed || { start: a.start, end: a.end };
             const lines = splitLabel(a.name || a.id);
             const hasTwo = !!lines[1];
-            const rFirst = hasTwo ? (r + 4) : (r - 2); // when split, push first line outward
-            const rSecond = r - 10; // bring second line a touch closer to centre
+            const rFirst = hasTwo ? (r + DOUBLE_LINE_OUTER_OFFSET) : (r + SINGLE_LINE_OFFSET);
+            const rSecond = r + DOUBLE_LINE_INNER_OFFSET;
             return (
               <g key={a.id}>
                 <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[0]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + LABEL_ARC_INSET} end={arcTrim.end - LABEL_ARC_INSET} text={lines[0]} fontSize={LABEL_FONT_SIZE} fontWeight={LABEL_FONT_WEIGHT} fill={labelFillFor(a.id)} />
                 {lines[1] && (
-                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[1]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + LABEL_ARC_INSET} end={arcTrim.end - LABEL_ARC_INSET} text={lines[1]} fontSize={LABEL_FONT_SIZE} fontWeight={LABEL_FONT_WEIGHT} fill={labelFillFor(a.id)} />
                 )}
               </g>
             );
@@ -613,14 +620,14 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
             const arcTrim = a.trimmed || { start: a.start, end: a.end };
             const lines = splitLabel(a.name || a.id);
             const hasTwo = !!lines[1];
-            const rFirst = hasTwo ? (r + 6) : (r - 2);
-            const rSecond = r - 8;
+            const rFirst = hasTwo ? (r + DOUBLE_LINE_OUTER_OFFSET) : (r + SINGLE_LINE_OFFSET);
+            const rSecond = r + DOUBLE_LINE_INNER_OFFSET;
             return (
               <g key={a.id}>
                 <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[0]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + LABEL_ARC_INSET} end={arcTrim.end - LABEL_ARC_INSET} text={lines[0]} fontSize={LABEL_FONT_SIZE} fontWeight={LABEL_FONT_WEIGHT} fill={labelFillFor(a.id)} />
                 {lines[1] && (
-                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[1]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + LABEL_ARC_INSET} end={arcTrim.end - LABEL_ARC_INSET} text={lines[1]} fontSize={LABEL_FONT_SIZE} fontWeight={LABEL_FONT_WEIGHT} fill={labelFillFor(a.id)} />
                 )}
               </g>
             );
@@ -635,14 +642,14 @@ export default function CompassChart({ width = 700, height = 700, padding = 3, c
             const arcTrim = a.trimmed || { start: a.start, end: a.end };
             const lines = splitLabel(a.name || a.id);
             const hasTwo = !!lines[1];
-            const rFirst = hasTwo ? (r + 6) : (r - 2);
-            const rSecond = r - 8;
+            const rFirst = hasTwo ? (r + DOUBLE_LINE_OUTER_OFFSET) : (r + SINGLE_LINE_OFFSET);
+            const rSecond = r + DOUBLE_LINE_INNER_OFFSET;
             return (
               <g key={a.id}>
                 <path d={arcPath(cx, cy, r, arcTrim.start, arcTrim.end)} stroke={strokeFor(a.id)} strokeWidth={strokeW} strokeLinecap="butt" fill="none" onMouseEnter={() => setHovered(a.id)} onMouseLeave={() => setHovered(null)} onClick={selectAndRotate(a.id, { start: a.start, end: a.end })} style={{ cursor: 'pointer', transition: 'stroke 280ms ease' }} />
-                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[0]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                <ArcLabel id={`lbl1-${a.id}`} cx={cx} cy={cy} r={rFirst} start={arcTrim.start + LABEL_ARC_INSET} end={arcTrim.end - LABEL_ARC_INSET} text={lines[0]} fontSize={LABEL_FONT_SIZE} fontWeight={LABEL_FONT_WEIGHT} fill={labelFillFor(a.id)} />
                 {lines[1] && (
-                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + 2} end={arcTrim.end - 2} text={lines[1]} fontSize={11} fontWeight="700" fill={labelFillFor(a.id)} />
+                  <ArcLabel id={`lbl2-${a.id}`} cx={cx} cy={cy} r={rSecond} start={arcTrim.start + LABEL_ARC_INSET} end={arcTrim.end - LABEL_ARC_INSET} text={lines[1]} fontSize={LABEL_FONT_SIZE} fontWeight={LABEL_FONT_WEIGHT} fill={labelFillFor(a.id)} />
                 )}
               </g>
             );

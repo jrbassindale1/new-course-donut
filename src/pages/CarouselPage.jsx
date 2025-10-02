@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { setAnalyticsContext, trackEvent, trackTiming } from "../lib/analytics.js";
 
 const PLACEHOLDER_IMAGES = [
   {
@@ -24,24 +25,86 @@ const AUTO_PLAY_INTERVAL = 5000;
 export default function CarouselPage({ onNavigate }) {
   const images = useMemo(() => PLACEHOLDER_IMAGES, []);
   const [activeIndex, setActiveIndex] = useState(0);
+  const slideTimerRef = useRef({ index: null, startedAt: 0 });
+  const changeMetaRef = useRef({ method: "initial" });
+
+  const now = useCallback(() => {
+    if (typeof performance !== "undefined" && typeof performance.now === "function") {
+      return performance.now();
+    }
+    return Date.now();
+  }, []);
+
+  const flushSlideDuration = useCallback((reason) => {
+    if (typeof window === "undefined") return;
+    const { index: previousIndex, startedAt } = slideTimerRef.current;
+    if (previousIndex == null || !startedAt) return;
+    const elapsed = now() - startedAt;
+    if (elapsed <= 0) return;
+    const meta = changeMetaRef.current || {};
+    trackTiming("carousel_slide_duration", elapsed, {
+      slide_index: previousIndex,
+      reason,
+      method: meta.method,
+    });
+    slideTimerRef.current = { index: null, startedAt: 0 };
+  }, [now]);
 
   useEffect(() => {
     const id = window.setInterval(() => {
+      changeMetaRef.current = { method: "auto" };
       setActiveIndex((index) => (index + 1) % images.length);
     }, AUTO_PLAY_INTERVAL);
     return () => window.clearInterval(id);
   }, [images.length]);
 
-  const goToSlide = (nextIndex) => {
-    setActiveIndex(((nextIndex % images.length) + images.length) % images.length);
-  };
+  const goToSlide = useCallback((nextIndex, meta = { method: "programmatic" }) => {
+    changeMetaRef.current = meta;
+    setActiveIndex((current) => {
+      const length = images.length;
+      if (!length) return current;
+      const next = ((nextIndex % length) + length) % length;
+      trackEvent("carousel_interaction", {
+        method: meta.method,
+        from_index: current,
+        to_index: next,
+        total_slides: length,
+      });
+      return next;
+    });
+  }, [images.length]);
 
   const handleNavigateHome = (event) => {
     if (onNavigate) {
       event?.preventDefault?.();
+      trackEvent("carousel_link_click", {
+        target_view: "chart",
+        control: "back_to_overview",
+      });
       onNavigate("chart");
     }
   };
+
+  useEffect(() => {
+    const meta = changeMetaRef.current || {};
+    const timestamp = now();
+    const slide = images?.[activeIndex] || {};
+    slideTimerRef.current = { index: activeIndex, startedAt: timestamp };
+    setAnalyticsContext({ carousel_slide_index: activeIndex });
+    trackEvent("carousel_slide_view", {
+      slide_index: activeIndex,
+      slide_alt: slide.alt,
+      method: meta.method,
+    });
+
+    return () => {
+      flushSlideDuration("slide_change");
+    };
+  }, [activeIndex, flushSlideDuration, images, now]);
+
+  useEffect(() => () => {
+    flushSlideDuration("carousel_unmount");
+  }, [flushSlideDuration]);
 
   return (
     <div className="app-shell carousel-page">
@@ -71,7 +134,7 @@ export default function CarouselPage({ onNavigate }) {
           <button
             type="button"
             className="btn ghost"
-            onClick={() => goToSlide(activeIndex - 1)}
+            onClick={() => goToSlide(activeIndex - 1, { method: "button_previous" })}
             aria-label="Previous image"
           >
             ‹
@@ -85,14 +148,14 @@ export default function CarouselPage({ onNavigate }) {
                 aria-label={`Show slide ${index + 1}`}
                 aria-selected={index === activeIndex}
                 role="tab"
-                onClick={() => goToSlide(index)}
+                onClick={() => goToSlide(index, { method: "dot_click" })}
               />
             ))}
           </div>
           <button
             type="button"
             className="btn ghost"
-            onClick={() => goToSlide(activeIndex + 1)}
+            onClick={() => goToSlide(activeIndex + 1, { method: "button_next" })}
             aria-label="Next image"
           >
             ›

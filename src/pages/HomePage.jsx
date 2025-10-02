@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import CompassChart from "../components/CompassChart.jsx";
 import moduleInfo from "../data/moduleInfo.json";
 import programmeInfo from "../data/programmeInfo.json";
+import { trackEvent } from "../lib/analytics.js";
 
 const MotionDiv = motion.div;
 
@@ -12,6 +13,9 @@ export default function HomePage({ onNavigate }) {
   const [resetSignal, setResetSignal] = useState(0);
 
   const handleReset = () => {
+    trackEvent("chart_reset", {
+      had_selection: Boolean(infoModuleId) || Boolean(infoKey),
+    });
     setInfoModuleId(null);
     setInfoKey(null);
     setResetSignal((value) => value + 1);
@@ -20,6 +24,10 @@ export default function HomePage({ onNavigate }) {
   const handleNavigateToCarousel = (event) => {
     if (onNavigate) {
       event?.preventDefault?.();
+      trackEvent("chart_link_click", {
+        target_view: "gallery",
+        control: "view_carousel_button",
+      });
       onNavigate("gallery");
     }
   };
@@ -33,9 +41,6 @@ export default function HomePage({ onNavigate }) {
             <a className="btn secondary" href="#/gallery" onClick={handleNavigateToCarousel}>
               View Image Carousel
             </a>
-            <button className="btn" type="button" onClick={handleReset}>
-              Reset Chart
-            </button>
           </div>
         </div>
         <div className="panel chart-panel">
@@ -44,9 +49,16 @@ export default function HomePage({ onNavigate }) {
           </div>
           <div className="chart-wrapper">
             <div className="chart-inner">
+              <button className="btn chart-reset-button" type="button" onClick={handleReset}>
+                Reset Chart
+              </button>
               <CompassChart
                 resetSignal={resetSignal}
                 onInfoSelect={(id, key) => {
+                  trackEvent("chart_info_select", {
+                    module_id: id,
+                    info_key: key,
+                  });
                   setInfoModuleId(id);
                   setInfoKey(key);
                 }}

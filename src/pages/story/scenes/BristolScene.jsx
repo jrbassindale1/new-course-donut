@@ -7,8 +7,17 @@ export default function BristolScene({ scene }) {
       <div className="story-bristol-grid">
         {(scene?.sections || []).map((section) => (
           <article key={section.title} className="story-bristol-card">
-            {section?.title ? <h3>{section.title}</h3> : null}
-            {section?.copy ? <p>{section.copy}</p> : null}
+            {section?.image ? (
+              <div className="story-bristol-card__media">
+                <img src={section.image} alt={section.alt || section.title || ""} loading="lazy" />
+              </div>
+            ) : null}
+            {section?.title || section?.copy ? (
+              <div className="story-bristol-card__body">
+                {section?.title ? <h3>{section.title}</h3> : null}
+                {section?.copy ? <p>{section.copy}</p> : null}
+              </div>
+            ) : null}
           </article>
         ))}
       </div>
