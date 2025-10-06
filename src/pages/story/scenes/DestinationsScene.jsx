@@ -95,6 +95,15 @@ export default function DestinationsScene({ scene }) {
           );
         })}
       </div>
+      {scene?.footerNote ? (
+        <div className="story-destinations-note">
+          {(Array.isArray(scene.footerNote) ? scene.footerNote : [scene.footerNote]).map(
+            (paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ),
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }

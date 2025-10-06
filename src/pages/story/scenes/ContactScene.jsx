@@ -51,12 +51,37 @@ export default function ContactScene({ scene }) {
           <h2>How to apply</h2>
           {Array.isArray(scene?.apply?.details) && scene.apply.details.length > 0 ? (
             <ul className="story-contact-apply-details">
-              {scene.apply.details.map((row) => (
-                <li key={row.label}>
-                  <span>{row.label}</span>
-                  <strong>{row.value}</strong>
-                </li>
-              ))}
+              {scene.apply.details.map((row) => {
+                const note = row?.note;
+                const renderNote = () => {
+                  if (!note) return null;
+                  if (typeof note === "string") {
+                    return <span className="story-contact-apply-note">{note}</span>;
+                  }
+                  const { prefix = "", linkHref, linkLabel = "", suffix = "" } = note;
+                  return (
+                    <span className="story-contact-apply-note">
+                      {prefix}
+                      {linkHref ? (
+                        <a href={linkHref} target="_blank" rel="noreferrer">
+                          {linkLabel || linkHref}
+                        </a>
+                      ) : (
+                        linkLabel
+                      )}
+                      {suffix}
+                    </span>
+                  );
+                };
+
+                return (
+                  <li key={row.label}>
+                    <span>{row.label}</span>
+                    <strong>{row.value}</strong>
+                    {renderNote()}
+                  </li>
+                );
+              })}
             </ul>
           ) : null}
           {scene?.apply?.href ? (
@@ -70,6 +95,10 @@ export default function ContactScene({ scene }) {
             </a>
           ) : null}
         </div>
+        <p className="story-contact-disclaimer">
+          We change the course to keep up with latest developments and requirements so information in this
+          presentation is subject to change.
+        </p>
       </div>
     </div>
   );

@@ -24,6 +24,7 @@ export default function StoryPage() {
     total,
   } = useStoryState(SCENES);
   const sceneTimerRef = useRef({ sceneId: null, startedAt: 0, index: null });
+  const stageRef = useRef(null);
 
   const flushSceneDuration = useCallback((reason) => {
     if (typeof window === "undefined") return;
@@ -102,6 +103,32 @@ export default function StoryPage() {
     baseHandleSelect(targetIndex);
   }, [baseHandleSelect, index, scene, total]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const stageEl = stageRef.current;
+    if (!stageEl) return undefined;
+
+    const scrollToTop = () => {
+      if (typeof stageEl.scrollTo === "function") {
+        stageEl.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      } else {
+        stageEl.scrollTop = 0;
+      }
+    };
+
+    const isMobileViewport = typeof window.matchMedia === "function"
+      ? window.matchMedia("(max-width: 900px)").matches
+      : window.innerWidth <= 900;
+    if (!isMobileViewport) {
+      // Ensure the desktop view also resets when scenes change, even though it normally doesn't scroll.
+      scrollToTop();
+      return undefined;
+    }
+
+    const rafId = window.requestAnimationFrame(scrollToTop);
+    return () => window.cancelAnimationFrame(rafId);
+  }, [index]);
+
   if (!scene) {
     return (
       <div className="story-page">
@@ -129,6 +156,7 @@ export default function StoryPage() {
         role="group"
         aria-roledescription="Slide"
         aria-label={scene.label}
+        ref={stageRef}
       >
         <SceneRenderer scene={scene} />
       </div>

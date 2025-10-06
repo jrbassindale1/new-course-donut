@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import uweLogo from "../assets/1280px-UWE_Bristol_logo.svg copy.jpg";
 
 const KEYWORDS = [
   "Transforming Futures",
@@ -511,6 +512,7 @@ export default function FrontagePage({ onNavigate }) {
       }}
     >
       <span className="frontage-sr">Explore the programme overview</span>
+      <img className="frontage-logo" src={uweLogo} alt="UWE Bristol logo" />
       <div className="frontage-inner">
         <div
           ref={titleRef}
@@ -522,7 +524,7 @@ export default function FrontagePage({ onNavigate }) {
             BSc (Hons) Architecture
           </span>
           <span className="frontage-title-line secondary" style={{ fontSize: "clamp(16px, 4vw, 32px)", color: "#000" }}>
-            @ UWE Bristol
+            Open Day
           </span>
         </div>
         <div className="frontage-cloud" aria-hidden="true" style={{ zIndex: 3 }}>
@@ -539,7 +541,7 @@ export default function FrontagePage({ onNavigate }) {
         </div>
       </div>
       <span id="frontage-hint" className="frontage-hint" aria-hidden="true">
-        Click anywhere to watch the introduction video
+        Click anywhere to start
       </span>
     </div>
   );

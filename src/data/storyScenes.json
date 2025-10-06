@@ -42,6 +42,10 @@
           "link": "https://people.uwe.ac.uk/Person/EduardoCosta",
           "image": "images/leaders/eduardo-costa.jpg"
         }
+      ],
+      "footerNote": [
+        "...and lots more.",
+        "We are also proud that some of our students have undertaken their postgraduate studies at other prestigious Universities."
       ]
     },
     {
@@ -53,24 +57,21 @@
         {
           "title": "Culture & Creativity",
           "copy": "Independent galleries, design festivals and Bristol’s street art scene keep inspiration close.",
-          "image": "images/story/bristol1.jpg",
-          "alt": "Crowds celebrating at St Paul's Carnival in Bristol"
+          "image": "images/story/bristol1.jpg"
         },
         {
           "title": "Green Capital",
           "copy": "The UK’s first European Green Capital with ambitious climate goals and city-wide live projects.",
-          "image": "images/story/bristol2.jpg",
-          "alt": "View across Bristol's harbourside with colourful houses"
+          "image": "images/story/bristol2.jpg"
         },
         {
           "title": "Connected Campus",
-          "copy": "City Campus sites are minutes apart by bus or bike, with harbour-side spots for crits and meetups.",
-          "image": "images/story/bristol3.jpg",
-          "alt": "Students cycling through Bristol city centre"
+            "copy": "Frenchay Campus is well-connected with excellent transport links, including buses, trains, and cycle routes, making it easy to access from across the city.",
+          "image": "images/story/bristol3.jpg"
         }
       ],
       "link": {
-        "label": "Discover Bristol — uwe.ac.uk",
+        "label": "Discover more about Bristol on the UWE website",
         "href": "https://www.uwe.ac.uk/life/discover-bristol"
       }
     },
@@ -145,12 +146,6 @@
             "Humanities"
           ]
         }
-      ],
-      "outcomeCodes": [
-        "PO1",
-        "PO2",
-        "PO7",
-        "PO8"
       ]
     },
     {
@@ -185,12 +180,6 @@
             "Humanities"
           ]
         }
-      ],
-      "outcomeCodes": [
-        "PO3",
-        "PO4",
-        "PO9",
-        "PO10"
       ]
     },
     {
@@ -225,44 +214,37 @@
             "Humanities"
           ]
         }
-      ],
-      "outcomeCodes": [
-        "PO3",
-        "PO5",
-        "PO6",
-        "PO9"
-      ],
-      "footnote": "The BSc satisfies the academic requirement for ARB Part 1. Part 2 and Part 3 follow through postgraduate study and professional practice."
-    },
-    {
-      "id": "studio",
-      "label": "Studio",
-      "title": "The Studio is the Heart",
-      "headline": "Connected CAD studios with model-making, laser cutting and workshops minutes apart.",
-      "pins": [
-        {
-          "id": "cad",
-          "title": "Integrated CAD Studios",
-          "media": "videos/facilities/cad-loop.mp4",
-          "fallback": "images/facilities/cad.jpg",
-          "caption": "Students move seamlessly between digital modelling and desk critiques."
-        },
-        {
-          "id": "model-making",
-          "title": "Model Making Lab",
-          "media": "videos/facilities/model-loop.mp4",
-          "fallback": "images/facilities/model-lab.jpg",
-          "caption": "Technicians support quick prototyping and material exploration."
-        },
-        {
-          "id": "workshops",
-          "title": "Workshops",
-          "media": "videos/facilities/workshop-loop.mp4",
-          "fallback": "images/facilities/workshop.jpg",
-          "caption": "Wood, metal and concrete workshops for large-scale testing."
-        }
       ]
     },
+    {
+  "id": "studio",
+  "label": "Studio",
+  "title": "The Studio at the Heart",
+  "headline": "Our studios are the beating heart of the course — where design, debate and making come together every day.",
+  "pins": [
+    {
+      "id": "cad",
+      "title": "Digital & CAD Studios",
+      "media": "images/rblock/Picture 1-1.jpg",
+      "fallback": "images/rblock/Picture%201-1.jpg",
+      "caption": "Light-filled studios connect digital modelling with lively desk-based tutorials — a space to think, share, and grow as a designer."
+    },
+    {
+      "id": "model-making",
+      "title": "Model Making & 3D Printing",
+      "media": "images/rblock/Picture 1-2.jpg",
+      "fallback": "images/rblock/Picture%201-2.jpg",
+      "caption": "From laser cutting to 3D printing, students prototype ideas at speed — testing concepts through hands-on making."
+    },
+    {
+      "id": "workshops",
+      "title": "Workshops & Fabrication",
+      "media": "images/rblock/Picture 1-3.jpg",
+      "fallback": "images/rblock/Picture%201-3.jpg",
+      "caption": "Wood, metal and fabrication workshops give the freedom to work at scale, pushing creativity from sketch to structure."
+    }
+  ]
+},
     {
       "id": "chart",
       "label": "Chart",
@@ -274,37 +256,37 @@
       }
     },
     {
-      "id": "projects",
-      "label": "Live",
-      "title": "Live Projects • Fieldwork • Bristol as Lab",
-      "headline": "We take the city as our test bed with live briefs and community partners.",
-      "tiles": [
-        {
-          "id": "live-projects",
-          "title": "Live Projects",
-          "image": "images/projects/live-projects.jpg",
-          "caption": "Community-led briefs across Bristol neighbourhoods."
-        },
-        {
-          "id": "fieldwork",
-          "title": "Fieldwork",
-          "image": "images/projects/fieldwork.jpg",
-          "caption": "Urban mapping and site analysis from Clifton to Stokes Croft."
-        },
-        {
-          "id": "inclusive",
-          "title": "Inclusivity",
-          "image": "images/projects/inclusive.jpg",
-          "caption": "Co-design with users to embed inclusive practice early."
-        },
-        {
-          "id": "sustainability",
-          "title": "Sustainability",
-          "image": "images/projects/sustainability.jpg",
-          "caption": "Studio questions circular materials and resilient systems."
-        }
-      ]
+  "id": "projects",
+  "label": "Live",
+  "title": "Live Projects • Fieldwork • Bristol as Lab",
+  "headline": "We treat the city as a design laboratory — learning through action, making, and collaboration.",
+  "tiles": [
+    {
+      "id": "live-projects",
+      "title": "Live Projects",
+      "image": "images/citylab/Picture 3.webp",
+      "caption": "Students co-create with communities — from gardens and installations to civic spaces that make a visible difference."
     },
+    {
+      "id": "fieldwork",
+      "title": "Fieldwork",
+      "image": "images/citylab/Picture 1.webp",
+      "caption": "Observation, sketching and mapping on site — design begins with being present, noticing, and engaging directly with place."
+    },
+    {
+      "id": "inclusive",
+      "title": "Inclusive Practice",
+      "image": "images/citylab/Picture 2.webp",
+      "caption": "Building together — real structures and shared spaces emerge through collaboration, testing inclusivity in practice."
+    },
+    {
+      "id": "sustainability",
+      "title": "Sustainability",
+      "image": "images/citylab/Picture 4.webp",
+      "caption": "From hempcrete to circular design, our projects challenge material conventions and explore resilient futures."
+    }
+  ]
+},
     {
       "id": "global",
       "label": "Global",
@@ -421,32 +403,55 @@
         }
       ]
     },
+    
+      {
+  "id": "outcomes",
+  "label": "Outcomes",
+  "title": "Ranked, recognised, and ready for practice",
+  "headline": "Independent survey data shows the impact of studying Architecture at UWE Bristol.",
+  "stats": [
     {
-      "id": "outcomes",
-      "label": "Outcomes",
-      "title": "What grads say (data, not fluff)",
-      "headline": "Independent Discover Uni data keeps us accountable.",
-      "stats": [
-        {
-          "id": "employment",
-          "metric": "Employed or in further study",
-          "value": "92%",
-          "source": "Discover Uni 2023"
-        },
-        {
-          "id": "support",
-          "metric": "Teaching & academic support satisfaction",
-          "value": "88%",
-          "source": "Discover Uni 2023"
-        },
-        {
-          "id": "earnings",
-          "metric": "Median earnings (15 months)",
-          "value": "£26,000",
-          "source": "Discover Uni 2023"
-        }
-      ]
+      "id": "guardian-rank",
+      "metric": "Top 15 in the UK for Architecture",
+      "value": "13th",
+      "source": "Guardian University Guide 2026"
     },
+    {
+      "id": "support",
+      "metric": "Students supported by staff",
+      "value": "94%",
+      "source": "NSS 2024"
+    },
+    {
+      "id": "views",
+      "metric": "Students say their views are valued",
+      "value": "94%",
+      "source": "NSS 2024"
+    },
+    {
+      "id": "feedback",
+      "metric": "Students say feedback improved their work",
+      "value": "94%",
+      "source": "NSS 2024"
+    },
+    {
+      "id": "continuation",
+      "metric": "Students still studying after year 1",
+      "value": "95%",
+      "source": "Discover Uni 2024"
+    },
+    {
+      "id": "earnings",
+      "metric": "Median earnings 15 months after graduation",
+      "value": "£25,000",
+      "source": "Graduate Outcomes 2023"
+    }
+  ],
+  "narrative": {
+    "title": "Your Student Experience",
+    "text": "Studying Architecture at UWE Bristol means joining a course where your experience is at the centre. You’ll be supported by committed tutors, work alongside peers in an inclusive community, and gain confidence through mentoring with practising architects. Our students don’t just learn — they make an impact. Recent graduates have won RIBA and Civic Trust awards and been nominated for the RIBA President’s Medal, showing how experience translates into nationally recognised achievement. You’ll graduate prepared for both practice and the wider world."
+  }
+},
     {
       "id": "pathway",
       "label": "Next",
@@ -588,6 +593,10 @@
           "alt": "AtkinsRéalis Bahrain WTC",
           "link": "https://www.atkinsrealis.com/"
         }
+      ],
+      "footerNote": [
+        "...and lots more.",
+        "We are also proud that some of our students have undertaken their postgraduate studies at other prestigious Universities."
       ]
     },
     {
@@ -669,7 +678,7 @@
         },
         {
           "label": "International applications",
-          "href": "https://www.uwe.ac.uk/international/applying"
+          "href": "https://www.uwe.ac.uk/courses/applying/international-applications"
         }
       ],
       "apply": {
@@ -689,8 +698,14 @@
             "value": "School of Architecture and Environment"
           },
           {
-            "label": "Tariff points",
-            "value": "136"
+            "label": "UCAS Tariff points",
+            "value": "136",
+            "note": {
+              "prefix": "(If you don’t meet the entry requirements you may be eligible for the ",
+              "linkLabel": "Foundation Course",
+              "linkHref": "https://courses.uwe.ac.uk/K10F/architecture-with-foundation-year",
+              "suffix": ")"
+            }
           },
           {
             "label": "Campus",

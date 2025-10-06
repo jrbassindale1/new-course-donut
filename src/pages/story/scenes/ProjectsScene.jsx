@@ -4,15 +4,22 @@ export default function ProjectsScene({ scene }) {
   return (
     <div className="story-scene story-scene--projects">
       <SceneHeading scene={scene} />
-      <div className="story-projects-grid">
+      <div className="story-studio-grid story-projects-grid">
         {(scene?.tiles || []).map((tile) => (
-          <button key={tile.id} type="button" className="story-project-card">
-            <div className="story-project-media" style={{ backgroundImage: `url(${tile?.image || ""})` }} />
-            <div className="story-project-overlay">
-              {tile?.title ? <h3>{tile.title}</h3> : null}
-              {tile?.caption ? <p>{tile.caption}</p> : null}
+          <article key={tile.id} className="story-pin-card story-project-card">
+            <div className="story-pin-media" aria-hidden="true">
+              <div
+                className="story-pin-thumb"
+                style={tile?.image ? { backgroundImage: `url("${tile.image}")` } : undefined}
+              />
             </div>
-          </button>
+            {(tile?.title || tile?.caption) ? (
+              <div className="story-pin-body">
+                {tile?.title ? <h3>{tile.title}</h3> : null}
+                {tile?.caption ? <p>{tile.caption}</p> : null}
+              </div>
+            ) : null}
+          </article>
         ))}
       </div>
     </div>

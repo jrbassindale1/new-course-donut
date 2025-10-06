@@ -10,6 +10,10 @@ export default function ChartScene({ scene }) {
   const [chartSize, setChartSize] = useState(480);
   const canvasRef = useRef(null);
 
+  const MIN_CHART_SIZE = 260;
+  const DETAIL_MIN_WIDTH = 260;
+  const STACK_BREAKPOINT = "(max-width: 960px)";
+
   const handleReset = () => {
     setSelected({ moduleId: null, key: null });
     setResetSignal((value) => value + 1);
@@ -22,14 +26,38 @@ export default function ChartScene({ scene }) {
 
     const getSafeSize = () => {
       const rect = node.getBoundingClientRect();
-      const width = rect.width || 0;
-      const height = rect.height || 0;
       const top = rect.top || 0;
-      const viewportHeight = window.innerHeight || height;
-      const verticalAllowance = viewportHeight - top - 32;
-      const maxHeight = Math.max(260, Math.min(height, verticalAllowance));
-      const maxWidth = Math.max(260, width - 24);
-      const size = Math.max(260, Math.min(maxWidth, maxHeight));
+      const viewportHeight = window.innerHeight || rect.height || 0;
+      const stage = node.closest && node.closest(".story-stage");
+      let stagePaddingBottom = 24;
+      if (stage) {
+        const stageStyles = window.getComputedStyle(stage);
+        stagePaddingBottom = Math.max(stagePaddingBottom, Number.parseFloat(stageStyles.paddingBottom) || 0);
+      }
+      const verticalAllowance = Math.max(MIN_CHART_SIZE, viewportHeight - top - stagePaddingBottom);
+
+      let containerWidth = rect.width || 0;
+      let gap = 0;
+
+      const container = node.parentElement;
+      if (container) {
+        const containerRect = container.getBoundingClientRect();
+        containerWidth = containerRect.width || containerWidth;
+        const computed = window.getComputedStyle(container);
+        const maybeGap = computed.columnGap || computed.gap || "0";
+        gap = Number.parseFloat(maybeGap) || 0;
+      }
+
+      const isStacked = typeof window !== "undefined" && window.matchMedia && window.matchMedia(STACK_BREAKPOINT).matches;
+      let horizontalAllowance = containerWidth;
+      if (!isStacked) {
+        horizontalAllowance = containerWidth - DETAIL_MIN_WIDTH - gap;
+      }
+      horizontalAllowance = Math.max(MIN_CHART_SIZE, Math.min(horizontalAllowance, containerWidth));
+
+      const maxHeight = Math.max(MIN_CHART_SIZE, verticalAllowance);
+      const maxWidth = Math.max(MIN_CHART_SIZE, horizontalAllowance);
+      const size = Math.max(MIN_CHART_SIZE, Math.min(maxWidth, maxHeight));
       setChartSize(size);
     };
 
@@ -119,7 +147,7 @@ export default function ChartScene({ scene }) {
   return (
     <div className="story-scene story-scene--chart">
       <SceneHeading scene={scene} />
-      <div className="story-chart">
+      <div className="story-chart" style={{ "--chart-size": `${chartSize}px` }}>
         <aside className="story-chart-detail">
           <h2>{detail.title}</h2>
           {detail.body.map((paragraph, index) => (
@@ -130,10 +158,14 @@ export default function ChartScene({ scene }) {
           <button className="btn story-chart-reset" type="button" onClick={handleReset}>
             Reset Chart
           </button>
-          <div className="story-chart-inner" style={{ width: chartSize, height: chartSize }}>
+          <div
+            className="story-chart-inner"
+            style={{ width: chartSize, height: chartSize, maxWidth: "100%", maxHeight: "100%" }}
+          >
             <CompassChart
               width={chartSize}
               height={chartSize}
+              padding={0}
               resetSignal={resetSignal}
               onInfoSelect={(moduleId, key) => setSelected({ moduleId, key })}
             />

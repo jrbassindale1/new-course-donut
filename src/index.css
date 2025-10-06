@@ -418,6 +418,25 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   justify-content: center;
 }
 
+.frontage-logo {
+  position: absolute;
+  top: clamp(18px, 6vw, 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(180px, 28vw, 320px);
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 28px rgba(15, 23, 42, 0.2));
+}
+
+@media (max-width: 640px) {
+  .frontage-logo {
+    top: clamp(12px, 8vw, 32px);
+    width: clamp(150px, 42vw, 240px);
+  }
+}
+
 @supports not (aspect-ratio: 1 / 1) {
   .frontage-inner {
     height: min(70vh, 640px);

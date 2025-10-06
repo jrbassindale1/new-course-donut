@@ -14,7 +14,7 @@ export default function LeadersScene({ scene }) {
               {leader?.bio ? <p>{leader.bio}</p> : null}
               {leader?.link ? (
                 <a
-                  className="story-leader-link"
+                  className="btn secondary story-leader-link"
                   href={leader.link}
                   target="_blank"
                   rel="noopener noreferrer"
