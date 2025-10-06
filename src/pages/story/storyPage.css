@@ -998,9 +998,12 @@
   gap: 12px;
 }
 
+/* the image itself multiplies with whatever is behind it */
 .story-contact-qr img {
-  width: min(200px, 100%);
+  mix-blend-mode: multiply;
+  width: min(300px, 100%);
   height: auto;
+  display: block;
 }
 
 .story-contact-qr span {

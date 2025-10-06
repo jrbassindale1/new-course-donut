@@ -3,7 +3,7 @@ import SceneRenderer from "./SceneRenderer.jsx";
 import StoryTopBar from "./components/StoryTopBar.jsx";
 import { useStoryState } from "./hooks/useStoryState.js";
 import storyScenes from "../../data/storyScenes.json";
-import uweLogo from "../../assets/1280px-UWE_Bristol_logo.svg copy.jpg";
+import uweLogo from "../../assets/uwe-bristol-logo.jpg";
 import "./storyPage.css";
 import { setAnalyticsContext, trackEvent, trackTiming } from "../../lib/analytics.js";
 

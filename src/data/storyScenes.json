@@ -24,7 +24,7 @@
           "role": "Programme Leader (Studio & Design)",
           "bio": "Yahya makes sure studio projects are exciting and connected to real communities, and he’s passionate about creative design ideas that make a difference.",
           "link": "https://people.uwe.ac.uk/Person/YahyaLavafPour",
-          "image": "images/leaders/yahya-lavafpour.jpg"
+          "image": "/images/leaders/yahya-lavafpour.jpg"
         },
         {
           "id": "leader-tech",
@@ -32,7 +32,7 @@
           "role": "Programme Leader (Technology & Environment)",
           "bio": "Eleonora focuses on how buildings use energy and how design can help tackle climate change. She encourages students to explore new materials, technology and zero-carbon design.",
           "link": "https://people.uwe.ac.uk/Person/EleonoraNicoletti",
-          "image": "images/leaders/eleonora-nicoletti.jpg"
+          "image": "/images/leaders/eleonora-nicoletti.jpg"
         },
         {
           "id": "leader-digital",
@@ -40,7 +40,7 @@
           "role": "Programme Leader (Digital Design)",
           "bio": "Eduardo helps students use digital tools to design and make things. From 3D modelling to laser-cutting and new software, he shows how technology can expand your creativity.",
           "link": "https://people.uwe.ac.uk/Person/EduardoCosta",
-          "image": "images/leaders/eduardo-costa.jpg"
+          "image": "/images/leaders/eduardo-costa.jpg"
         }
       ],
       "footerNote": [
@@ -57,17 +57,17 @@
         {
           "title": "Culture & Creativity",
           "copy": "Independent galleries, design festivals and Bristol’s street art scene keep inspiration close.",
-          "image": "images/story/bristol1.jpg"
+          "image": "/images/story/bristol1.jpg"
         },
         {
           "title": "Green Capital",
           "copy": "The UK’s first European Green Capital with ambitious climate goals and city-wide live projects.",
-          "image": "images/story/bristol2.jpg"
+          "image": "/images/story/bristol2.jpg"
         },
         {
           "title": "Connected Campus",
             "copy": "Frenchay Campus is well-connected with excellent transport links, including buses, trains, and cycle routes, making it easy to access from across the city.",
-          "image": "images/story/bristol3.jpg"
+          "image": "/images/story/bristol3.jpg"
         }
       ],
       "link": {
@@ -104,7 +104,7 @@
       ],
       "background": {
         "type": "image",
-        "src": "images/story/rblock.jpg",
+        "src": "/images/story/rblock.jpg",
         "alt": "R-Block building at UWE Bristol",
         "keywords": [
           "Sustainable",
@@ -225,22 +225,22 @@
     {
       "id": "cad",
       "title": "Digital & CAD Studios",
-      "media": "images/rblock/Picture 1-1.jpg",
-      "fallback": "images/rblock/Picture%201-1.jpg",
+      "media": "/images/rblock/picture-1-1.jpg",
+      "fallback": "/images/rblock/picture-1-1.jpg",
       "caption": "Light-filled studios connect digital modelling with lively desk-based tutorials — a space to think, share, and grow as a designer."
     },
     {
       "id": "model-making",
       "title": "Model Making & 3D Printing",
-      "media": "images/rblock/Picture 1-2.jpg",
-      "fallback": "images/rblock/Picture%201-2.jpg",
+      "media": "/images/rblock/picture-1-2.jpg",
+      "fallback": "/images/rblock/picture-1-2.jpg",
       "caption": "From laser cutting to 3D printing, students prototype ideas at speed — testing concepts through hands-on making."
     },
     {
       "id": "workshops",
       "title": "Workshops & Fabrication",
-      "media": "images/rblock/Picture 1-3.jpg",
-      "fallback": "images/rblock/Picture%201-3.jpg",
+      "media": "/images/rblock/picture-1-3.jpg",
+      "fallback": "/images/rblock/picture-1-3.jpg",
       "caption": "Wood, metal and fabrication workshops give the freedom to work at scale, pushing creativity from sketch to structure."
     }
   ]
@@ -264,25 +264,25 @@
     {
       "id": "live-projects",
       "title": "Live Projects",
-      "image": "images/citylab/Picture 3.webp",
+      "image": "/images/citylab/picture-3.webp",
       "caption": "Students co-create with communities — from gardens and installations to civic spaces that make a visible difference."
     },
     {
       "id": "fieldwork",
       "title": "Fieldwork",
-      "image": "images/citylab/Picture 1.webp",
+      "image": "/images/citylab/picture-1.webp",
       "caption": "Observation, sketching and mapping on site — design begins with being present, noticing, and engaging directly with place."
     },
     {
       "id": "inclusive",
       "title": "Inclusive Practice",
-      "image": "images/citylab/Picture 2.webp",
+      "image": "/images/citylab/picture-2.webp",
       "caption": "Building together — real structures and shared spaces emerge through collaboration, testing inclusivity in practice."
     },
     {
       "id": "sustainability",
       "title": "Sustainability",
-      "image": "images/citylab/Picture 4.webp",
+      "image": "/images/citylab/picture-4.webp",
       "caption": "From hempcrete to circular design, our projects challenge material conventions and explore resilient futures."
     }
   ]
@@ -298,7 +298,7 @@
           "institution": "École Nationale Supérieure d'Architecture de Paris-La-Villette",
           "link": "https://paris-lavillette.archi.fr/en/international/studying-at-ensaplv-incoming-mobility/",
           "summary": "Design for dense European cities with studios framed by Paris’ cultural districts.",
-          "image": "images/global/paris.jpg",
+          "image": "/images/global/paris.jpg",
           "city": "Paris, France",
           "latitude": 48.8566,
           "longitude": 2.3522,
@@ -310,7 +310,7 @@
           "institution": "Istanbul Technical University (ITU)",
           "link": "https://global.itu.edu.tr/students/international-programs/global-exchange-students",
           "summary": "Cross-continental campus life exploring adaptive reuse and resilient megacity design.",
-          "image": "images/global/istanbul.jpg",
+          "image": "/images/global/istanbul.jpg",
           "city": "Istanbul, Turkey",
           "latitude": 41.0082,
           "longitude": 28.9784,
@@ -322,7 +322,7 @@
           "institution": "Universidad de Alicante",
           "link": "https://sri.ua.es/en/movilidad/incoming-students/fact-sheet.html",
           "summary": "Mediterranean housing studios; credits feed back into Year 3.",
-          "image": "images/global/alicante.jpg",
+          "image": "/images/global/alicante.jpg",
           "city": "Alicante, Spain",
           "latitude": 38.3452,
           "longitude": -0.481,
@@ -334,7 +334,7 @@
           "institution": "Leibniz Universität Hannover",
           "link": "https://www.uni-hannover.de/en/studium/im-studium/international/exchange-students",
           "summary": "Deepen technical detailing with German building science and collaborative labs.",
-          "image": "images/global/hannover.jpg",
+          "image": "/images/global/hannover.jpg",
           "city": "Hannover, Germany",
           "latitude": 52.3759,
           "longitude": 9.732,
@@ -346,7 +346,7 @@
           "institution": "Politecnico di Milano",
           "link": "https://www.polimi.it/en/campus-e-servizi/international-mobility/exchange-students-incoming",
           "summary": "Dense urban interventions with Italian craft traditions.",
-          "image": "images/global/milan.jpg",
+          "image": "/images/global/milan.jpg",
           "city": "Milan, Italy",
           "latitude": 45.4642,
           "longitude": 9.19,
@@ -358,7 +358,7 @@
           "institution": "Università di Bologna",
           "link": "https://www.unibo.it/en/study/incoming-outgoing-international-mobility/incoming-exchange-students/incoming-exchange-students-unibo",
           "summary": "Historic campus studios tackling regeneration across Emilia-Romagna.",
-          "image": "images/global/bologna.jpg",
+          "image": "/images/global/bologna.jpg",
           "city": "Bologna, Italy",
           "latitude": 44.4949,
           "longitude": 11.3426,
@@ -370,7 +370,7 @@
           "institution": "Hochschule Ostwestfalen-Lippe",
           "link": "https://www.th-owl.de/en/international-office-th-owl/applying-at-the-th-owl/exchange-students",
           "summary": "Digital fabrication labs paired with sustainable timber construction studios.",
-          "image": "images/global/detmold.jpg",
+          "image": "/images/global/detmold.jpg",
           "city": "Detmold, Germany",
           "latitude": 51.9386,
           "longitude": 8.8737,
@@ -382,7 +382,7 @@
           "institution": "Ecole Nationale Supérieure d'Architecture et de Paysage de Bordeaux (ENSAP)",
           "link": "https://www.bordeaux.archi.fr/etudier-a-lensap/",
           "summary": "Landscape-led design studios focusing on riverfront and coastal resilience.",
-          "image": "images/global/bordeaux.jpg",
+          "image": "/images/global/bordeaux.jpg",
           "city": "Bordeaux, France",
           "latitude": 44.8378,
           "longitude": -0.5792,
@@ -394,7 +394,7 @@
           "institution": "Université de Tours",
           "link": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students/1-online-pre-registration-mobility-online-only-for-regular-exchange-students-including-erasmus",
           "summary": "Live briefs in the Loire Valley exploring heritage conservation and urban change.",
-          "image": "images/global/tours.jpg",
+          "image": "/images/global/tours.jpg",
           "city": "Tours, France",
           "latitude": 47.3941,
           "longitude": 0.6848,
@@ -510,7 +510,7 @@
         {
           "id": "lam",
           "label": "Board of Architects Malaysia",
-          "image": "/images/story/BAM.gif",
+          "image": "/images/story/bam.gif",
           "alt": "Board of Architects Malaysia (LAM) accreditation logo"
         }
       ]
@@ -524,72 +524,72 @@
         {
           "id": "aecom",
           "name": "AECOM",
-          "logo": "images/practices/logos/AECOM_logo.png",
-          "image": "images/practices/projects/aecom-image.jpg",
+          "logo": "/images/practices/logos/aecom-logo.png",
+          "image": "/images/practices/projects/aecom-image.jpg",
           "alt": "AECOM Crossrail project",
           "link": "https://aecom.com/"
         },
         {
           "id": "buro-happold",
           "name": "Buro Happold",
-          "logo": "images/practices/logos/buro_happold.png",
-          "image": "images/practices/projects/burohappold-image.jpg",
+          "logo": "/images/practices/logos/buro-happold.png",
+          "image": "/images/practices/projects/burohappold-image.jpg",
           "alt": "Buro Happold Louvre Abu Dhabi",
           "link": "https://www.burohappold.com/"
         },
         {
           "id": "stride-treglown",
           "name": "Stride Treglown",
-          "logo": "images/practices/logos/stride_treglown.jpeg",
-          "image": "images/practices/projects/stride-treglown.jpg",
+          "logo": "/images/practices/logos/stride-treglown.jpeg",
+          "image": "/images/practices/projects/stride-treglown.jpg",
           "alt": "Stride Treglown Gloucestershire College",
           "link": "https://www.stridetreglown.com/"
         },
         {
           "id": "fcbstudios",
           "name": "Feilden Clegg Bradley Studios",
-          "logo": "images/practices/logos/fcb-studios.webp",
-          "image": "images/practices/projects/fcbstudios.jpg",
+          "logo": "/images/practices/logos/fcb-studios.webp",
+          "image": "/images/practices/projects/fcbstudios.jpg",
           "alt": "FCBStudios Accordia Housing",
           "link": "https://fcbstudios.com/"
         },
         {
           "id": "zha",
           "name": "Zaha Hadid Architects",
-          "logo": "images/practices/logos/zaha_hadid.png",
-          "image": "images/practices/projects/zaha-hadid.jpg",
+          "logo": "/images/practices/logos/zaha-hadid.png",
+          "image": "/images/practices/projects/zaha-hadid.jpg",
           "alt": "ZHA MAXXI Museum",
           "link": "https://www.zaha-hadid.com/"
         },
         {
           "id": "rshp",
           "name": "Rogers Stirk Harbour + Partners",
-          "logo": "images/practices/logos/rshp.jpg",
-          "image": "images/practices/projects/rshp-image.JPG",
+          "logo": "/images/practices/logos/rshp.jpg",
+          "image": "/images/practices/projects/rshp-image.jpg",
           "alt": "RSHP Leadenhall Building",
           "link": "https://www.rshp.com/"
         },
         {
           "id": "ahmm",
           "name": "AHMM",
-          "logo": "images/practices/logos/ahmm.png",
-          "image": "images/practices/projects/ahmm-burntwood.jpg",
+          "logo": "/images/practices/logos/ahmm.png",
+          "image": "/images/practices/projects/ahmm-burntwood.jpg",
           "alt": "AHMM Burntwood School",
           "link": "https://www.ahmm.co.uk/"
         },
         {
           "id": "bdp",
           "name": "BDP",
-          "logo": "images/practices/logos/bdp.png",
-          "image": "images/practices/projects/bdp-image.webp",
+          "logo": "/images/practices/logos/bdp.png",
+          "image": "/images/practices/projects/bdp-image.webp",
           "alt": "BDP Manchester Library",
           "link": "https://www.bdp.com/"
         },
         {
           "id": "atkinsrealis",
           "name": "AtkinsRéalis",
-          "logo": "images/practices/logos/atkins_realis.png",
-          "image": "images/practices/projects/atkins-image.jpg",
+          "logo": "/images/practices/logos/atkins-realis.png",
+          "image": "/images/practices/projects/atkins-image.jpg",
           "alt": "AtkinsRéalis Bahrain WTC",
           "link": "https://www.atkinsrealis.com/"
         }
@@ -620,7 +620,7 @@
         "label": "More on mental health and wellbeing support",
         "href": "https://www.uwe.ac.uk/life/health-and-wellbeing"
       },
-      "image": "images/story/counsellor-305x305.png",
+      "image": "/images/story/counsellor-305x305.png",
       "imageAlt": "Student meeting with UWE Bristol wellbeing counsellor"
     },
     {

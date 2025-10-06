@@ -7,10 +7,11 @@ export default function ContactScene({ scene }) {
       <SceneHeading scene={scene} />
       <div className="story-contact-grid">
         <div className="story-contact-block story-contact-block--qr-only">
-          <h2>Explore this presentation</h2>
+          <h2>Explore the presentation</h2>
           <div className="story-contact-qr">
-            <img src={qrPlaceholder} alt="Scan the QR code to save these contact details" />
-            <span>Scan to save our details</span>
+            <img src={qrPlaceholder} alt="QR code linking to the presentation" />
+            <span>Scan to open the presentation</span>
+            <p className="story-contact-disclaimer">This presentation contains information that is subject to change as the course is revised to reflect current developments and requirements.</p>
           </div>
         </div>
         <div className="story-contact-block story-contact-block--details">
@@ -95,10 +96,7 @@ export default function ContactScene({ scene }) {
             </a>
           ) : null}
         </div>
-        <p className="story-contact-disclaimer">
-          We change the course to keep up with latest developments and requirements so information in this
-          presentation is subject to change.
-        </p>
+        
       </div>
     </div>
   );

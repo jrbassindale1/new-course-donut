@@ -1,0 +1,16 @@
+Options -Indexes -Multiviews
+DirectoryIndex index.html
+
+RewriteEngine On
+RewriteBase /
+
+# Serve real files/folders as-is
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Don’t rewrite static assets
+RewriteRule ^(assets/|images/|favicon\.ico$|robots\.txt$|site\.webmanifest$) - [L]
+
+# SPA fallback
+RewriteRule . /index.html [L]

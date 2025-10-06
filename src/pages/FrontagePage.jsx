@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import uweLogo from "../assets/1280px-UWE_Bristol_logo.svg copy.jpg";
+import uweLogo from "../assets/uwe-bristol-logo.jpg";
 
 const KEYWORDS = [
   "Transforming Futures",
