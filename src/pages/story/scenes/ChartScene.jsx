@@ -4,20 +4,31 @@ import moduleInfo from "../../../data/moduleInfo.json";
 import programmeInfo from "../../../data/programmeInfo.json";
 import SceneHeading from "../components/SceneHeading.jsx";
 
+const getKeyInfoValue = (mod, label) =>
+  mod?.keyInfo?.find((item) => item.label === label)?.value;
+
+const toParagraphs = (value) => {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.filter(Boolean).map(String);
+  return String(value)
+    .split(/\n\s*\n/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+};
+
+const buildField = (label, rawValue, fallback) => {
+  const parts = toParagraphs(rawValue);
+  return { label, value: parts.length ? parts : [fallback] };
+};
+
 export default function ChartScene({ scene }) {
-  const [selected, setSelected] = useState({ moduleId: null, key: null });
-  const [resetSignal, setResetSignal] = useState(0);
+  const [selectedModuleId, setSelectedModuleId] = useState(null);
   const [chartSize, setChartSize] = useState(480);
   const canvasRef = useRef(null);
 
   const MIN_CHART_SIZE = 260;
   const DETAIL_MIN_WIDTH = 260;
   const STACK_BREAKPOINT = "(max-width: 960px)";
-
-  const handleReset = () => {
-    setSelected({ moduleId: null, key: null });
-    setResetSignal((value) => value + 1);
-  };
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -32,9 +43,15 @@ export default function ChartScene({ scene }) {
       let stagePaddingBottom = 24;
       if (stage) {
         const stageStyles = window.getComputedStyle(stage);
-        stagePaddingBottom = Math.max(stagePaddingBottom, Number.parseFloat(stageStyles.paddingBottom) || 0);
+        stagePaddingBottom = Math.max(
+          stagePaddingBottom,
+          Number.parseFloat(stageStyles.paddingBottom) || 0,
+        );
       }
-      const verticalAllowance = Math.max(MIN_CHART_SIZE, viewportHeight - top - stagePaddingBottom);
+      const verticalAllowance = Math.max(
+        MIN_CHART_SIZE,
+        viewportHeight - top - stagePaddingBottom,
+      );
 
       let containerWidth = rect.width || 0;
       let gap = 0;
@@ -48,12 +65,18 @@ export default function ChartScene({ scene }) {
         gap = Number.parseFloat(maybeGap) || 0;
       }
 
-      const isStacked = typeof window !== "undefined" && window.matchMedia && window.matchMedia(STACK_BREAKPOINT).matches;
+      const isStacked =
+        typeof window !== "undefined" &&
+        window.matchMedia &&
+        window.matchMedia(STACK_BREAKPOINT).matches;
       let horizontalAllowance = containerWidth;
       if (!isStacked) {
         horizontalAllowance = containerWidth - DETAIL_MIN_WIDTH - gap;
       }
-      horizontalAllowance = Math.max(MIN_CHART_SIZE, Math.min(horizontalAllowance, containerWidth));
+      horizontalAllowance = Math.max(
+        MIN_CHART_SIZE,
+        Math.min(horizontalAllowance, containerWidth),
+      );
 
       const maxHeight = Math.max(MIN_CHART_SIZE, verticalAllowance);
       const maxWidth = Math.max(MIN_CHART_SIZE, horizontalAllowance);
@@ -74,103 +97,101 @@ export default function ChartScene({ scene }) {
     };
   }, []);
 
-  const detail = useMemo(() => {
-    const { moduleId, key } = selected;
-    if (!moduleId || !key) {
-      return {
-        title: "Explore the layers",
-        body: [
-          "Highlight any segment on the chart to see how design, technology and practice strands stack across the three years.",
-        ],
-      };
-    }
-
-    const isProgramme = moduleId === "PROGRAMME";
-    const source = isProgramme ? programmeInfo : moduleInfo[moduleId] || {};
-    const raw = source?.[key];
-
-    const titleLeft = isProgramme
-      ? "Programme"
-      : (moduleInfo[moduleId] && moduleInfo[moduleId].moduleName) || moduleId;
-
-    const sectionLabel = (() => {
-      if (key === "threads") return "Studio Threads";
-      if (key === "outcomes") return isProgramme ? "Outcomes" : "Module Outcomes";
-      const labels = {
-        keyInfo: "Key Info",
-        synopsis: "Synopsis",
-        learningAndTeaching: "Learning & Teaching",
-        supportAndFacilities: "Support & Facilities",
-        professionalRecognition: "Professional Recognition",
-      };
-      return labels[key] || key;
-    })();
-
-    const toParagraphs = (value) => {
-      if (!value) return [];
-      if (Array.isArray(value)) {
-        return value
-          .map((item) => (typeof item === "string" ? item : item?.value || item?.text || ""))
-          .filter(Boolean);
-      }
-      const stringValue = String(value);
-      return stringValue.split(/\n\s*\n/).filter(Boolean);
-    };
-
-    const body = toParagraphs(raw);
-
-    if (key === "threads" && Array.isArray(raw)) {
-      return {
-        title: `${titleLeft} — ${sectionLabel}`,
-        body: raw
-          .map((thread) => {
-            if (!thread) return null;
-            if (typeof thread === "string") return thread;
-            const parts = [];
-            if (thread.title) parts.push(thread.title);
-            if (thread.keywords) parts.push(`(${thread.keywords})`);
-            if (thread.description) parts.push(thread.description);
-            return parts.filter(Boolean).join(" — ");
-          })
-          .filter(Boolean),
-      };
-    }
-
+  const selectedModule = selectedModuleId
+    ? moduleInfo[selectedModuleId]
+    : null;
+  const moduleDetails = useMemo(() => {
+    if (!selectedModule) return null;
     return {
-      title: `${titleLeft} — ${sectionLabel}`,
-      body: body.length
-        ? body
-        : ["Details coming soon. Select another area to keep exploring."],
+      title: selectedModule.moduleName || selectedModuleId,
+      code: selectedModuleId,
+      fields: [
+        buildField(
+          "Year of Study",
+          selectedModule["year of study"],
+          "Not specified",
+        ),
+        buildField(
+          "UWE Credits",
+          getKeyInfoValue(selectedModule, "Credits"),
+          "Not specified",
+        ),
+        buildField(
+          "Module Theme",
+          selectedModule.moduleTheme,
+          "Not specified",
+        ),
+        buildField(
+          "Description",
+          selectedModule.synopsis,
+          "Description coming soon.",
+        ),
+        buildField(
+          "Assessment",
+          getKeyInfoValue(selectedModule, "Assessment"),
+          "Assessment details coming soon.",
+        ),
+      ],
     };
-  }, [selected]);
+  }, [selectedModule, selectedModuleId]);
 
   return (
     <div className="story-scene story-scene--chart">
       <SceneHeading scene={scene} />
       <div className="story-chart" style={{ "--chart-size": `${chartSize}px` }}>
-        <aside className="story-chart-detail">
-          <h2>{detail.title}</h2>
-          {detail.body.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </aside>
-        <div className="story-chart-canvas" ref={canvasRef}>
-          <button className="btn story-chart-reset" type="button" onClick={handleReset}>
-            Reset Chart
-          </button>
+        <div
+          className="story-chart-canvas"
+          ref={canvasRef}
+        >
           <div
             className="story-chart-inner"
-            style={{ width: chartSize, height: chartSize, maxWidth: "100%", maxHeight: "100%" }}
+            style={{
+              width: chartSize,
+              height: chartSize,
+              maxWidth: "100%",
+              maxHeight: "100%",
+            }}
           >
             <CompassChart
               width={chartSize}
               height={chartSize}
               padding={0}
-              resetSignal={resetSignal}
-              onInfoSelect={(moduleId, key) => setSelected({ moduleId, key })}
+              onInfoSelect={(moduleId) => setSelectedModuleId(moduleId)}
             />
           </div>
         </div>
+        <aside className="story-chart-detail">
+          {moduleDetails ? (
+            <>
+              <h2>{moduleDetails.title}</h2>
+              <p className="module-code">{moduleDetails.code}</p>
+              <dl className="module-summary">
+                {moduleDetails.fields.map(({ label, value }) => (
+                  <div className="module-summary__row" key={label}>
+                    <dt>{label}</dt>
+                    <dd>
+                      {value.map((text, index) => (
+                        <p key={index}>{text}</p>
+                      ))}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          ) : (
+            <>
+              <h2>Explore the modules</h2>
+              {toParagraphs(programmeInfo?.synopsis).map((text, index) => (
+                <p key={index} className="module-help">
+                  {text}
+                </p>
+              ))}
+              <p className="module-help">
+                Select a segment on the chart to see its key information.
+              </p>
+            </>
+          )}
+        </aside>
       </div>
     </div>
   );

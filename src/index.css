@@ -15,7 +15,7 @@
   grid-template-rows: 30px auto;
 }
 @media (min-width: 640px) {
-  .page-grid { grid-template-columns: 2.2fr 0.8fr; }
+  .page-grid { grid-template-columns: minmax(0, 1fr) 250px; }
   .page-title { grid-column: 1 / -1; grid-row: 1; }
   .chart-panel { grid-column: 1; grid-row: 2; }
   .details-panel { grid-column: 2; grid-row: 2; }
@@ -88,7 +88,16 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
 .chart-reset-button:active {
   transform: translateY(0);
 }
-.details-panel { overflow: auto; min-height: 0; max-height: calc(100vh - var(--app-pad-top) - var(--app-pad-bottom) - 50px); }
+.details-panel {
+  overflow: auto;
+  min-height: 0;
+  max-height: calc(100vh - var(--app-pad-top) - var(--app-pad-bottom) - 50px);
+  max-width: 250px;
+  width: 100%;
+  align-self: flex-start;
+  justify-content: flex-start;
+  padding: 8px 4px 12px;
+}
 @supports (height: 100dvh) {
   .details-panel { max-height: calc(100dvh - var(--app-pad-top) - var(--app-pad-bottom) - 50px); }
 }
@@ -113,6 +122,68 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
 .item-desc { margin: 8px 0; color: #4b5563; font-size: 13px; white-space: pre-line; }
 /* Add extra spacing only between consecutive paragraphs */
 .item-desc + .item-desc { margin-top: 12px; }
+
+.module-detail,
+.module-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.module-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.module-code {
+  margin: -6px 0 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.module-summary {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.module-summary__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.module-summary__row dt {
+  min-width: 110px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.module-summary__row dd {
+  margin: 0;
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.45;
+}
+
+.module-summary__row dd p {
+  margin: 0 0 6px;
+}
+
+.module-summary__row dd p:last-child {
+  margin-bottom: 0;
+}
+
+.module-help {
+  margin: 0;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.5;
+}
 
 /* --- Mobile typography and spacing trims (phones ≤ 640px) --- */
 @media (max-width: 640px) {
@@ -154,6 +225,9 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   /* Panel scroll area breathes less so chart can grow */
   .details-panel {
     max-height: calc(100dvh - var(--app-pad-top) - var(--app-pad-bottom) - 40px);
+    max-width: none;
+    width: 100%;
+    padding: 8px 0 16px;
   }
 
   /* Anchor the chart on mobile and decouple from viewport-height to stop jumping */

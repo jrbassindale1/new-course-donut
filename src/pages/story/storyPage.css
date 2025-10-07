@@ -769,7 +769,8 @@
   display: flex;
   flex-wrap: nowrap;
   gap: clamp(12px, 3vw, 24px);
-  align-items: stretch;
+  align-items: flex-start;
+  justify-content: center; /* Added to center the chart */
   width: 100%;
 }
 
@@ -805,12 +806,14 @@
   border-radius: 24px;
   padding: clamp(18px, 2.8vw, 26px);
   box-shadow: 0 24px 60px rgba(17, 24, 39, 0.14);
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
-  align-self: stretch;
-  flex: 1 1 320px;
-  min-width: 260px;
-  max-width: var(--chart-size);
+  align-self: flex-start;
+  align-items: flex-start;
+  flex: 0 0 400px;
+  max-width: 450px;
+  min-width: 220px;
 }
 
 .story-chart-detail h2 {
@@ -859,6 +862,7 @@
 
 .story-support-panel {
   border-radius: 24px;
+  background: rgba(255, 255, 255, 0.9);
   padding: clamp(18px, 3vw, 28px);
   box-shadow: 0 20px 48px rgba(17, 24, 39, 0.12);
   display: grid;
@@ -938,11 +942,14 @@
 }
 
 .story-support-figure {
-  justify-self: center;
-  align-self: center;
+  justify-self: stretch;
+  align-self: stretch;
   display: flex;
-  width: min(100%, clamp(280px, 32vw, 360px));
-  max-height: clamp(260px, 52vh, 420px);
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: min(80vh, 460px);
+  aspect-ratio: 4 / 3;
 }
 
 .story-support-figure img {
@@ -1665,13 +1672,24 @@ border-radius: 24px;
   max-width: min(360px, 100%);
   justify-self: center;
   align-self: stretch;
-  max-height: clamp(360px, 70vh, 520px);
+  max-height: clamp(360px, 80vh, 580px);
   overflow: hidden;
 }
 
 @media (min-width: 960px) {
   .story-global-info {
     justify-self: stretch;
+  }
+}
+
+.story-global-info {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .story-global-info {
+    max-width: 100%;
+    max-height: none;
   }
 }
 
@@ -1687,6 +1705,7 @@ border-radius: 24px;
   text-align: left;
   cursor: pointer;
   padding: 0;
+  margin-bottom: 10px;
 }
 
 .story-global-info-back:hover,
@@ -1764,6 +1783,32 @@ border-radius: 24px;
   font-size: 14px;
 }
 
+.story-global-info-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: #0369a1;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.story-global-info-link::after {
+  content: "↗";
+  font-size: 13px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.story-global-info-link:hover,
+.story-global-info-link:focus-visible {
+  text-decoration: underline;
+  outline: none;
+  color: #0ea5e9;
+}
+
 .story-global-info-list {
   display: flex;
   flex-direction: column;
@@ -1796,10 +1841,10 @@ border-radius: 24px;
   width: 100%;
   border: 1px solid rgba(15, 23, 42, 0.12);
   border-radius: 14px;
-  padding: 9px 12px;
+  padding: 6px 6px;
   background: rgba(248, 250, 252, 0.75);
   display: grid;
-  gap: 4px;
+  gap: 3px;
   text-align: left;
   cursor: pointer;
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
@@ -1829,7 +1874,7 @@ border-radius: 24px;
 }
 
 .story-global-info-list-location {
-  font-size: 12px;
+  font-size: 11px;
   color: rgba(15, 23, 42, 0.65);
 }
 
@@ -2262,6 +2307,8 @@ border-radius: 24px;
     flex: 1 1 auto;
     min-width: 0;
     max-width: var(--chart-size);
+    align-items: flex-start;
+    padding: clamp(16px, 3vw, 24px);
   }
 
   .story-chart-canvas {
@@ -2299,21 +2346,21 @@ border-radius: 24px;
 
   .story-top-controls {
     flex-wrap: nowrap;
-    gap: 8px;
-    align-self: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    gap: 0;
+    align-self: stretch;
+    margin: 12px 0 20px;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .story-top-controls .btn {
     padding: 5px 10px;
     font-size: 11px;
+    min-width: 96px;
   }
 
   .story-progress {
-    gap: 3px;
-    flex: 1;
-    justify-content: center;
+    display: none;
   }
 
   .story-progress-dot {
@@ -2410,9 +2457,11 @@ border-radius: 24px;
   }
 
   .story-support-figure {
-    justify-self: center;
-    width: min(260px, 80%);
+    justify-self: stretch;
+    width: 100%;
     height: auto;
+    max-height: 60vh;
+    aspect-ratio: 4 / 3;
   }
 
   .story-support-figure img {

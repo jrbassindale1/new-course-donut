@@ -9,7 +9,7 @@
       { "label": "Semester", "value": "1" },
       { "label": "Assessment", "value": "Portfolio (Pass/Fail): A curated portfolio showing iterative analogue design processes (hand‑drawing, physical models), contextual analysis and critical reflection." }
     ],
-    "synopsis": "Introduces foundational principles of architectural design through analogue techniques, iteration and contextual responsiveness. Students explore form, scale, proportion and materiality, and connect design decisions to cultural and environmental contexts. Teaching blends studio tutorials, workshops and critiques, culminating in a portfolio evidencing process and outcomes.",
+    "synopsis": "You'll explore foundational architectural design through analogue techniques like hand-drawing and physical model-making. Emphasising iterative processes, spatial awareness, materiality, and contextual responsiveness for design development.",
     "outcomes": [
       "MO1 Demonstrate foundational skills in spatial design—including form, proportion and materiality—through iterative experimentation, feedback and reflection.",
       "MO2 Articulate relationships between architectural form, contextual influences and conceptual frameworks, drawing on precedents to inform decisions.",
@@ -27,7 +27,7 @@
       { "label": "Semester", "value": "2" },
       { "label": "Assessment", "value": "Portfolio (Pass/Fail): A design portfolio for a small building demonstrating site analysis, human‑centred design, and integration of analogue and digital techniques." }
     ],
-    "synopsis": "Builds on Studio 1.1 by asking students to design a small building that meaningfully engages with users, community and context. Emphasises site analysis, sustainability and experiential qualities (light, movement, thresholds) while integrating analogue and digital methods. Delivered via tutorials, workshops, reviews and fieldwork.",
+    "synopsis": "You'll be challenged to design a small building that engages meaningfully with its environment, users, and community. Integrating analogue and digital techniques to develop human-centric architectural proposals.",
     "outcomes": [
       "MO1 Develop proposals responding to site‑specific, environmental and user needs, demonstrating human‑centred design.",
       "MO2 Integrate analogue and digital techniques across the design process and representation.",
@@ -45,7 +45,7 @@
       { "label": "Credits", "value": "15" },
       { "label": "Assessment", "value": "Project (Pass/Fail): PDF portfolio of 2D/3D outputs plus a short reflection on professional ethics and the architect’s role." }
     ],
-    "synopsis": "Introduces the architect’s role in society, ethical responsibilities and project workflows (incl. RIBA Plan of Work) alongside foundational software skills: accurate 2D drafting, basic 3D modelling and rendering. Teaching combines lectures, case studies and scaffolded software tutorials.",
+    "synopsis": "You'll learn the foundational principles of architectural practice and digital representation. Exploring professional responsibilities, ethics, and software for effective architectural communication.",
     "outcomes": [
       "MO1 Demonstrate proficiency in 2D CAD, basic 3D modelling and rendering to professional drawing conventions.",
       "MO2 Reflect on the architect’s role, responsibilities and workflows in practice and society.",
@@ -63,7 +63,7 @@
       { "label": "Duration", "value": "Full Year" },
       { "label": "Assessment", "value": "Two reports (50% + 50%): (1) Technical report on thermal performance and material/assembly strategy; (2) Environmental design report documenting a small sustainable building proposal with details." }
     ],
-    "synopsis": "Foundations in sustainable design and building science: heat transfer, passive strategies, envelope performance, material selection and ethical sourcing, and sustainable construction detailing (insulation, membranes, air‑tightness, water control). Applies theory in a small‑scale design project integrating environmental principles with user‑centred design.",
+    "synopsis": "You'll explore how builds interact with their environmental contexts. Getting to grips with sustainable architectural design principles, exploring structural technologies, passive strategies, material selection, and energy performance for environmental responsibility.",
     "outcomes": [
       "MO1 Analyse and apply principles of thermal performance, appropriate structural systems and ethical considerations.",
       "MO2 Develop sustainable construction details addressing insulation, air‑tightness and material impacts.",
@@ -81,7 +81,7 @@
       { "label": "Credits", "value": "15" },
       { "label": "Assessment", "value": "Exhibition (Pass/Fail): Curated display integrating sketches, diagrams, photographs and short texts connecting history/culture to contemporary practice." }
     ],
-    "synopsis": "Introduces architectural history and cultural contexts, examining how political, social and diverse cultural perspectives shape the built environment. Uses local urban walks, sketching and photography to connect precedents to contemporary design, with curation/presentation skills leading to a public‑facing exhibition.",
+    "synopsis": "You'll dive into the foundational principles of architectural history and cultural contexts that shape our built environment. Exploring the interplay between architecture, events, society, and diverse cultural perspectives.",
     "outcomes": [
       "MO1 Record and represent architectural spaces/movements via sketches, diagrams and photographs, reflecting on historical/cultural significance.",
       "MO2 Explore relationships between architecture, politics and cultural movements with attention to diverse and underrepresented perspectives.",
@@ -99,7 +99,7 @@
       { "label": "Semester", "value": "1" },
       { "label": "Assessment", "value": "Portfolio (100%): Design portfolio with drawings, models and written reflections; verbal presentation." }
     ],
-    "synopsis": "Housing-focused studio exploring socio-political, environmental and cultural contexts. Students analyse typologies, neighbourhood-scale urbanism and user needs, integrating energy performance and construction methods into proposals.",
+    "synopsis": "You'll explore housing design principles  and practices, addressing socio-political, environmental, and cultural contexts through typological variety, spatial adaptability, and user-centred approaches.",
     "outcomes": [
       "MO1 Develop housing designs for a specific user group that address urban, cultural and environmental contexts while satisfying user needs.",
       "MO2 Integrate sustainable construction and environmental principles into housing design.",
@@ -118,7 +118,7 @@
       { "label": "Semester", "value": "2" },
       { "label": "Assessment", "value": "Portfolio (100%): Urban/public design portfolio evidencing analysis, iterative development and final proposal; verbal presentation." }
     ],
-    "synopsis": "Live/simulated public or community project connecting design with professional standards and stakeholder needs. Emphasises social value, context, climate resilience and iterative design through models, drawings and presentations.",
+    "synopsis": "You'll bridge academic study with professional practice through live projects addressing community needs, environmental concerns, and social responsibility in architecture.",
     "outcomes": [
       "MO1 Identify, analyse and model relevant parameters for architectural design in context, addressing social, cultural and environmental challenges through iteration.",
       "MO2 Develop a well‑organised building proposal integrating context, user needs and environmental performance.",
@@ -136,7 +136,7 @@
       { "label": "Credits", "value": "30" },
       { "label": "Assessment", "value": "Two reports (50% + 50%): (1) Technical report using simulation to evaluate performance and detailing; (2) Design report synthesising environmental strategies and construction detailing into a proposal." }
     ],
-    "synopsis": "Advances environmental design and sustainable construction systems with simulation‑led performance analysis (thermal comfort, daylight, energy). Integrates innovative materials and systems with architectural intent under statutory and ethical frameworks.",
+    "synopsis": "You'll advance your understanding of environmental design, sustainable construction systems, and innovative building techniques. Exploring how we can address today's and tomorrow's pressing global challenges.",
     "outcomes": [
       "MO1 Analyse and optimise building performance using simulation tools and digital workflows, focusing on environmental comfort and energy efficiency.",
       "MO2 Integrate sustainable construction systems and innovative materials into architectural designs.",
@@ -154,7 +154,7 @@
       { "label": "Credits", "value": "15" },
       { "label": "Assessment", "value": "Project (100%): Digital Report (60%) developing a BIM model with metadata and extracted schedules/drawings; Team BIM Execution Plan (40%)." }
     ],
-    "synopsis": "Introduces BIM as a core tool for collaborative design and coordination. Links to Studio 2.1 outputs or an equivalent project; develops technical proficiency, teamwork and alignment with professional standards and the RIBA Plan of Work.",
+    "synopsis": "You'll learn to use Building Information Modelling (BIM) for collaborative design and project coordination. Developing your technical skills and their real-world application, as well as your teamworking abilities.",
     "outcomes": [
       "MO1 Collaborate within teams to develop and present an effective BIM Execution Plan for an architectural project.",
       "MO2 Apply BIM and digital workflows to create coordinated and collaborative design outputs.",
@@ -171,7 +171,7 @@
       { "label": "Credits", "value": "15" },
       { "label": "Assessment", "value": "Portfolio (100%): Lecture Notebook, Historical Study (e.g., model/film/photographic or 1500‑word essay) and a 500‑word Written Commentary." }
     ],
-    "synopsis": "Extends architectural history and theory with global, cultural and technological perspectives, including postcolonial and feminist lenses. Encourages interdisciplinary analysis and links to contemporary design practice.",
+    "synopsis": "You'll advance your understanding of environmental design, sustainable construction systems, and innovative building techniques. Exploring how we can address today's and tomorrow's pressing global challenges.",
     "outcomes": [
       "MO1 Explore and critically analyse global historical contexts and architectural traditions to develop curiosity‑driven insights that inspire innovative thinking.",
       "MO2 Investigate and compare architectural typologies and cultural precedents using interdisciplinary approaches to inform theory and practice.",
@@ -189,7 +189,7 @@
       { "label": "Duration", "value": "Full Year" },
       { "label": "Assessment", "value": "Design Research Exhibition (30%) + Design Portfolio (70%)." }
     ],
-    "synopsis": "Capstone studio spanning the full year. Students formulate briefs, undertake contextual/site research, and iteratively develop a resolved proposal that integrates conceptual, technical, environmental and regulatory considerations. Thematic studios support critical, research‑driven design with a focus on resilience, sustainability and safe design.",
+    "synopsis": "You'll carry out research-driven and experimental design development, critically and creatively addressing complex and multi-faceted architectural briefs. Developing the critical thinking skills needed for professional practice.",
     "outcomes": [
       "MO1 Conduct contextual research and analysis, including environmental and sustainability considerations, to inform key design ideas using appropriate media.",
       "MO2 Develop and resolve a complex design proposal that responds to complex briefs, integrating innovative and sustainable approaches to articulate a clear architectural intention.",
@@ -208,7 +208,7 @@
       { "label": "Duration", "value": "Full Year" },
       { "label": "Assessment", "value": "Pre‑Recorded Presentation (50%) + Detailed Design Report with drawings and 1:20 section (50%)." }
     ],
-    "synopsis": "Advanced construction technologies, environmental strategies and digital workflows aligned to Studio 3. Emphasis on performance modelling, integrated detailing, lifecycle and carbon considerations, and regulatory compliance including fire and life safety.",
+    "synopsis": "You'll gain advanced knowledge and skills in construction technologies, digital workflows, and sustainability – so you can develop sophisticated and technically robust architectural projects.",
     "outcomes": [
       "MO1 Apply digital strategies to optimise building performance.",
       "MO2 Develop integrated technology and environmental strategies that balance architectural expression, user needs and performance requirements.",
@@ -226,7 +226,7 @@
       { "label": "Credits", "value": "15" },
       { "label": "Assessment", "value": "Project (100%): Personal & Practice Identity (e.g., pitch video, business plan, website, or live presentation) plus reflective components (CV + learning plan + 1,000‑word essay)." }
     ],
-    "synopsis": "Prepares students for professional practice: ethics and Architects’ Code, statutory frameworks (health & safety, planning, sustainability), employability and reflective practice. Outputs articulate a coherent professional identity aligned with inclusive and sustainable values.",
+    "synopsis": "You'll prepare for architectural practice by exploring ethical principles, statutory requirements, and practice management strategies. Developing your professional identity and vital employability skills.",
     "outcomes": [
       "MO1 Demonstrate a critical understanding of professional and ethical responsibilities, including compliance with the Architects’ Code of Conduct and statutory frameworks.",
       "MO2 Reflect on personal and professional growth, identifying strategies for lifelong learning and readiness for industry roles.",
@@ -243,7 +243,7 @@
       { "label": "Credits", "value": "15" },
       { "label": "Assessment", "value": "Independent Research Project (100%) – equivalent to ~5,000 words; flexible formats (essay/illustrated report/visual or multimedia)." }
     ],
-    "synopsis": "Independent research project connecting theory and practice. Students frame a focused thesis, apply advanced research methods and communicate findings effectively through written/visual/multimedia outputs.",
+    "synopsis": "You'll carry out an independent research project into a subject that combines your individual interests with your professional ambitions. You'll connect theory with practice, exploring architectural, cultural and technological challenges.",
     "outcomes": [
       "MO1 Formulate a clear, focused research question or thesis exploring architectural, cultural or technological challenges.",
       "MO2 Apply advanced research methodologies to analyse and interpret issues critically and creatively.",

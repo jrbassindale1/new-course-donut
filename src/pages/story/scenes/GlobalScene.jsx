@@ -151,6 +151,16 @@ export default function GlobalScene({ scene }) {
                 {activePartner.duration ? (
                   <p className="story-global-info-duration">{activePartner.duration}</p>
                 ) : null}
+                {activePartner.link ? (
+                  <a
+                    className="story-global-info-link"
+                    href={activePartner.link}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Find out more (External Website)
+                  </a>
+                ) : null}
                 {Array.isArray(activePartner.programmes) && activePartner.programmes.length ? (
                   <div className="story-global-info-programmes">
                     <span className="story-global-info-programmes-label">Programmes</span>

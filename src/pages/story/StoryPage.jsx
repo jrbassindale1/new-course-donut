@@ -108,6 +108,73 @@ export default function StoryPage() {
     const stageEl = stageRef.current;
     if (!stageEl) return undefined;
 
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartedAt = 0;
+
+    const resetGesture = () => {
+      touchStartX = 0;
+      touchStartY = 0;
+      touchStartedAt = 0;
+    };
+
+    const handleTouchStart = (event) => {
+      if (event.touches?.length !== 1) return;
+      resetGesture();
+      const touch = event.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      touchStartedAt = Date.now();
+    };
+
+    const handleTouchEnd = (event) => {
+      if (!touchStartedAt) return;
+      const gestureStartedAt = touchStartedAt;
+      const startX = touchStartX;
+      const startY = touchStartY;
+      const touch = event.changedTouches?.[0];
+      resetGesture();
+      if (!touch) return;
+      const deltaX = touch.clientX - startX;
+      const deltaY = Math.abs(touch.clientY - startY);
+      const elapsed = Date.now() - gestureStartedAt;
+
+      const horizontalDistance = Math.abs(deltaX);
+      const SWIPE_DISTANCE = 60;
+      const SWIPE_VERTICAL_LIMIT = 80;
+      const SWIPE_TIME_LIMIT = 600;
+
+      if (horizontalDistance < SWIPE_DISTANCE) return;
+      if (deltaY > SWIPE_VERTICAL_LIMIT) return;
+      if (elapsed > SWIPE_TIME_LIMIT) return;
+
+      if (deltaX < 0 && canGoForward) {
+        handleNext();
+      } else if (deltaX > 0 && canGoBack) {
+        handlePrev();
+      }
+    };
+
+    const handleTouchCancel = () => {
+      resetGesture();
+    };
+
+    stageEl.addEventListener("touchstart", handleTouchStart, { passive: true });
+    stageEl.addEventListener("touchend", handleTouchEnd);
+    stageEl.addEventListener("touchcancel", handleTouchCancel);
+
+    return () => {
+      stageEl.removeEventListener("touchstart", handleTouchStart);
+      stageEl.removeEventListener("touchend", handleTouchEnd);
+      stageEl.removeEventListener("touchcancel", handleTouchCancel);
+    };
+  }, [canGoBack, canGoForward, handleNext, handlePrev]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const stageEl = stageRef.current;
+    if (!stageEl) return undefined;
+
     const scrollToTop = () => {
       if (typeof stageEl.scrollTo === "function") {
         stageEl.scrollTo({ top: 0, left: 0, behavior: "auto" });

@@ -248,8 +248,8 @@
     {
       "id": "chart",
       "label": "Chart",
-      "title": "Programme Explorer",
-      "headline": "Explore the modules, themes and learning outcomes.",
+      "title": "Programme Structure",
+      "headline": "A coordinated programme of study across the three years.",
       "cta": {
         "label": "Open full chart view",
         "href": "#/chart"
@@ -295,15 +295,15 @@
       "partners": [
         {
           "id": "paris",
-          "institution": "École Nationale Supérieure d'Architecture de Paris-La-Villette",
+          "institution": "Paris-La-Villette",
           "link": "https://paris-lavillette.archi.fr/en/international/studying-at-ensaplv-incoming-mobility/",
           "summary": "Design for dense European cities with studios framed by Paris’ cultural districts.",
           "image": "/images/global/paris.jpg",
           "city": "Paris, France",
           "latitude": 48.8566,
           "longitude": 2.3522,
-          "mapX": 25.349,
-          "mapY": 58.9975
+          "mapX": 26.55,
+          "mapY": 60.69
         },
         {
           "id": "istanbul",
@@ -314,20 +314,20 @@
           "city": "Istanbul, Turkey",
           "latitude": 41.0082,
           "longitude": 28.9784,
-          "mapX": 70.1852,
-          "mapY": 82.3923
+          "mapX": 70.26,
+          "mapY": 85.26
         },
         {
           "id": "alicante",
           "institution": "Universidad de Alicante",
           "link": "https://sri.ua.es/en/movilidad/incoming-students/fact-sheet.html",
-          "summary": "Mediterranean housing studios; credits feed back into Year 3.",
+          "summary": "Mediterranean housing studios.",
           "image": "/images/global/alicante.jpg",
           "city": "Alicante, Spain",
           "latitude": 38.3452,
           "longitude": -0.481,
-          "mapX": 21.7051,
-          "mapY": 90.0362
+          "mapX": 21.9,
+          "mapY": 93.91
         },
         {
           "id": "hannover",
@@ -338,8 +338,8 @@
           "city": "Hannover, Germany",
           "latitude": 52.3759,
           "longitude": 9.732,
-          "mapX": 37.2103,
-          "mapY": 48.6546
+          "mapX": 38.68,
+          "mapY": 49.58
         },
         {
           "id": "milan",
@@ -350,8 +350,8 @@
           "city": "Milan, Italy",
           "latitude": 45.4642,
           "longitude": 9.19,
-          "mapX": 37.0,
-          "mapY": 69.074
+          "mapX": 37.99,
+          "mapY": 70.68
         },
         {
           "id": "bologna",
@@ -362,8 +362,8 @@
           "city": "Bologna, Italy",
           "latitude": 44.4949,
           "longitude": 11.3426,
-          "mapX": 40.6581,
-          "mapY": 71.9547
+          "mapX": 41.33,
+          "mapY": 74.46
         },
         {
           "id": "detmold",
@@ -374,20 +374,20 @@
           "city": "Detmold, Germany",
           "latitude": 51.9386,
           "longitude": 8.8737,
-          "mapX": 35.8336,
-          "mapY": 49.9403
+          "mapX": 37.27,
+          "mapY": 50.96
         },
         {
           "id": "bordeaux",
-          "institution": "Ecole Nationale Supérieure d'Architecture et de Paysage de Bordeaux (ENSAP)",
+          "institution": "ENSAP de Bordeaux",
           "link": "https://www.bordeaux.archi.fr/etudier-a-lensap/",
           "summary": "Landscape-led design studios focusing on riverfront and coastal resilience.",
           "image": "/images/global/bordeaux.jpg",
           "city": "Bordeaux, France",
           "latitude": 44.8378,
           "longitude": -0.5792,
-          "mapX": 20.8978,
-          "mapY": 70.8503
+          "mapX": 21.59,
+          "mapY": 74.24
         },
         {
           "id": "tours",
@@ -398,8 +398,8 @@
           "city": "Tours, France",
           "latitude": 47.3941,
           "longitude": 0.6848,
-          "mapX": 22.7353,
-          "mapY": 63.3063
+          "mapX": 23.81,
+          "mapY": 65.31
         }
       ]
     },
@@ -407,7 +407,7 @@
       {
   "id": "outcomes",
   "label": "Outcomes",
-  "title": "Ranked, recognised, and ready for practice",
+  "title": "Recognised and ready for practice",
   "headline": "Independent survey data shows the impact of studying Architecture at UWE Bristol.",
   "stats": [
     {
