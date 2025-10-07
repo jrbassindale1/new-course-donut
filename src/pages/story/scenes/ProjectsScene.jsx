@@ -1,4 +1,5 @@
 import SceneHeading from "../components/SceneHeading.jsx";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function ProjectsScene({ scene }) {
   return (
@@ -10,7 +11,7 @@ export default function ProjectsScene({ scene }) {
             <div className="story-pin-media" aria-hidden="true">
               <div
                 className="story-pin-thumb"
-                style={tile?.image ? { backgroundImage: `url("${tile.image}")` } : undefined}
+                style={tile?.image ? { backgroundImage: `url("${withBase(tile.image)}")` } : undefined}
               />
             </div>
             {(tile?.title || tile?.caption) ? (

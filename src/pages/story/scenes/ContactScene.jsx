@@ -1,5 +1,5 @@
 import SceneHeading from "../components/SceneHeading.jsx";
-import qrPlaceholder from "../../../../images/story/qr-placeholder.svg";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function ContactScene({ scene }) {
   return (
@@ -9,9 +9,16 @@ export default function ContactScene({ scene }) {
         <div className="story-contact-block story-contact-block--qr-only">
           <h2>Explore the presentation</h2>
           <div className="story-contact-qr">
-            <img src={qrPlaceholder} alt="QR code linking to the presentation" />
+            <img src={withBase("images/story/qr-placeholder.svg")} alt="QR code linking to the presentation" />
             <span>Scan to open the presentation</span>
-            <p className="story-contact-disclaimer">This presentation contains information that is subject to change as the course is revised to reflect current developments and requirements.</p>
+            <a
+              className="story-contact-link"
+              href="https://uwe-bsc-architecture.com/open-day"
+              target="_blank"
+              rel="noreferrer"
+            >
+              uwe-bsc-architecture.com/open-day
+            </a>
           </div>
         </div>
         <div className="story-contact-block story-contact-block--details">
@@ -22,7 +29,14 @@ export default function ContactScene({ scene }) {
                 <span>{item.label}</span>
                 {item?.href ? (
                   <strong>
-                    <a href={item.href} target="_blank" rel="noreferrer">{item.value}</a>
+                    <a
+                      className="story-contact-link"
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.value}
+                    </a>
                   </strong>
                 ) : (
                   <strong>{item.value}</strong>
@@ -30,6 +44,7 @@ export default function ContactScene({ scene }) {
               </li>
             ))}
           </ul>
+          <p className="story-contact-disclaimer">This presentation contains information that is subject to change as the course is revised to reflect current developments and requirements.</p>
         </div>
         <div className="story-contact-block">
           <h2>Useful links</h2>
@@ -64,7 +79,12 @@ export default function ContactScene({ scene }) {
                     <span className="story-contact-apply-note">
                       {prefix}
                       {linkHref ? (
-                        <a href={linkHref} target="_blank" rel="noreferrer">
+                        <a
+                          className="story-contact-link"
+                          href={linkHref}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           {linkLabel || linkHref}
                         </a>
                       ) : (
@@ -87,7 +107,7 @@ export default function ContactScene({ scene }) {
           ) : null}
           {scene?.apply?.href ? (
             <a
-              className="btn story-contact-apply-btn"
+              className="btn story-contact-link"
               href={scene.apply.href}
               target="_blank"
               rel="noreferrer"
@@ -96,7 +116,6 @@ export default function ContactScene({ scene }) {
             </a>
           ) : null}
         </div>
-        
       </div>
     </div>
   );

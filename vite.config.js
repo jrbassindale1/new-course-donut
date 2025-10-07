@@ -3,5 +3,5 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/", // ✅ root of uwe-bsc-architecture.com
+  base: "/open-day/",   // << IMPORTANT for subfolder deploy
 });

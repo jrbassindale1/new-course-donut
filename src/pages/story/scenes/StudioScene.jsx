@@ -1,4 +1,5 @@
 import SceneHeading from "../components/SceneHeading.jsx";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function StudioScene({ scene }) {
   return (
@@ -8,7 +9,7 @@ export default function StudioScene({ scene }) {
         {(scene?.pins || []).map((pin) => (
           <article key={pin.id} className="story-pin-card">
             <div className="story-pin-media" aria-hidden="true">
-              <div className="story-pin-thumb" style={{ backgroundImage: `url(${pin?.fallback || ""})` }} />
+              <div className="story-pin-thumb" style={{ backgroundImage: `url(${withBase(pin?.fallback) || ""})` }} />
             </div>
             {(pin?.title || pin?.caption) ? (
               <div className="story-pin-body">

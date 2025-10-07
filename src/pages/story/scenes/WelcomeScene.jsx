@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import SceneHeading from "../components/SceneHeading.jsx";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function WelcomeScene({ scene }) {
   const [activeCard, setActiveCard] = useState(null);
@@ -23,7 +24,7 @@ export default function WelcomeScene({ scene }) {
         <aside className="story-hero-media" aria-hidden="true">
           <div
             className="story-hero-image"
-            style={{ backgroundImage: `url(${scene?.background?.src || ""})` }}
+            style={{ backgroundImage: `url(${withBase(scene?.background?.src) || ""})` }}
           />
           <ul className="story-keywords">
             {(scene?.background?.keywords || []).map((keyword) => (

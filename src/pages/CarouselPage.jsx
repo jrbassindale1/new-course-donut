@@ -1,5 +1,15 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
 import { setAnalyticsContext, trackEvent, trackTiming } from "../lib/analytics.js";
+
+// Prefix relative asset paths with the correct base ("/" in dev, "/open-day/" in prod)
+const withBase = (p) => {
+  if (!p) return p;
+  // leave external or data/blob URLs alone
+  if (/^(https?:|data:|blob:)/i.test(p)) return p;
+  const base = import.meta?.env?.BASE_URL || "/";
+  return base + String(p).replace(/^\/+/, "");
+};
 
 const PLACEHOLDER_IMAGES = [
   {
@@ -124,7 +134,7 @@ export default function CarouselPage({ onNavigate }) {
                 className={`carousel-slide${isActive ? " is-active" : ""}`}
                 aria-hidden={!isActive}
               >
-                <img src={image.src} alt={image.alt} className="carousel-image" />
+                <img src={withBase(image.src)} alt={image.alt} className="carousel-image" />
                 <figcaption className="carousel-caption">{image.alt}</figcaption>
               </figure>
             );

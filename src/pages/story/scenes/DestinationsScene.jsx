@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import SceneHeading from "../components/SceneHeading.jsx";
 import usePrefersReducedMotion from "../hooks/usePrefersReducedMotion.js";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function DestinationsScene({ scene }) {
   const companies = useMemo(
@@ -61,7 +62,7 @@ export default function DestinationsScene({ scene }) {
               <div className="story-destination-inner">
                 <div className="story-destination-face story-destination-front">
                   {company.logo ? (
-                    <img src={company.logo} alt={company.name} className="story-destination-logo" />
+                    <img src={withBase(company.logo)} alt={company.name} className="story-destination-logo" />
                   ) : (
                     <span className="story-destination-text">{company.name}</span>
                   )}
@@ -69,7 +70,7 @@ export default function DestinationsScene({ scene }) {
                 <div className="story-destination-face story-destination-back">
                   {company.image ? (
                     <img
-                      src={company.image}
+                      src={withBase(company.image)}
                       alt={company.alt || company.name}
                       className="story-destination-photo"
                     />

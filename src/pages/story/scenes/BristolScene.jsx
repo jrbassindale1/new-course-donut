@@ -1,4 +1,5 @@
 import SceneHeading from "../components/SceneHeading.jsx";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function BristolScene({ scene }) {
   return (
@@ -9,7 +10,7 @@ export default function BristolScene({ scene }) {
           <article key={section.title} className="story-bristol-card">
             {section?.image ? (
               <div className="story-bristol-card__media">
-                <img src={section.image} alt={section.alt || section.title || ""} loading="lazy" />
+                <img src={withBase(section.image)} alt={section.alt || section.title || ""} loading="lazy" />
               </div>
             ) : null}
             {section?.title || section?.copy ? (

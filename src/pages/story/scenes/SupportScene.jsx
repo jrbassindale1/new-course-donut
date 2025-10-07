@@ -1,4 +1,5 @@
 import SceneHeading from "../components/SceneHeading.jsx";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function SupportScene({ scene }) {
   const services = Array.isArray(scene?.services) ? scene.services : [];
@@ -32,7 +33,7 @@ export default function SupportScene({ scene }) {
         </div>
         {imageSrc ? (
           <figure className="story-support-figure">
-            <img src={imageSrc} alt={imageAlt} />
+            <img src={withBase(imageSrc)} alt={imageAlt} />
           </figure>
         ) : null}
       </div>

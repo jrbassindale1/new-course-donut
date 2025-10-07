@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import SceneHeading from "../components/SceneHeading.jsx";
 import europeMapImage from "../../../../images/story/europe.svg?url";
+import { withBase } from "../../../utils/withBase.js";
 
 const EUROPE_MAP_BOUNDS = Object.freeze({
   minLat: 33,
@@ -50,6 +51,15 @@ export default function GlobalScene({ scene }) {
     () => partners.find((partner) => partner.id === activeId) || null,
     [partners, activeId],
   );
+
+  const resolvedActiveImage = useMemo(() => (activePartner?.image ? withBase(activePartner.image) : ""), [activePartner]);
+
+  useEffect(() => {
+    if (!activePartner) return;
+    // Debug: see exactly which URL the browser will request
+    /* eslint-disable no-console */
+    console.log("[GlobalScene] activePartner image →", resolvedActiveImage);
+  }, [activePartner, resolvedActiveImage]);
 
   const highlightedId = hoverId != null ? hoverId : activeId;
 
@@ -139,7 +149,10 @@ export default function GlobalScene({ scene }) {
               <button type="button" className="story-global-info-back" onClick={handleBackToList}>
                 Back to partners
               </button>
-              <div className="story-global-info-image" style={{ backgroundImage: `url(${activePartner?.image || ""})` }} />
+              <div
+                className="story-global-info-image"
+                style={{ backgroundImage: `url(${resolvedActiveImage})` }}
+              />
               <div className="story-global-info-body">
                 <h3>{activePartner.institution}</h3>
                 {activePartner.city ? (

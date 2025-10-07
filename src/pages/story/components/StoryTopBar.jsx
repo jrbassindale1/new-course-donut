@@ -1,3 +1,5 @@
+import { withBase } from "../../../utils/withBase.js";
+
 export default function StoryTopBar({
   brand,
   canGoBack,

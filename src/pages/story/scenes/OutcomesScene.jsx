@@ -1,4 +1,5 @@
 import SceneHeading from "../components/SceneHeading.jsx";
+import { withBase } from "../../../utils/withBase.js";
 
 export default function OutcomesScene({ scene }) {
   const stats = scene?.stats || [];
@@ -19,6 +20,9 @@ export default function OutcomesScene({ scene }) {
         {stats.map((stat) => (
           <article key={stat.id} className="story-outcome-card">
             {stat?.value ? <p className="story-outcome-value">{stat.value}</p> : null}
+            {stat?.image ? (
+              <img src={withBase(stat.image)} alt={stat.metric || "Outcome"} className="story-outcome-image" />
+            ) : null}
             {stat?.metric ? <p className="story-outcome-metric">{stat.metric}</p> : null}
             {stat?.source ? <p className="story-outcome-source">{stat.source}</p> : null}
           </article>

@@ -1,4 +1,5 @@
 import SceneHeading from "../components/SceneHeading.jsx";
+import { withBase } from "../../../utils/withBase.js";
 
 const STORY_ASSET_MAP = buildStoryAssetMap();
 
@@ -89,7 +90,14 @@ export default function PathwayScene({ scene }) {
               <div className="story-pathway-logos">
                 {accreditations.map((logo, index) => {
                   const key = logo?.id || logo?.label || logo?.image || index;
-                  const src = resolveAsset(logo?.image);
+                  const _raw = resolveAsset(logo?.image) || "";
+                  // If someone accidentally put a leading slash before a data URL ("/data:image…"), strip it
+                  const trimmed = _raw.replace(/^\/+(?=data:)/i, "");
+                  const src = /^(https?:|data:|blob:)/i.test(trimmed)
+                    ? trimmed
+                    : trimmed.startsWith("/")
+                      ? trimmed
+                      : withBase(trimmed);
 
                   return (
                     <figure key={key} className="story-pathway-logo">
