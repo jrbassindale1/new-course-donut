@@ -1,5 +1,5 @@
 .story-page {
-  --story-viewport: var(--story-page-vh, var(--vh));
+  --story-viewport: var(--vh, 100vh);
   min-height: calc(var(--story-viewport) + var(--safe-area-top) + var(--safe-area-bottom));
   background: radial-gradient(circle at center, #fde68a 0%, #fbbf24 55%, #f59e0b 100%);
   color: #111827;
@@ -175,7 +175,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
 }
 

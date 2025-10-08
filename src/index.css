@@ -24,10 +24,8 @@
 }
 
 /* Basic, predictable UI styling (independent of Tailwind) */
-html,
-body {
+html, body {
   min-height: 100%;
-  height: auto;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -100,7 +98,6 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
       var(--safe-area-bottom) - var(--header-space)
   );
 }
-@supports (height: 100dvh) { /* using var(--vh) for consistency across browsers */ }
 /* On phones, avoid big top/bottom gaps by aligning to top */
 @media (max-width: 639px) {
   /* Anchor the chart to the top on phones to prevent vertical jumping */
@@ -145,7 +142,7 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   overflow: auto;
   min-height: 0;
   max-height: calc(
-    100vh - var(--app-pad-top) - var(--app-pad-bottom) - var(--safe-area-top) -
+    var(--vh, 100vh) - var(--app-pad-top) - var(--app-pad-bottom) - var(--safe-area-top) -
       var(--safe-area-bottom) - 50px
   );
   max-width: 250px;
@@ -153,14 +150,6 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   align-self: flex-start;
   justify-content: flex-start;
   padding: 8px 4px 12px;
-}
-@supports (height: 100dvh) {
-  .details-panel {
-    max-height: calc(
-      100dvh - var(--app-pad-top) - var(--app-pad-bottom) - var(--safe-area-top) -
-        var(--safe-area-bottom) - 50px
-    );
-  }
 }
 .chart-panel { min-height: 0; }
 .compass-svg { width: 100%; height: 100%; display: block; }
@@ -285,7 +274,7 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
 
   /* Panel scroll area breathes less so chart can grow */
   .details-panel {
-    max-height: calc(100dvh - var(--app-pad-top) - var(--app-pad-bottom) - 40px);
+    max-height: calc(var(--vh, 100vh) - var(--app-pad-top) - var(--app-pad-bottom) - 40px);
     max-width: none;
     width: 100%;
     padding: 8px 0 16px;
@@ -329,8 +318,8 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   .panel-title { font-size: 13px; }
   .section-title { font-size: 13px; }
 
-  /* Lock the viewport and delegate scrolling to the text panel only */
-  .app-shell { height: 100dvh; overflow: hidden; }
+  /* Keep the viewport pinned visually while still allowing body scroll */
+  .app-shell { min-height: var(--vh, 100vh); overflow-x: hidden; overflow-y: auto; }
   .page-grid { height: 100%; }
   .details-panel { max-height: 100%; overflow: auto; -webkit-overflow-scrolling: touch; }
 
@@ -355,9 +344,9 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   .chart-wrapper { align-items: flex-start; }
 
   /* Maximise donut size based on the limiting dimension (height). 
-     We keep it square so the circle remains round, but use 100dvh to avoid toolbar jumps. */
+     Keep it square while matching the live viewport height. */
   .chart-inner {
-    --chart-size: min(100%, calc(100dvh - var(--app-pad-top) - var(--app-pad-bottom) - 42px));
+    --chart-size: min(100%, calc(var(--vh, 100vh) - var(--app-pad-top) - var(--app-pad-bottom) - 42px));
     width: var(--chart-size);
     height: var(--chart-size);
     min-height: 220px;
@@ -506,7 +495,8 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   color: #0f172a;
   background: radial-gradient(circle at center, #fde68a 0%, #fbbf24 55%, #f59e0b 100%);
   cursor: pointer;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   text-align: center;
   touch-action: manipulation;
   transition: opacity 0.48s ease, transform 0.48s ease;
