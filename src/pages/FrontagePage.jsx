@@ -506,8 +506,9 @@ export default function FrontagePage({ onNavigate }) {
       aria-busy={isExiting}
       style={{
         width: "100vw",
-        height: "100dvh",
-        overflow: "hidden",
+        minHeight: "var(--vh, 100vh)",
+        overflowX: "hidden",
+        overflowY: "auto",
         pointerEvents: isExiting ? "none" : "auto",
       }}
     >

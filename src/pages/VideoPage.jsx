@@ -167,7 +167,7 @@ export default function VideoPage({ onNavigate }) {
       className={`video-page${hasEntered ? " video-page-enter" : ""}`}
       style={{
         width: "100vw",
-        height: "100dvh",
+        minHeight: "var(--vh, 100vh)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -175,15 +175,16 @@ export default function VideoPage({ onNavigate }) {
         background: "radial-gradient(circle at center, #fde68a 0%, #fbbf24 55%, #f59e0b 100%)",
         color: "#0f172a",
         position: "relative",
-        overflow: "hidden",
-        padding: "5vh 5vw",
+        overflowX: "hidden",
+        overflowY: "auto",
+        padding: "min(calc(var(--vh, 100vh) * 0.05), 5vh) 5vw",
         textAlign: "center",
       }}
     >
       <div
         style={{
           width: box.width ? `${box.width}px` : "90vw",
-          height: box.height ? `${box.height}px` : "min(90vh, 50vw)",
+          height: box.height ? `${box.height}px` : "min(calc(var(--vh, 100vh) * 0.9), 50vw)",
           maxWidth: "100%",
           maxHeight: "100%",
           borderRadius: "16px",
