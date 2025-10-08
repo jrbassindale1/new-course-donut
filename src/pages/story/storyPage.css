@@ -177,6 +177,7 @@
   overflow-x: hidden;
   overflow-y: visible;
   position: relative;
+  margin-top: 10px;
 }
 
 .story-heading {
