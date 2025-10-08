@@ -24,10 +24,6 @@
   position: sticky;
   top: var(--safe-area-top);
   z-index: 10;
-  background: linear-gradient(180deg, rgba(254, 215, 102, 0.96) 0%, rgba(254, 194, 24, 0.85) 65%,
-      rgba(254, 194, 24, 0.75) 100%);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
 }
 
 .story-top-controls {
@@ -192,9 +188,10 @@
 
 .story-year-layout {
   display: grid;
-  grid-template-columns: minmax(260px, clamp(320px, 30vw, 480px)) minmax(0, 1fr);
+  grid-template-columns: minmax(200px, clamp(200px, 20vw, 480px)) minmax(0, 1fr);
   gap: clamp(18px, 4vw, 36px);
   align-items: stretch;
+  min-height: 0;
 }
 
 .story-year-themes-column {
@@ -261,15 +258,48 @@
   display: flex;
   flex-direction: column;
   gap: clamp(12px, 2.2vw, 18px);
+  min-height: 0;
 }
 
+/* Primary: modern browsers */
 .story-year-carousel-viewport {
   position: relative;
   overflow: hidden;
   border-radius: 22px;
   background: rgba(17, 24, 39, 0.4);
+  aspect-ratio: 2238 / 1582;
   min-height: clamp(260px, 34vw, 540px);
 }
+
+@media (min-width: 900px) {
+  .story-year-carousel-viewport {
+    max-height: calc(
+      min(62svh, 62dvh, var(--vh))
+      - var(--safe-area-top, 0px)
+      - var(--safe-area-bottom, 0px)
+      - 24px
+    );
+  }
+}
+
+
+@supports not (aspect-ratio: 1 / 1) {
+  .story-year-carousel-viewport {
+    height: auto; /* allow padding hack to define height */
+  }
+  .story-year-carousel-viewport::before {
+    content: "";
+    display: block;
+    /* height = (1582 / 2238) of width => ~70.72% */
+    padding-top: calc(1582 / 2238 * 100%);
+  }
+  /* Ensure absolutely-positioned slides cover the padded area */
+  .story-year-carousel-viewport > * {
+    position: absolute;
+    inset: 0;
+  }
+}
+
 
 .story-year-carousel-slide {
   position: absolute;
@@ -287,7 +317,6 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(17, 24, 39, 0) 45%, rgba(17, 24, 39, 0.65) 100%);
   border-radius: inherit;
 }
 
@@ -440,8 +469,9 @@
     padding-bottom: calc(clamp(8px, 3vw, 24px) + 20px);
   }
 
-  .story-scene {
-    max-height: none;
+.story-scene {
+    max-height: calc(var(--vh) - 88px - var(--safe-area-top) - var(--safe-area-bottom));
+    height: calc(var(--vh) - 88px - var(--safe-area-top) - var(--safe-area-bottom));
   }
 
   .story-scene::after {
@@ -458,6 +488,15 @@
 
   .story-year-carousel {
     order: -1;
+  }
+  .story-year-carousel-viewport {
+    /* slightly lower cap on small screens */
+    max-height: calc(
+      min(68svh, 68dvh, var(--vh))
+      - var(--safe-area-top, 0px)
+      - var(--safe-area-bottom, 0px)
+      - 16px
+    );
   }
 }
 

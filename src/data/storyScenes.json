@@ -701,10 +701,9 @@
             "label": "UCAS Tariff points",
             "value": "136",
             "note": {
-              "prefix": "(If you don’t meet the entry requirements you may be eligible for the ",
-              "linkLabel": "Foundation Course",
-              "linkHref": "https://courses.uwe.ac.uk/K10F/architecture-with-foundation-year",
-              "suffix": ")"
+              "prefix": "If you don’t meet the entry requirements you may be eligible for the Architecture Foundation Course.",
+              "linkLabel": "Click for more information",
+              "linkHref": "https://courses.uwe.ac.uk/K10F/architecture-with-foundation-year"
             }
           },
           {
