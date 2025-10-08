@@ -1,11 +1,12 @@
 .story-page {
-  height: var(--vh);
-  min-height: var(--vh);
+  min-height: calc(var(--vh) + var(--safe-area-top) + var(--safe-area-bottom));
   background: radial-gradient(circle at center, #fde68a 0%, #fbbf24 55%, #f59e0b 100%);
   color: #111827;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  padding-top: var(--safe-area-top);
+  padding-bottom: var(--safe-area-bottom);
+  overflow-x: hidden;
 }
 
 .story-page--share {
@@ -20,6 +21,13 @@
   gap: clamp(12px, 3vw, 28px);
   padding: 0 clamp(18px, 5vw, 36px);
   height: 72px;
+  position: sticky;
+  top: var(--safe-area-top);
+  z-index: 10;
+  background: linear-gradient(180deg, rgba(254, 215, 102, 0.96) 0%, rgba(254, 194, 24, 0.85) 65%,
+      rgba(254, 194, 24, 0.75) 100%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .story-top-controls {
@@ -427,8 +435,8 @@
 
 @media (max-width: 900px) {
   .story-stage {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: visible;
+    overflow-y: visible;
     padding-bottom: calc(clamp(8px, 3vw, 24px) + 20px);
   }
 
@@ -458,7 +466,7 @@
   flex-direction: column;
   gap: clamp(10px, 2vw, 20px);
   width: clamp(320px, 92vw, 1320px);
-  max-height: calc(100vh - 88px);
+  max-height: calc(var(--vh) - 88px - var(--safe-area-top) - var(--safe-area-bottom));
   margin: 0 auto;
 }
 
@@ -717,7 +725,16 @@
 }
 
 .story-video-frame {
-  width: min(72vw, 960px, calc((100vh - var(--story-video-width-offset, 320px)) * 16 / 9));
+  width: min(
+    72vw,
+    960px,
+    calc(
+      (
+          var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) -
+          var(--story-video-width-offset, 320px)
+      ) * 16 / 9
+    )
+  );
   aspect-ratio: 16 / 9;
   border-radius: 24px;
   overflow: hidden;
@@ -727,7 +744,10 @@
   align-items: center;
   justify-content: center;
   align-self: center;
-  max-height: calc(100vh - var(--story-video-height-offset, 280px));
+  max-height: calc(
+    var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) -
+      var(--story-video-height-offset, 280px)
+  );
   transition: width 0.35s ease, max-height 0.35s ease;
 }
 
@@ -755,8 +775,20 @@
 }
 
 .story-scene--video.is-playing .story-video-frame {
-  width: min(90vw, 1080px, calc((100vh - var(--story-video-width-offset, 320px)) * 16 / 9));
-  max-height: calc(100vh - var(--story-video-height-offset, 320px));
+  width: min(
+    90vw,
+    1080px,
+    calc(
+      (
+          var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) -
+          var(--story-video-width-offset, 320px)
+      ) * 16 / 9
+    )
+  );
+  max-height: calc(
+    var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) -
+      var(--story-video-height-offset, 320px)
+  );
 }
 
 .story-scene--chart {
@@ -1216,8 +1248,12 @@
 .story-leader-photo {
   aspect-ratio: 4 / 5;
   width: 100%;
-  max-height: clamp(180px, calc((100vh - 260px) / 1.2), 300px);
-border-radius: 24px;
+  max-height: clamp(
+    180px,
+    calc((var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) - 260px) / 1.2),
+    300px
+  );
+  border-radius: 24px;
   background-size: cover;
   background-position: center;
 }
@@ -2378,8 +2414,8 @@ border-radius: 24px;
   }
 
   .story-stage {
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: visible;
+    overflow-y: visible;
   }
 
   .story-welcome-grid {
@@ -2401,12 +2437,31 @@ border-radius: 24px;
   }
 
   .story-video-frame {
-    width: min(100vw - 24px, calc((100vh - var(--story-video-width-offset, 352px)) * 16 / 9));
-    max-height: calc(100vh - var(--story-video-height-offset, 360px));
+    width: min(
+      100vw - 24px,
+      calc(
+        (
+            var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) -
+            var(--story-video-width-offset, 352px)
+        ) * 16 / 9
+      )
+    );
+    max-height: calc(
+      var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) -
+        var(--story-video-height-offset, 360px)
+    );
   }
 
   .story-scene--video.is-playing .story-video-frame {
-    width: min(100vw - 16px, calc((100vh - var(--story-video-width-offset, 360px)) * 16 / 9));
+    width: min(
+      100vw - 16px,
+      calc(
+        (
+            var(--vh) - var(--safe-area-top) - var(--safe-area-bottom) -
+            var(--story-video-width-offset, 360px)
+        ) * 16 / 9
+      )
+    );
   }
 
   .story-destinations-grid {
