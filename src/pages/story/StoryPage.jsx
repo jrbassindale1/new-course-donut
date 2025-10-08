@@ -31,6 +31,8 @@ export default function StoryPage() {
 
     const root = document.documentElement;
     const { visualViewport } = window;
+    const previousStoryVh = root.style.getPropertyValue("--story-page-vh");
+    const previousGlobalVh = root.style.getPropertyValue("--vh");
     let rafId = 0;
 
     const updateViewportUnit = () => {
@@ -38,6 +40,7 @@ export default function StoryPage() {
       const viewportHeight = visualViewport?.height || window.innerHeight;
       if (!viewportHeight) return;
       root.style.setProperty("--story-page-vh", `${viewportHeight}px`);
+      root.style.setProperty("--vh", `${viewportHeight}px`);
     };
 
     const scheduleUpdate = () => {
@@ -64,7 +67,16 @@ export default function StoryPage() {
       if (rafId) {
         window.cancelAnimationFrame(rafId);
       }
-      root.style.removeProperty("--story-page-vh");
+      if (previousStoryVh) {
+        root.style.setProperty("--story-page-vh", previousStoryVh);
+      } else {
+        root.style.removeProperty("--story-page-vh");
+      }
+      if (previousGlobalVh) {
+        root.style.setProperty("--vh", previousGlobalVh);
+      } else {
+        root.style.removeProperty("--vh");
+      }
     };
   }, []);
 
