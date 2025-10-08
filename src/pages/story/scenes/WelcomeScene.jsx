@@ -37,13 +37,13 @@ export default function WelcomeScene({ scene }) {
             <ul className="story-welcome-grid" role="list">
               {scene.sections.map((section, index) => {
                 const key = section?.title ? `${section.title}-${index}` : `section-${index}`;
-                const isFlipped = activeCard === index;
+                const isActive = activeCard === index;
                 return (
                   <li key={key} className="story-welcome-card">
                     <button
                       type="button"
-                      className={`story-welcome-card-toggle${isFlipped ? " is-active" : ""}`}
-                      aria-pressed={isFlipped}
+                      className={`story-welcome-card-toggle${isActive ? " is-active" : ""}`}
+                      aria-pressed={isActive}
                       aria-label={`Read more about ${section?.title || "this highlight"}`}
                       onMouseEnter={() => handleCardEnter(index)}
                       onMouseLeave={() => handleCardLeave(index)}
@@ -51,7 +51,7 @@ export default function WelcomeScene({ scene }) {
                       onBlur={() => handleCardLeave(index)}
                       onClick={() => handleCardToggle(index)}
                     >
-                      <span className={`story-welcome-card-inner${isFlipped ? " is-flipped" : ""}`}>
+                      <span className={`story-welcome-card-inner${isActive ? " is-active" : ""}`}>
                         <span className="story-welcome-card-face is-front">
                           {section?.title ? <h3>{section.title}</h3> : null}
                         </span>

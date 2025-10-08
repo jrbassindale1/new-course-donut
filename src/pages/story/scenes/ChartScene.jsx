@@ -23,6 +23,7 @@ const buildField = (label, rawValue, fallback) => {
 
 export default function ChartScene({ scene }) {
   const [selectedModuleId, setSelectedModuleId] = useState(null);
+  const [selectedModuleColor, setSelectedModuleColor] = useState(null);
   const [chartSize, setChartSize] = useState(480);
   const canvasRef = useRef(null);
 
@@ -156,15 +157,27 @@ export default function ChartScene({ scene }) {
               width={chartSize}
               height={chartSize}
               padding={0}
-              onInfoSelect={(moduleId) => setSelectedModuleId(moduleId)}
+              onInfoSelect={(selection) => {
+                const moduleId = typeof selection === "string" ? selection : selection?.moduleId;
+                const color = typeof selection === "object" ? selection?.color : null;
+                if (!moduleId) {
+                  setSelectedModuleId(null);
+                  setSelectedModuleColor(null);
+                  return;
+                }
+                setSelectedModuleId(moduleId);
+                setSelectedModuleColor(color || null);
+              }}
             />
           </div>
         </div>
-        <aside className="story-chart-detail">
+        <aside
+          className="story-chart-detail"
+          style={{ "--story-detail-accent": selectedModuleColor || "transparent" }}
+        >
           {moduleDetails ? (
             <>
               <h2>{moduleDetails.title}</h2>
-              <p className="module-code">{moduleDetails.code}</p>
               <dl className="module-summary">
                 {moduleDetails.fields.map(({ label, value }) => (
                   <div className="module-summary__row" key={label}>

@@ -21,18 +21,18 @@ export default function DestinationsScene({ scene }) {
     return items;
   }, [companies]);
 
-  const [flippedState, setFlippedState] = useState(() => gridItems.map(() => false));
+  const [activeState, setActiveState] = useState(() => gridItems.map(() => false));
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
-    setFlippedState(gridItems.map(() => false));
+    setActiveState(gridItems.map(() => false));
     setHoveredIndex(null);
   }, [gridItems]);
 
   useEffect(() => {
     if (reduceMotion || !gridItems.length) return undefined;
     const intervalId = window.setInterval(() => {
-      setFlippedState((prev) => {
+      setActiveState((prev) => {
         if (!prev.length) return prev;
         const next = prev.slice();
         const randomIndex = Math.floor(Math.random() * next.length);
@@ -48,18 +48,18 @@ export default function DestinationsScene({ scene }) {
       <SceneHeading scene={scene} />
       <div className="story-destinations-grid" aria-label="Graduate destinations grid">
         {gridItems.map((company, index) => {
-          const isFlipped = (flippedState[index] && !reduceMotion) || hoveredIndex === index;
+          const isActive = (activeState[index] && !reduceMotion) || hoveredIndex === index;
           return (
             <button
               key={`${company.id}-${index}`}
               type="button"
-              className={`story-destination-cell${isFlipped ? " is-flipped" : ""}`}
+              className={`story-destination-cell${isActive ? " is-active" : ""}`}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onFocus={() => setHoveredIndex(index)}
               onBlur={() => setHoveredIndex(null)}
             >
-              <div className="story-destination-inner">
+              <div className={`story-destination-inner${isActive ? " is-active" : ""}`}>
                 <div className="story-destination-face story-destination-front">
                   {company.logo ? (
                     <img src={withBase(company.logo)} alt={company.name} className="story-destination-logo" />

@@ -26,6 +26,48 @@ export default function StoryPage() {
   const sceneTimerRef = useRef({ sceneId: null, startedAt: 0, index: null });
   const stageRef = useRef(null);
 
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") return undefined;
+
+    const root = document.documentElement;
+    const { visualViewport } = window;
+    let rafId = 0;
+
+    const updateViewportUnit = () => {
+      rafId = 0;
+      const viewportHeight = visualViewport?.height || window.innerHeight;
+      if (!viewportHeight) return;
+      root.style.setProperty("--story-page-vh", `${viewportHeight}px`);
+    };
+
+    const scheduleUpdate = () => {
+      if (rafId) return;
+      if (typeof window.requestAnimationFrame === "function") {
+        rafId = window.requestAnimationFrame(updateViewportUnit);
+      } else {
+        updateViewportUnit();
+      }
+    };
+
+    updateViewportUnit();
+    scheduleUpdate();
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("orientationchange", scheduleUpdate);
+    visualViewport?.addEventListener("resize", scheduleUpdate);
+    visualViewport?.addEventListener("scroll", scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("resize", scheduleUpdate);
+      window.removeEventListener("orientationchange", scheduleUpdate);
+      visualViewport?.removeEventListener("resize", scheduleUpdate);
+      visualViewport?.removeEventListener("scroll", scheduleUpdate);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+      root.style.removeProperty("--story-page-vh");
+    };
+  }, []);
+
   const flushSceneDuration = useCallback((reason) => {
     if (typeof window === "undefined") return;
     const { sceneId, startedAt, index: previousIndex } = sceneTimerRef.current;

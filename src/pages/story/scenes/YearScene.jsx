@@ -305,26 +305,6 @@ export default function YearScene({ scene }) {
                   ›
                 </button>
               </div>
-              {activeSlideCount > 1 ? (
-                <div className="story-year-carousel-dots" role="tablist" aria-label="Select project image">
-                  {activeSlides.map((slide, index) => {
-                    const isActive = index === activeSlideIndex;
-                    const labelText = slide.imageLabel ? `${slide.track} — ${slide.imageLabel}` : slide.track;
-                    return (
-                      <button
-                        key={`${slide.track}-dot-${index}`}
-                        type="button"
-                        role="tab"
-                        aria-selected={isActive}
-                        className={`story-year-carousel-dot${isActive ? " is-active" : ""}`}
-                        onClick={() => handleSelectSlide(index)}
-                      >
-                        <span className="sr-only">{labelText}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              ) : null}
             </>
           ) : (
             <div className="story-year-carousel-placeholder">

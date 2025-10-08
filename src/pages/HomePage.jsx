@@ -94,9 +94,12 @@ export default function HomePage({ onNavigate }) {
           <div className="chart-wrapper">
             <div className="chart-inner">
               <CompassChart
-                onInfoSelect={(id) => {
-                  trackEvent("chart_info_select", { module_id: id });
-                  setSelectedModuleId(id);
+                onInfoSelect={(selection) => {
+                  const moduleId =
+                    typeof selection === "string" ? selection : selection?.moduleId;
+                  if (!moduleId) return;
+                  trackEvent("chart_info_select", { module_id: moduleId });
+                  setSelectedModuleId(moduleId);
                 }}
               />
             </div>

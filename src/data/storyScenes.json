@@ -16,7 +16,7 @@
       "id": "leaders",
       "label": "Team",
       "title": "Meet the Programme Leaders",
-      "headline": "Three strands guide you through studio, technology and professional practice.",
+      "headline": "Your guides through the course and beyond.",
       "leaders": [
         {
           "id": "leader-studio",
@@ -77,7 +77,7 @@
     },
     {
       "id": "welcome",
-      "label": "Welcome",
+      "label": "Why UWE?",
       "title": "Why Architecture at UWE?",
       "headline": "A RIBA Part 1 route with studio-first learning, live briefs and strong professional pathways.",
       "sections": [
@@ -117,13 +117,13 @@
     {
       "id": "year1",
       "label": "Year 1",
-      "title": "Year 1 Foundations",
+      "title": "Year 1 - Creative Exploration",
       "headline": "Start with the basics: creative design, understanding the environment, and exploring how architecture connects to communities.",
       "year": "1",
       "tiles": [
         {
           "track": "Design Studio",
-          "deliverable": "Exploring your first neighbourhood project",
+          "deliverable": "Creating your first architectural designs",
           "imageFolder": "firstyear/studio",
           "themes": [
             "Studio"
@@ -151,13 +151,13 @@
     {
       "id": "year2",
       "label": "Year 2",
-      "title": "Year 2 Depth",
+      "title": "Year 2 - Depth and Development",
       "headline": "Take on bigger projects, dive deeper into technology, and understand how architects work in practice.",
       "year": "2",
       "tiles": [
         {
           "track": "Design Studio",
-          "deliverable": "Designing larger urban spaces",
+          "deliverable": "Developing more complex architectural designs",
           "imageFolder": "secondyear/studio",
           "themes": [
             "Studio"
@@ -185,13 +185,13 @@
     {
       "id": "year3",
       "label": "Year 3",
-      "title": "Year 3 Integrated Thesis",
+      "title": "Year 3 - Integrated Thinking",
       "headline": "Bring everything together in a major design project, backed by technical and professional thinking.",
       "year": "3",
       "tiles": [
         {
           "track": "Design Studio",
-          "deliverable": "Your final design thesis",
+          "deliverable": "Your final design thesis project where you design your own brief tailored to your interests",
           "imageFolder": "thirdyear/studio",
           "themes": [
             "Studio"
@@ -247,7 +247,7 @@
 },
     {
       "id": "chart",
-      "label": "Chart",
+      "label": "Structure",
       "title": "Programme Structure",
       "headline": "A coordinated programme of study across the three years.",
       "cta": {
@@ -454,7 +454,7 @@
 },
     {
       "id": "pathway",
-      "label": "Next",
+      "label": "Next Steps",
       "title": "Your Professional Pathway",
       "headline": "From UWE Bristol to ARB registration",
       "steps": [

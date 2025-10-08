@@ -201,6 +201,16 @@ const buildYearArcs = (ids, radius) => {
   });
 };
 
+const getArcMidpoint = (arc) => {
+  if (!arc) return 0;
+  const source = arc.trimmed || arc;
+  const start = Number.isFinite(source.start) ? source.start : 0;
+  const end = Number.isFinite(source.end) ? source.end : start;
+  const mid = start + (end - start) / 2;
+  const normalised = ((mid % 360) + 360) % 360;
+  return normalised;
+};
+
 const splitLabel = (text) => {
   if (!text) return [""];
   const normalised = String(text).replace(/\s+/g, " ").trim();
@@ -376,7 +386,12 @@ export default function CompassChart({
   const handleModuleClick = (id) => {
     setActiveModule(id);
     if (typeof onInfoSelect === "function") {
-      onInfoSelect(id, "synopsis");
+      const payload = {
+        moduleId: id,
+        intent: "synopsis",
+        color: colorForModule(id),
+      };
+      onInfoSelect(payload);
     }
   };
 
@@ -391,6 +406,18 @@ export default function CompassChart({
   const year2Arcs = buildYearArcs(year2Ids, year2Radius);
   const year3Arcs = buildYearArcs(year3Ids, year3Radius);
 
+  const arcsById = React.useMemo(() => {
+    const map = {};
+    for (const arc of [...year1Arcs, ...year2Arcs, ...year3Arcs]) {
+      map[arc.id] = arc;
+    }
+    return map;
+  }, [year1Arcs, year2Arcs, year3Arcs]);
+
+  const activeArc = activeModule ? arcsById[activeModule] : null;
+  const baseRotation = -90;
+  const rotationDeg = activeArc ? 90 - getArcMidpoint(activeArc) : 0;
+
   return (
     <svg
       className="compass-svg"
@@ -400,95 +427,104 @@ export default function CompassChart({
       role="img"
       aria-label="Programme overview compass"
     >
-      <g transform={`rotate(-90 ${cx} ${cy})`}>
-        <g>
-          <circle cx={cx} cy={cy} r={Math.max(0, year1BgRadius)} stroke="#ffffff" strokeWidth={backgroundStroke} fill="none" opacity={0.9} />
-          <circle cx={cx} cy={cy} r={Math.max(0, year2BgRadius)} stroke="#ffffff" strokeWidth={backgroundStroke} fill="none" opacity={0.9} />
-          <circle cx={cx} cy={cy} r={Math.max(0, year3BgRadius)} stroke="#ffffff" strokeWidth={backgroundStroke} fill="none" opacity={0.9} />
-        </g>
+      <g transform={`rotate(${baseRotation} ${cx} ${cy})`}>
+        <g
+          className="compass-rotation"
+          style={{
+            transform: `rotate(${rotationDeg}deg)`,
+            transformOrigin: `${cx}px ${cy}px`,
+            transformBox: "view-box",
+          }}
+        >
+          <g>
+            <circle cx={cx} cy={cy} r={Math.max(0, year1BgRadius)} stroke="#ffffff" strokeWidth={backgroundStroke} fill="none" opacity={0.9} />
+            <circle cx={cx} cy={cy} r={Math.max(0, year2BgRadius)} stroke="#ffffff" strokeWidth={backgroundStroke} fill="none" opacity={0.9} />
+            <circle cx={cx} cy={cy} r={Math.max(0, year3BgRadius)} stroke="#ffffff" strokeWidth={backgroundStroke} fill="none" opacity={0.9} />
+          </g>
 
-        <g>
-          {renderYearBand({
-            arcs: year1Arcs,
-            cx,
-            cy,
-            radius: year1Radius,
-            strokeWidth: ringThickness,
-            onModuleClick: handleModuleClick,
-            onModuleEnter: handleModuleEnter,
-            onModuleLeave: handleModuleLeave,
-            strokeFor,
-            labelFillFor,
-            scale,
-          })}
-          {renderYearBand({
-            arcs: year2Arcs,
-            cx,
-            cy,
-            radius: year2Radius,
-            strokeWidth: ringThickness,
-            onModuleClick: handleModuleClick,
-            onModuleEnter: handleModuleEnter,
-            onModuleLeave: handleModuleLeave,
-            strokeFor,
-            labelFillFor,
-            scale,
-          })}
-          {renderYearBand({
-            arcs: year3Arcs,
-            cx,
-            cy,
-            radius: year3Radius,
-            strokeWidth: ringThickness,
-            onModuleClick: handleModuleClick,
-            onModuleEnter: handleModuleEnter,
-            onModuleLeave: handleModuleLeave,
-            strokeFor,
-            labelFillFor,
-            scale,
-          })}
-        </g>
+          <g>
+            {renderYearBand({
+              arcs: year1Arcs,
+              cx,
+              cy,
+              radius: year1Radius,
+              strokeWidth: ringThickness,
+              onModuleClick: handleModuleClick,
+              onModuleEnter: handleModuleEnter,
+              onModuleLeave: handleModuleLeave,
+              strokeFor,
+              labelFillFor,
+              scale,
+            })}
+            {renderYearBand({
+              arcs: year2Arcs,
+              cx,
+              cy,
+              radius: year2Radius,
+              strokeWidth: ringThickness,
+              onModuleClick: handleModuleClick,
+              onModuleEnter: handleModuleEnter,
+              onModuleLeave: handleModuleLeave,
+              strokeFor,
+              labelFillFor,
+              scale,
+            })}
+            {renderYearBand({
+              arcs: year3Arcs,
+              cx,
+              cy,
+              radius: year3Radius,
+              strokeWidth: ringThickness,
+              onModuleClick: handleModuleClick,
+              onModuleEnter: handleModuleEnter,
+              onModuleLeave: handleModuleLeave,
+              strokeFor,
+              labelFillFor,
+              scale,
+            })}
+          </g>
 
-        <g>
-          <ArcLabel
-            id="year-1-label"
-            cx={cx}
-            cy={cy}
-            r={year1LabelRadius}
-            start={CHART_TUNING.yearLabelArcStart}
-            end={CHART_TUNING.yearLabelArcEnd}
-            text="Year 1"
-            fontSize={yearLabelFontSize}
-            fontWeight="600"
-            startOffset="50%"
-            textAnchor="left"
-          />
-          <ArcLabel
-            id="year-2-label"
-            cx={cx}
-            cy={cy}
-            r={year2LabelRadius}
-            start={CHART_TUNING.yearLabelArcStart}
-            end={CHART_TUNING.yearLabelArcEnd}
-            text="Year 2"
-            fontSize={yearLabelFontSize}
-            fontWeight="600"
-            startOffset="50%"
-            textAnchor="left"
-          />
-          <ArcLabel
-            id="year-3-label"
-            cx={cx}
-            cy={cy}
-            r={year3LabelRadius}
-            start={CHART_TUNING.yearLabelArcStart}
-            end={CHART_TUNING.yearLabelArcEnd}
-            text="Year 3"
-            fontSize={yearLabelFontSize}
-            fontWeight="600"
-            startOffset="50%"
-            textAnchor="left"
-          />
+          <g>
+            <ArcLabel
+              id="year-1-label"
+              cx={cx}
+              cy={cy}
+              r={year1LabelRadius}
+              start={CHART_TUNING.yearLabelArcStart}
+              end={CHART_TUNING.yearLabelArcEnd}
+              text="Year 1"
+              fontSize={yearLabelFontSize}
+              fontWeight="600"
+              startOffset="50%"
+              textAnchor="left"
+            />
+            <ArcLabel
+              id="year-2-label"
+              cx={cx}
+              cy={cy}
+              r={year2LabelRadius}
+              start={CHART_TUNING.yearLabelArcStart}
+              end={CHART_TUNING.yearLabelArcEnd}
+              text="Year 2"
+              fontSize={yearLabelFontSize}
+              fontWeight="600"
+              startOffset="50%"
+              textAnchor="left"
+            />
+            <ArcLabel
+              id="year-3-label"
+              cx={cx}
+              cy={cy}
+              r={year3LabelRadius}
+              start={CHART_TUNING.yearLabelArcStart}
+              end={CHART_TUNING.yearLabelArcEnd}
+              text="Year 3"
+              fontSize={yearLabelFontSize}
+              fontWeight="600"
+              startOffset="50%"
+              textAnchor="left"
+            />
+          </g>
         </g>
       </g>
     </svg>

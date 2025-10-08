@@ -24,7 +24,12 @@
 }
 
 /* Basic, predictable UI styling (independent of Tailwind) */
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
 html { background: #fec218; }
 body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova", Arial, Helvetica, sans-serif; }
 :root {
@@ -250,7 +255,7 @@ body { margin: 0; background: #FEC218; color: #111; font: 14px/1.45 "Arial Nova"
   .frontage-page,
   .story-page,
   .video-page {
-    margin-bottom: 16px;
+    margin-bottom: 0;
   }
   .page-grid { height: auto; }
   .chart-panel { margin-top: 0 !important; z-index: 1; }
