@@ -600,10 +600,82 @@
       ]
     },
     {
+      "id": "involvement",
+      "label": "Get involved",
+      "title": "You can get involved",
+      "headline": "Make the most of Frenchay Campus with clubs, sport, music and everyday support.",
+      "features": [
+        {
+          "id": "arc-society",
+          "eyebrow": "Architecture network",
+          "title": "Architecture Society",
+          "description": "Student-led events and socials for Architecture students across all year groups.",
+          "image": "/images/activities/UWEArcSocLogo_Black.png",
+          "imageAlt": "UWE Architecture Society logo",
+          "points": [
+            "Mixers, exhibition trips and guest speakers hosted by Architecture students. Collaborate on competitions and outreach projects with peers across year groups."
+          ],
+          "linkLabel": "The Architecture Society",
+          "linkHref": "https://www.thestudentsunion.co.uk/organisation/uwearchsociety/"
+        },
+        {
+          "id": "activities",
+          "eyebrow": "Student communities",
+          "title": "Societies & Activities",
+          "description": "Join more than 160 student-led societies and volunteering groups through The Students’ Union.",
+          "image": "/images/activities/societies.jpg",
+          "imageAlt": "Students from UWE societies at a campus fair",
+          "points": [
+            "Academic, cultural, campaigning and wellbeing societies welcoming new members year-round. Regular fairs, skills sessions and takeovers so you can try something new with friends."
+          ],
+          "linkLabel": "Browse societies and activities",
+          "linkHref": "https://www.uwe.ac.uk/life/activities"
+        },
+        {
+          "id": "sport",
+          "eyebrow": "Wellbeing & fitness",
+          "title": "Centre for Sport",
+          "description": "Modern gym, floodlit pitches, indoor courts and over 60 weekly classes on campus.",
+          "image": "/images/activities/sport.jpg",
+          "imageAlt": "Students training at the UWE Centre for Sport gym",
+          "points": [
+            "Flexible memberships plus pay-as-you-go options. Performance sport pathways, recreational leagues and coached sessions."
+          ],
+          "linkLabel": "Explore the Centre for Sport",
+          "linkHref": "https://www.uwe.ac.uk/life/activities/sport"
+        },
+        {
+          "id": "music",
+          "eyebrow": "Creative spaces",
+          "title": "Centre for Music",
+          "description": "Keep performing with rehearsal rooms, recording studios and expert mentors.",
+          "image": "/images/activities/music.jpg",
+          "imageAlt": "Students rehearsing in the UWE Centre for Music studio",
+          "points": [
+            "Free instrument loan scheme and bookable practice rooms. Join choirs, bands, DJ workshops and music production masterclasses."
+          ],
+          "linkLabel": "See the Centre for Music",
+          "linkHref": "https://www.uwe.ac.uk/life/centre-for-music"
+        }
+      ]
+    },
+    {
       "id": "support",
       "label": "Support",
       "title": "We'll Support You on Your Journey",
       "headline": "Dedicated teams across UWE Bristol are ready to help whenever you need it.",
+      "highlight": {
+        "eyebrow": "Everyday support",
+        "title": "Student Life Hub",
+        "description": "Drop-in help for finance, wellbeing, visas, accommodation and getting involved on campus.",
+        "image": "/images/story/counsellor-305x305.png",
+        "imageAlt": "Student Life Hub advisors meeting with a student",
+        "points": [
+          "Friendly Student Life Assistants connect you with expert teams across the university."
+        ],
+        "linkLabel": "Visit the Student Life Hub",
+        "linkHref": "https://studentlife.uwe.ac.uk/"
+      },
       "services": [
         "Academic Personal Tutor",
         "Student Success Coaches",
@@ -619,9 +691,7 @@
       "link": {
         "label": "More on mental health and wellbeing support",
         "href": "https://www.uwe.ac.uk/life/health-and-wellbeing"
-      },
-      "image": "/images/story/counsellor-305x305.png",
-      "imageAlt": "Student meeting with UWE Bristol wellbeing counsellor"
+      }
     },
     {
       "id": "contact",
@@ -713,10 +783,6 @@
           {
             "label": "Duration",
             "value": "Three years"
-          },
-          {
-            "label": "Delivery",
-            "value": "Full-time"
           }
         ]
       }

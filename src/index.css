@@ -24,8 +24,18 @@
 }
 
 /* Basic, predictable UI styling (independent of Tailwind) */
-html, body {
+html {
   min-height: 100%;
+  background: #fec218;
+  background: radial-gradient(circle at center, #fde68a 0%, #fbbf24 55%, #f59e0b 100%);
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background: inherit;
+  color: #111;
+  font: 14px/1.45 "Arial Nova", Arial, Helvetica, sans-serif;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -33,24 +43,15 @@ html, body {
 #root {
   min-height: 100%;
 }
-html {
-  background: #fec218;
-  background: radial-gradient(circle at center, #fde68a 0%, #fbbf24 55%, #f59e0b 100%);
-}
-body {
-  margin: 0;
-  background: inherit;
-  color: #111;
-  font: 14px/1.45 "Arial Nova", Arial, Helvetica, sans-serif;
-}
 
 :root {
-  --app-pad-top: 20px;
+  --app-pad-top: 10px;
   --app-pad-bottom: 12px;
   --vh: 100vh;
   --header-space: 32px;
   --safe-area-top: 0px;
   --safe-area-bottom: 0px;
+  background: #fec218;
 }
 @supports (padding: env(safe-area-inset-bottom)) {
   :root {

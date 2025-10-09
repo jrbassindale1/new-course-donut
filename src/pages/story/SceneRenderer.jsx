@@ -12,6 +12,7 @@ import OutcomesScene from "./scenes/OutcomesScene.jsx";
 import PathwayScene from "./scenes/PathwayScene.jsx";
 import SupportScene from "./scenes/SupportScene.jsx";
 import ContactScene from "./scenes/ContactScene.jsx";
+import InvolvementScene from "./scenes/InvolvementScene.jsx";
 import SceneHeading from "./components/SceneHeading.jsx";
 
 export default function SceneRenderer({ scene }) {
@@ -39,6 +40,8 @@ export default function SceneRenderer({ scene }) {
       return <YearScene scene={scene} />;
     case "destinations":
       return <DestinationsScene scene={scene} />;
+    case "involvement":
+      return <InvolvementScene scene={scene} />;
     case "studio":
       return <StudioScene scene={scene} />;
     case "chart":
