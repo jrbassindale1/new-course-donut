@@ -225,7 +225,12 @@ export default function StoryPage() {
         aria-label={scene.label}
         ref={stageRef}
       >
-        <SceneRenderer scene={scene} />
+        <div
+          key={scene?.id ?? index}
+          className="story-stage__slide"
+        >
+          <SceneRenderer scene={scene} />
+        </div>
       </div>
     </div>
   );

@@ -240,6 +240,8 @@ const renderYearBand = ({
   strokeFor,
   labelFillFor,
   scale = 1,
+  primaryFontFloor = 10.5,
+  secondaryFontFloor = 9,
 }) => {
   if (!radius || radius <= 0 || !arcs || !arcs.length) return null;
   return arcs.map((arc) => {
@@ -252,8 +254,8 @@ const renderYearBand = ({
     const labelInnerR = radius - innerOffset;
     const title = moduleInfo[arc.id]?.moduleName || arc.id;
     const code = arc.id;
-    const primaryFontSize = Math.max(10.5, 13 * scale);
-    const secondaryFontSize = Math.max(9, 11 * scale);
+    const primaryFontSize = Math.max(primaryFontFloor, 13 * scale);
+    const secondaryFontSize = Math.max(secondaryFontFloor, 11 * scale);
 
     const handleKeyDown = (event) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -356,15 +358,42 @@ export default function CompassChart({
   const year1LabelRadius = Math.max(0, year1BgRadius + yearLabelRadiusOffset);
   const year2LabelRadius = Math.max(0, year2BgRadius + yearLabelRadiusOffset);
   const year3LabelRadius = Math.max(0, year3BgRadius + yearLabelRadiusOffset);
-  const yearLabelFontSize = Math.max(CHART_TUNING.yearLabelFontMin, CHART_TUNING.yearLabelFontBase * scale);
 
   const [activeModule, setActiveModule] = React.useState(null);
   const [hoveredModule, setHoveredModule] = React.useState(null);
+  const [isPhoneViewport, setIsPhoneViewport] = React.useState(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return false;
+    return window.matchMedia("(max-width: 430px)").matches;
+  });
 
   React.useEffect(() => {
     setActiveModule(null);
     setHoveredModule(null);
   }, [resetSignal]);
+
+  React.useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") return undefined;
+    const query = window.matchMedia("(max-width: 430px)");
+    const handleChange = (event) => setIsPhoneViewport(event.matches);
+    if (typeof query.addEventListener === "function") {
+      query.addEventListener("change", handleChange);
+    } else if (typeof query.addListener === "function") {
+      query.addListener(handleChange);
+    }
+    setIsPhoneViewport(query.matches);
+    return () => {
+      if (typeof query.removeEventListener === "function") {
+        query.removeEventListener("change", handleChange);
+      } else if (typeof query.removeListener === "function") {
+        query.removeListener(handleChange);
+      }
+    };
+  }, []);
+
+  const primaryFontFloor = isPhoneViewport ? 8.5 : 10.5;
+  const secondaryFontFloor = isPhoneViewport ? 7.5 : 9;
+  const yearLabelFloor = isPhoneViewport ? Math.max(9.5, CHART_TUNING.yearLabelFontMin - 1.5) : CHART_TUNING.yearLabelFontMin;
+  const yearLabelFontSize = Math.max(yearLabelFloor, CHART_TUNING.yearLabelFontBase * scale);
 
   const themeColors = colors && Object.keys(colors).length ? colors : THEME_COLORS;
   const fallbackColor = "#94a3b8";
@@ -455,6 +484,8 @@ export default function CompassChart({
               strokeFor,
               labelFillFor,
               scale,
+              primaryFontFloor,
+              secondaryFontFloor,
             })}
             {renderYearBand({
               arcs: year2Arcs,
@@ -468,6 +499,8 @@ export default function CompassChart({
               strokeFor,
               labelFillFor,
               scale,
+              primaryFontFloor,
+              secondaryFontFloor,
             })}
             {renderYearBand({
               arcs: year3Arcs,
@@ -481,6 +514,8 @@ export default function CompassChart({
               strokeFor,
               labelFillFor,
               scale,
+              primaryFontFloor,
+              secondaryFontFloor,
             })}
           </g>
 
