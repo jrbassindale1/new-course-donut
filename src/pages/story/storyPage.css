@@ -292,6 +292,32 @@
   margin-top: 10px;
 }
 
+.story-stage__slide {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  animation: storySceneFade 0.45s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes storySceneFade {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-stage__slide {
+    animation: none;
+  }
+}
+
 .story-heading {
   max-width: 100%;
 }
