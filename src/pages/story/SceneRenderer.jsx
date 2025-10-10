@@ -13,6 +13,7 @@ import PathwayScene from "./scenes/PathwayScene.jsx";
 import SupportScene from "./scenes/SupportScene.jsx";
 import ContactScene from "./scenes/ContactScene.jsx";
 import InvolvementScene from "./scenes/InvolvementScene.jsx";
+import FaqScene from "./scenes/FaqScene.jsx";
 import SceneHeading from "./components/SceneHeading.jsx";
 
 export default function SceneRenderer({ scene }) {
@@ -58,6 +59,8 @@ export default function SceneRenderer({ scene }) {
       return <SupportScene scene={scene} />;
     case "contact":
       return <ContactScene scene={scene} />;
+    case "faq":
+      return <FaqScene scene={scene} />;
     default:
       return (
         <div className="story-scene">

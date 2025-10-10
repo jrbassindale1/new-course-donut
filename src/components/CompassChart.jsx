@@ -24,7 +24,7 @@ const ArcLabel = ({
   start,
   end,
   text,
-  fontSize = 12,
+  fontSize = 13,
   fontWeight = "600",
   fill = "#111827",
   startOffset = "50%",
@@ -71,7 +71,7 @@ const CHART_TUNING = {
   yearLabelOffset: 25,          // push year labels out (+) or pull them in (-) relative to grey band centre (px)
   yearLabelArcStart: -70,      // where the year labels begin (degrees, before the -90° rotation)
   yearLabelArcEnd: 70,        // where the year labels end (degrees)
-  yearLabelFontBase: 13,       // base font size for year labels
+  yearLabelFontBase: 14,       // base font size for year labels
   yearLabelFontMin: 11,        // minimum font size for year labels
   moduleLabelSingleOuter: 0.14,   // single-line labels sit this fraction of ring thickness outside the ring
   moduleLabelSingleInner: 0.18,   // safety pull for single-line labels (used if needed)
@@ -240,8 +240,8 @@ const renderYearBand = ({
   strokeFor,
   labelFillFor,
   scale = 1,
-  primaryFontFloor = 10.5,
-  secondaryFontFloor = 9,
+  primaryFontFloor = 11,
+  secondaryFontFloor = 7,
 }) => {
   if (!radius || radius <= 0 || !arcs || !arcs.length) return null;
   return arcs.map((arc) => {
@@ -255,7 +255,7 @@ const renderYearBand = ({
     const title = moduleInfo[arc.id]?.moduleName || arc.id;
     const code = arc.id;
     const primaryFontSize = Math.max(primaryFontFloor, 13 * scale);
-    const secondaryFontSize = Math.max(secondaryFontFloor, 11 * scale);
+    const secondaryFontSize = Math.max(secondaryFontFloor, 10 * scale);
 
     const handleKeyDown = (event) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -390,9 +390,9 @@ export default function CompassChart({
     };
   }, []);
 
-  const primaryFontFloor = isPhoneViewport ? 8.5 : 10.5;
-  const secondaryFontFloor = isPhoneViewport ? 7.5 : 9;
-  const yearLabelFloor = isPhoneViewport ? Math.max(9.5, CHART_TUNING.yearLabelFontMin - 1.5) : CHART_TUNING.yearLabelFontMin;
+  const primaryFontFloor = isPhoneViewport ? 5.5 : 12;
+  const secondaryFontFloor = isPhoneViewport ? 5.5 : 12;
+  const yearLabelFloor = isPhoneViewport ? Math.max(7.5, CHART_TUNING.yearLabelFontMin - 4.5) : CHART_TUNING.yearLabelFontMin;
   const yearLabelFontSize = Math.max(yearLabelFloor, CHART_TUNING.yearLabelFontBase * scale);
 
   const themeColors = colors && Object.keys(colors).length ? colors : THEME_COLORS;

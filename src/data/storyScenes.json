@@ -441,10 +441,10 @@
       "source": "Discover Uni 2024"
     },
     {
-      "id": "earnings",
-      "metric": "Median earnings 15 months after graduation",
-      "value": "£25,000",
-      "source": "Graduate Outcomes 2023"
+      "id": "teaching",
+      "metric": "Teaching Quality Score",
+      "value": "91.5%",
+      "source": "Times UK University Rankings 2026"
     }
   ],
   "narrative": {
@@ -786,6 +786,67 @@
           }
         ]
       }
+    },
+    {
+      "id": "faq",
+      "label": "FAQs",
+      "title": "Frequently Asked Questions",
+      "headline": "Quick answers to common questions about joining the BSc (Hons) Architecture at UWE Bristol.",
+      "faqs": [
+        {
+          "question": "Is the course accredited?",
+          "answer": "Yes – it’s fully validated by the Architects Registration Board (ARB) and the Royal Institute of British Architects (RIBA) as a Part 1 qualification. The RIBA will visit again this academic year as part of their normal reaccreditation cycle."
+        },
+        {
+          "question": "What’s the difference between a BSc and a BA in Architecture?",
+          "answer": "A BSc has a stronger focus on technology, sustainability, and science, while a BA leans more towards arts, culture, and conceptual design. Both routes are recognised by ARB/RIBA and can lead to becoming a qualified architect."
+        },
+        {
+          "question": "Do you make contextual offers?",
+          "answer": "Yes. UWE makes contextual offers to widen access.",
+          "link": {
+            "label": "Find out more about contextual offers",
+            "href": "https://www.uwe.ac.uk/courses/applying/undergraduate-applications/contextual-offers"
+          }
+        },
+        {
+          "question": "Do you ask for a portfolio?",
+          "answer": "No – we don’t ask for a portfolio. We believe a portfolio doesn’t always reflect an applicant’s true potential. We’ll teach you to draw and use design tools from the start. What matters most is curiosity, creativity, and experimentation."
+        },
+        {
+          "question": "How is the course taught?",
+          "answer": "Teaching is studio-based, supported by lectures, workshops, seminars, and tutorials. Most of your time is spent in the design studio, developing projects through drawing, model-making, and digital design."
+        },
+        {
+          "question": "How is the course assessed?",
+          "answer": "Assessment is 100% coursework – there are no exams. You’ll be assessed through design projects, models, drawings, digital portfolios, essays, and presentations. Feedback is continuous, with lots of opportunities to develop and improve your work."
+        },
+        {
+          "question": "What will my timetable look like?",
+          "answer": "Students are currently expected to attend university for two and a half days per week: around one and a half days in studio and one day for other modules. The rest of the time is dedicated to independent study."
+        },
+        {
+          "question": "How is sustainability taught?",
+          "answer": "Sustainability is embedded throughout the course – from materials and energy performance to social value, ethics, and cultural context. Every project is designed to develop your skills as a responsible, future-facing architect."
+        },
+        {
+          "question": "Can I study abroad?",
+          "answer": "Yes – we offer exchanges with universities in Paris, Milan, Istanbul, Alicante, Hannover, Bologna, Bordeaux, Tours, and more. The year abroad adds an extra year to your degree, giving you an international perspective on architecture."
+        },
+        {
+          "question": "Do students get placements or industry experience?",
+          "answer": "Yes – through live projects, visiting practitioners, career events, and opportunities to connect to those in practice. We also participate in the RIBA Mentoring scheme."
+        },
+        {
+          "question": "What careers can I go into after graduating?",
+          "answer": "Many graduates continue to the MArch (Part 2) as the next step towards becoming a qualified architect. Others move into related fields such as urban design, planning, interior architecture, construction, or sustainability consultancy. The degree gives you a versatile set of creative, technical, and professional skills that are highly valued across the built environment sector."
+        },
+        {
+          "question": "What makes UWE Architecture distinctive?",
+          "answer": "A strong studio culture, focus on sustainability and ethics, excellent workshops and digital tools, live projects with real clients, and close links to Bristol’s creative architecture community."
+        }
+      ],
+      "footer": "Still curious? Email BScArchitecture@uwe.ac.uk and the team will be happy to help."
     }
   ]
 }
