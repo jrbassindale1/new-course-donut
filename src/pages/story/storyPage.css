@@ -368,7 +368,10 @@
 
 .story-year-theme-card.is-active {
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 52px rgba(17, 24, 39, 0.2);
+  transform: translateY(-6px);
+  box-shadow:
+    0 0 0 3px rgba(17, 24, 39, 0.18),
+    0 28px 58px rgba(17, 24, 39, 0.28);
 }
 
 .story-year-theme-card[role="button"]:focus-visible {
@@ -2129,7 +2132,7 @@
   max-width: min(360px, 100%);
   justify-self: center;
   align-self: stretch;
-  max-height: clamp(360px, 80vh, 580px);
+  max-height: clamp(450px, 80vh, 650px);
   overflow: hidden;
 }
 
@@ -2461,10 +2464,16 @@
   text-transform: uppercase;
 }
 
-.story-page .btn:hover,
 .story-page .btn:focus-visible {
   background: #1f2937;
   border-color: #1f2937;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .story-page .btn:hover {
+    background: #1f2937;
+    border-color: #1f2937;
+  }
 }
 
 .story-page .btn.secondary {
@@ -2473,10 +2482,16 @@
   border-color: rgba(17, 24, 39, 0.28);
 }
 
-.story-page .btn.secondary:hover,
 .story-page .btn.secondary:focus-visible {
   background: rgba(17, 24, 39, 0.08);
   border-color: rgba(17, 24, 39, 0.4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .story-page .btn.secondary:hover {
+    background: rgba(17, 24, 39, 0.08);
+    border-color: rgba(17, 24, 39, 0.4);
+  }
 }
 
 .story-top-controls .btn,
@@ -2491,13 +2506,20 @@
   transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-.story-top-controls .btn:hover,
 .story-top-controls .btn:active,
-.story-top-controls .btn.secondary:hover,
 .story-top-controls .btn.secondary:active {
   background: rgba(243, 244, 246, 0.55);
   box-shadow: 0 10px 24px rgba(17, 24, 39, 0.1);
   transform: translateY(-1px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .story-top-controls .btn:hover,
+  .story-top-controls .btn.secondary:hover {
+    background: rgba(243, 244, 246, 0.55);
+    box-shadow: 0 10px 24px rgba(17, 24, 39, 0.1);
+    transform: translateY(-1px);
+  }
 }
 
 .story-top-controls .btn:focus-visible,

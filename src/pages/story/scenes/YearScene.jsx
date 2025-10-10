@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import SceneHeading from "../components/SceneHeading.jsx";
 
 const YEAR_CAROUSEL_GALLERIES = buildYearCarouselGalleries();
-const AUTO_ADVANCE_INTERVAL = 10000;
+const AUTO_ADVANCE_INTERVAL = 8000;
 
 function buildYearCarouselGalleries() {
   const modules = import.meta.glob(
@@ -131,24 +131,42 @@ export default function YearScene({ scene }) {
   );
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
+  const interactiveTileIndices = useMemo(() => {
+    const interactive = [];
+    tileSlides.forEach((slides, index) => {
+      if (Array.isArray(slides) && slides.length) {
+        interactive.push(index);
+      }
+    });
+    return interactive;
+  }, [tileSlides]);
+
+  const totalSlideCount = useMemo(() => {
+    return interactiveTileIndices.reduce((total, tileIndex) => {
+      const slidesForTile = tileSlides[tileIndex];
+      return total + (Array.isArray(slidesForTile) ? slidesForTile.length : 0);
+    }, 0);
+  }, [interactiveTileIndices, tileSlides]);
+
+  const hasAnySlides = totalSlideCount > 0;
+
   useEffect(() => {
-    if (firstInteractiveTileIndex === -1) {
-      setActiveTileIndex(0);
-      setActiveSlideIndex(0);
+    if (!interactiveTileIndices.length) {
+      if (activeTileIndex !== 0) {
+        setActiveTileIndex(0);
+      }
+      if (activeSlideIndex !== 0) {
+        setActiveSlideIndex(0);
+      }
       return;
     }
 
-    setActiveTileIndex((current) => {
-      if (tileSlides[current]?.length) {
-        return current;
-      }
-      return firstInteractiveTileIndex;
-    });
-  }, [firstInteractiveTileIndex, tileSlides]);
-
-  useEffect(() => {
-    setActiveSlideIndex(0);
-  }, [activeTileIndex]);
+    if (!interactiveTileIndices.includes(activeTileIndex)) {
+      const fallbackTile = interactiveTileIndices[0];
+      setActiveTileIndex(fallbackTile);
+      setActiveSlideIndex(0);
+    }
+  }, [activeSlideIndex, activeTileIndex, interactiveTileIndices]);
 
   useEffect(() => {
     const slidesForTile = tileSlides[activeTileIndex];
@@ -166,15 +184,47 @@ export default function YearScene({ scene }) {
   }, [activeTileIndex, tileSlides]);
 
   const activeSlides = tileSlides[activeTileIndex] ?? [];
-  const activeSlideCount = activeSlides.length;
-  const hasAnySlides = tileSlides.some((entry) => entry.length > 0);
   const activeSlide = activeSlides[activeSlideIndex] ?? null;
+
+  const findRelativeTile = useCallback(
+    (currentTile, step) => {
+      if (!interactiveTileIndices.length || !Number.isInteger(step) || step === 0) {
+        return null;
+      }
+
+      const currentPosition = interactiveTileIndices.indexOf(currentTile);
+      if (currentPosition === -1) {
+        return step > 0
+          ? interactiveTileIndices[0]
+          : interactiveTileIndices[interactiveTileIndices.length - 1];
+      }
+
+      const nextPosition =
+        (currentPosition + step + interactiveTileIndices.length) % interactiveTileIndices.length;
+      return interactiveTileIndices[nextPosition];
+    },
+    [interactiveTileIndices],
+  );
+
+  const goToTile = useCallback(
+    (tileIndex, slideIndex = 0) => {
+      if (!Number.isInteger(tileIndex)) return;
+      const slidesForTile = tileSlides[tileIndex];
+      if (!Array.isArray(slidesForTile) || !slidesForTile.length) return;
+
+      const safeSlideIndex = Math.min(
+        Math.max(slideIndex, 0),
+        slidesForTile.length - 1,
+      );
+      setActiveTileIndex(tileIndex);
+      setActiveSlideIndex(safeSlideIndex);
+    },
+    [tileSlides],
+  );
 
   const handleSelectTile = (index) => {
     if (!Number.isInteger(index)) return;
-    const slidesForTile = tileSlides[index];
-    if (!slidesForTile?.length) return;
-    setActiveTileIndex(index);
+    goToTile(index, 0);
   };
 
   const handleKeyDown = (event, index) => {
@@ -184,36 +234,50 @@ export default function YearScene({ scene }) {
     }
   };
 
-  const handleSelectSlide = (index) => {
-    if (!Number.isInteger(index) || !activeSlideCount) return;
-    const boundedIndex = ((index % activeSlideCount) + activeSlideCount) % activeSlideCount;
-    setActiveSlideIndex(boundedIndex);
-  };
+  const advanceSlide = useCallback(
+    (direction) => {
+      if (!Number.isInteger(direction) || direction === 0) return;
+      const slidesForTile = tileSlides[activeTileIndex];
+      if (!Array.isArray(slidesForTile) || !slidesForTile.length) return;
 
-  const handlePrevious = () => {
-    if (!activeSlideCount) return;
-    handleSelectSlide(activeSlideIndex - 1);
-  };
+      const nextIndex = activeSlideIndex + direction;
+      if (nextIndex >= 0 && nextIndex < slidesForTile.length) {
+        setActiveSlideIndex(nextIndex);
+        return;
+      }
 
-  const handleNext = () => {
-    if (!activeSlideCount) return;
-    handleSelectSlide(activeSlideIndex + 1);
-  };
+      const neighbouringTile = findRelativeTile(activeTileIndex, direction > 0 ? 1 : -1);
+      if (neighbouringTile == null) return;
+
+      const neighbouringSlides = tileSlides[neighbouringTile];
+      if (!Array.isArray(neighbouringSlides) || !neighbouringSlides.length) return;
+
+      const targetSlideIndex = direction > 0 ? 0 : neighbouringSlides.length - 1;
+      setActiveTileIndex(neighbouringTile);
+      setActiveSlideIndex(targetSlideIndex);
+    },
+    [activeSlideIndex, activeTileIndex, findRelativeTile, tileSlides],
+  );
+
+  const handlePrevious = useCallback(() => {
+    advanceSlide(-1);
+  }, [advanceSlide]);
+
+  const handleNext = useCallback(() => {
+    advanceSlide(1);
+  }, [advanceSlide]);
 
   useEffect(() => {
-    if (activeSlideCount < 2 || typeof window === "undefined") return undefined;
+    if (totalSlideCount < 2 || typeof window === "undefined") return undefined;
 
     const timer = window.setInterval(() => {
-      setActiveSlideIndex((current) => {
-        const nextIndex = current + 1;
-        return nextIndex >= activeSlideCount ? 0 : nextIndex;
-      });
+      advanceSlide(1);
     }, AUTO_ADVANCE_INTERVAL);
 
     return () => {
       window.clearInterval(timer);
     };
-  }, [activeSlideCount, activeTileIndex]);
+  }, [advanceSlide, totalSlideCount]);
 
   return (
     <div className="story-scene story-scene--year">
@@ -239,8 +303,6 @@ export default function YearScene({ scene }) {
                 aria-pressed={isActive}
                 aria-disabled={!isInteractive}
                 onClick={handleInteraction}
-                onMouseEnter={handleInteraction}
-                onFocus={handleInteraction}
                 onKeyDown={(event) => {
                   if (!isInteractive) return;
                   handleKeyDown(event, index);
@@ -271,11 +333,7 @@ export default function YearScene({ scene }) {
                       className={`story-year-carousel-slide${isActive ? " is-active" : ""}`}
                       style={{ backgroundImage: `url(${slide.image})` }}
                       aria-hidden={!isActive}
-                    >
-                      <figcaption>
-                        <span className="story-year-carousel-track">{slide.track}</span>
-                      </figcaption>
-                    </figure>
+                    />
                   );
                 })}
                 <button
@@ -287,7 +345,7 @@ export default function YearScene({ scene }) {
                       ? `Previous image for ${activeSlide.altText}`
                       : "Previous project image"
                   }
-                  disabled={activeSlideCount < 2}
+                  disabled={totalSlideCount < 2}
                 >
                   ‹
                 </button>
@@ -300,7 +358,7 @@ export default function YearScene({ scene }) {
                       ? `Next image for ${activeSlide.altText}`
                       : "Next project image"
                   }
-                  disabled={activeSlideCount < 2}
+                  disabled={totalSlideCount < 2}
                 >
                   ›
                 </button>

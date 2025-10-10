@@ -20,55 +20,6 @@ const MIN_LIFE = 60;        // ~7.2s at 120ms tick
 const MAX_LIFE = 110;       // ~13.2s
 const FADE_IN_MS = 1400;    // quicker fade-in so text becomes readable
 const FADE_OUT_MS = 5000;   // slower fade-out for graceful exit
-const MOVE_MIN = 4.0;       // soft continuous movement
-const MOVE_MAX = 6.0;
-
-const SPEED_MIN = 0.35;     // % per second (gentler)
-const SPEED_MAX = 0.7;      // % per second
-
-function computeSpeed(word) {
-  return Math.hypot(word.vx || 0, word.vy || 0);
-}
-
-function reflectFromBounds(word, exclusion) {
-  if (!exclusion) return word;
-  const r = rectFor(word, exclusion);
-  const minX = 8 + r.halfW; const maxX = 92 - r.halfW;
-  const minY = 8 + r.halfH; const maxY = 92 - r.halfH;
-  let { top, left, vx, vy } = word;
-  if (left < minX) { left = minX; vx = Math.abs(vx); }
-  if (left > maxX) { left = maxX; vx = -Math.abs(vx); }
-  if (top  < minY) { top  = minY; vy = Math.abs(vy); }
-  if (top  > maxY) { top  = maxY; vy = -Math.abs(vy); }
-  return { ...word, top, left, vx, vy };
-}
-
-function reflectFromExclusion(word, exclusion) {
-  if (!exclusion) return word;
-  const { x0, y0, x1, y1, cw, ch } = exclusion;
-  const x = (word.left / 100) * cw;
-  const y = (word.top / 100) * ch;
-  const rpx = estimateRadius(word);
-  const rx0 = x0 - rpx;
-  const ry0 = y0 - rpx;
-  const rx1 = x1 + rpx;
-  const ry1 = y1 + rpx;
-  const inside = (x > rx0 && x < rx1 && y > ry0 && y < ry1);
-  if (!inside) return word;
-  // Reflect velocity away from the title centre
-  const cx = (x0 + x1) / 2;
-  const cy = (y0 + y1) / 2;
-  let dx = x - cx; let dy = y - cy;
-  const mag = Math.hypot(dx, dy) || 1;
-  dx /= mag; dy /= mag; // unit vector away
-  const speed = computeSpeed(word) || randomInRange(SPEED_MIN, SPEED_MAX);
-  // Push position to the edge of the exclusion plus a small padding
-  const px = x < cx ? rx0 - 6 : rx1 + 6;
-  const py = y < cy ? ry0 - 6 : ry1 + 6;
-  const leftPct = clamp((px / cw) * 100, 0, 100);
-  const topPct  = clamp((py / ch) * 100, 0, 100);
-  return { ...word, left: leftPct, top: topPct, vx: dx * speed, vy: dy * speed };
-}
 
 const randomInRange = (min, max) => Math.random() * (max - min) + min;
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -89,19 +40,21 @@ function estimateRadius(word) {
 }
 
 function isInsideExclusionPct(topPct, leftPct, radiusPct, exclusion) {
-  if (!exclusion) return false;
-  const { x0, y0, x1, y1, cw, ch } = exclusion;
+  if (!exclusion || !exclusion.zones?.length) return false;
+  const { zones, cw, ch } = exclusion;
+  if (!cw || !ch) return false;
   const x = (leftPct / 100) * cw;
   const y = (topPct / 100) * ch;
   const rpx = (radiusPct / 100) * Math.min(cw, ch);
-  const inX = x > x0 - rpx && x < x1 + rpx;
-  const inY = y > y0 - rpx && y < y1 + rpx;
-  return inX && inY;
+  return zones.some(({ x0, y0, x1, y1 }) => {
+    const inX = x > x0 - rpx && x < x1 + rpx;
+    const inY = y > y0 - rpx && y < y1 + rpx;
+    return inX && inY;
+  });
 }
 
-function pushOutOfExclusion(word, exclusion) {
-  if (!exclusion) return word;
-  const { x0, y0, x1, y1, cw, ch } = exclusion;
+function pushWordOutOfZone(word, zone, cw, ch) {
+  const { x0, y0, x1, y1 } = zone;
   const x = (word.left / 100) * cw;
   const y = (word.top / 100) * ch;
   const cx = (x0 + x1) / 2;
@@ -125,6 +78,17 @@ function pushOutOfExclusion(word, exclusion) {
   const leftPct = clamp((nx / cw) * 100, 0, 100);
   const topPct  = clamp((ny / ch) * 100, 0, 100);
   return { ...word, left: leftPct, top: topPct };
+}
+
+function pushOutOfExclusion(word, exclusion) {
+  if (!exclusion || !exclusion.zones?.length) return word;
+  const { zones, cw, ch } = exclusion;
+  if (!cw || !ch) return word;
+  let adjusted = word;
+  for (const zone of zones) {
+    adjusted = pushWordOutOfZone(adjusted, zone, cw, ch);
+  }
+  return adjusted;
 }
 
 
@@ -168,10 +132,24 @@ function overlapRect(a, b) {
   return { ox, oy };
 }
 
+function clampWordWithinBounds(word, exclusion) {
+  if (!exclusion) return word;
+  const rect = rectFor(word, exclusion);
+  const minX = 8;
+  const maxX = 92;
+  const minY = 18;
+  const maxY = 88;
+  const boundedLeft = clamp(word.left, minX + rect.halfW, maxX - rect.halfW);
+  const boundedTop = clamp(word.top, minY + rect.halfH, maxY - rect.halfH);
+  if (boundedLeft === word.left && boundedTop === word.top) {
+    return word;
+  }
+  return { ...word, left: boundedLeft, top: boundedTop };
+}
+
 function separateWords(words, exclusion) {
   if (!exclusion) return words;
-  const MAX_ITERS = 8;
-  const MARGIN = 0.6; // % extra spacing cushion
+  const MAX_ITERS = 12;
   for (let it = 0; it < MAX_ITERS; it++) {
     let movedAny = false;
     for (let i = 0; i < words.length; i++) {
@@ -180,18 +158,20 @@ function separateWords(words, exclusion) {
         const b = words[j];
         const ra = rectFor(a, exclusion);
         const rb = rectFor(b, exclusion);
-        // Inflate a tiny margin to reduce visual cramping
-        const ai = { x0: ra.x0 - MARGIN, y0: ra.y0 - MARGIN, x1: ra.x1 + MARGIN, y1: ra.y1 + MARGIN };
-        const bi = { x0: rb.x0 - MARGIN, y0: rb.y0 - MARGIN, x1: rb.x1 + MARGIN, y1: rb.y1 + MARGIN };
+        const sizeScale = Math.max(ra.halfW, rb.halfW, ra.halfH, rb.halfH);
+        const margin = Math.max(1.1, Math.min(5.5, sizeScale * 0.35));
+        // Inflate rectangles to reduce visual cramping
+        const ai = { x0: ra.x0 - margin, y0: ra.y0 - margin, x1: ra.x1 + margin, y1: ra.y1 + margin };
+        const bi = { x0: rb.x0 - margin, y0: rb.y0 - margin, x1: rb.x1 + margin, y1: rb.y1 + margin };
         const { ox, oy } = overlapRect(ai, bi);
         if (ox > 0 && oy > 0) {
           // Move along the axis of least separation
           if (ox < oy) {
-            const push = ox / 2;
+            const push = (ox / 2) + Math.min(0.85, margin * 0.15);
             a.left -= push;
             b.left += push;
           } else {
-            const push = oy / 2;
+            const push = (oy / 2) + Math.min(0.85, margin * 0.15);
             a.top  -= push;
             b.top  += push;
           }
@@ -212,73 +192,80 @@ function separateWords(words, exclusion) {
   return words;
 }
 
-function makeWord(text, id, exclusion) {
-  let top, left, scale;
+function makeWord(text, id, exclusion, existingWords = []) {
+  let top = 50;
+  let left = 50;
+  let scale = 1;
   let attempts = 0;
   do {
-    top = randomInRange(18, 82);
+    top = randomInRange(26, 84);
     left = randomInRange(18, 82);
     scale = randomInRange(0.85, 1.55);
     attempts++;
+    if (!exclusion) {
+      break;
+    }
     // convert approximate radius to percentage of container's smaller side
     const dummy = { text, scale };
     const rpx = estimateRadius(dummy);
     // assume a 1000px reference to map px→% conservatively if exclusion unknown
     const ref = 1000;
     const rPct = (rpx / ref) * 100;
-    if (!exclusion || !isInsideExclusionPct(top, left, rPct, exclusion)) break;
-  } while (attempts < 30);
+    if (isInsideExclusionPct(top, left, rPct, exclusion)) {
+      continue;
+    }
+    const candidate = { text, top, left, scale, locked: false, w: null, h: null };
+    const candidateRect = rectFor(candidate, exclusion);
+    const overlapsExisting = existingWords.some((word) => {
+      const rb = rectFor(word, exclusion);
+      const sizeScale = Math.max(candidateRect.halfW, rb.halfW, candidateRect.halfH, rb.halfH);
+      const margin = Math.max(1.1, Math.min(5.5, sizeScale * 0.35));
+      const ai = {
+        x0: candidateRect.x0 - margin,
+        y0: candidateRect.y0 - margin,
+        x1: candidateRect.x1 + margin,
+        y1: candidateRect.y1 + margin,
+      };
+      const bi = { x0: rb.x0 - margin, y0: rb.y0 - margin, x1: rb.x1 + margin, y1: rb.y1 + margin };
+      const { ox, oy } = overlapRect(ai, bi);
+      return ox > 0 && oy > 0;
+    });
+    if (!overlapsExisting) {
+      break;
+    }
+  } while (attempts < 40);
 
-  // Assign a straight-line velocity (random direction)
-  const angle = randomInRange(0, Math.PI * 2);
-  const speed = randomInRange(SPEED_MIN, SPEED_MAX); // % per second
-  const vx = Math.cos(angle) * speed;
-  const vy = Math.sin(angle) * speed;
-
-  return {
+  const word = {
     id,
     text,
     top,
     left,
     scale,
-    vx,
-    vy,
     opacity: 0,
     life: Math.floor(randomInRange(MIN_LIFE, MAX_LIFE + 1)),
     phase: "in",
-    moveDur: randomInRange(MOVE_MIN, MOVE_MAX),
     fadeIn: true,
     outAt: null,
     locked: false, // layout not locked yet
     w: null,       // locked width in px
     h: null,       // locked height in px
   };
-}
-
-function evolve(word, exclusion) {
-  // Straight-line motion at constant velocity (percent per second)
-  const dt = TICK_MS / 1000; // seconds per tick
-  let top = word.top + (word.vy || 0) * dt;
-  let left = word.left + (word.vx || 0) * dt;
-  let moved = { ...word, top, left };
-  // Bounce on outer bounds
-  moved = reflectFromBounds(moved, exclusion);
-  // Reflect away from the title exclusion if we wandered inside
-  moved = reflectFromExclusion(moved, exclusion);
-  return moved;
+  return clampWordWithinBounds(word, exclusion);
 }
 
 export default function FrontagePage({ onNavigate }) {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [active, setActive] = useState([]);
   const [isExiting, setIsExiting] = useState(false);
+  const [supportsFilter, setSupportsFilter] = useState(true);
   const queueRef = useRef(shuffle(KEYWORDS));
   const idRef = useRef(0);
 
   const containerRef = useRef(null);
   const titleRef = useRef(null);
+  const logoRef = useRef(null);
   const wordRefs = useRef(new Map()); // id -> HTMLElement
-  const [exclusion, setExclusion] = useState(null); // {x0,y0,x1,y1} in container pixels
+  const [exclusion, setExclusion] = useState(null); // { zones: [{x0,y0,x1,y1}], cw, ch }
   const exitTimerRef = useRef(null);
   const initialisedRef = useRef(false);
 
@@ -298,31 +285,74 @@ export default function FrontagePage({ onNavigate }) {
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current || !titleRef.current) return;
-    const updateRect = () => {
-      const c = containerRef.current.getBoundingClientRect();
-      const t = titleRef.current.getBoundingClientRect();
-      // Normalize title rect into container coordinates
-      const x0 = Math.max(0, t.left - c.left - 24);
-      const y0 = Math.max(0, t.top - c.top - 24);
-      const x1 = Math.min(c.width, t.right - c.left + 24);
-      const y1 = Math.min(c.height, t.bottom - c.top + 24);
-      setExclusion({ x0, y0, x1, y1, cw: c.width, ch: c.height });
+    if (typeof window === "undefined") return undefined;
+    const detectSupport = () => {
+      let supported = true;
+      if (window.CSS && typeof window.CSS.supports === "function") {
+        supported =
+          window.CSS.supports("filter", "blur(1px)") ||
+          window.CSS.supports("-webkit-filter", "blur(1px)");
+      } else {
+        const style = window.document?.body?.style;
+        supported = !!style && ("filter" in style || "webkitFilter" in style);
+      }
+      setSupportsFilter(supported);
     };
+    detectSupport();
+    return undefined;
+  }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updateRect = () => {
+      const containerEl = containerRef.current;
+      if (!containerEl) return;
+      const c = containerEl.getBoundingClientRect();
+      if (!c.width || !c.height) return;
+      const zones = [];
+      const addZone = (rect, padX, padY) => {
+        if (!rect) return;
+        const px = padX ?? 24;
+        const py = padY ?? px;
+        const x0 = Math.max(0, rect.left - c.left - px);
+        const y0 = Math.max(0, rect.top - c.top - py);
+        const x1 = Math.min(c.width, rect.right - c.left + px);
+        const y1 = Math.min(c.height, rect.bottom - c.top + py);
+        if (x1 <= x0 || y1 <= y0) return;
+        zones.push({ x0, y0, x1, y1 });
+      };
+
+      if (titleRef.current) {
+        const titleRect = titleRef.current.getBoundingClientRect();
+        const padX = Math.max(72, c.width * 0.1);
+        const padY = Math.max(120, c.height * 0.16);
+        addZone(titleRect, padX, padY);
+      }
+
+      if (logoRef.current) {
+        const logoRect = logoRef.current.getBoundingClientRect();
+        const padX = Math.max(56, c.width * 0.075);
+        const padY = Math.max(80, c.height * 0.11);
+        addZone(logoRect, padX, padY);
+      }
+
+      setExclusion({ zones, cw: c.width, ch: c.height });
+    };
+
     updateRect();
     const ro = new ResizeObserver(updateRect);
-    ro.observe(containerRef.current);
-    ro.observe(titleRef.current);
-    window.addEventListener('resize', updateRect);
+    const observed = [containerRef.current, titleRef.current, logoRef.current].filter(Boolean);
+    observed.forEach((el) => ro.observe(el));
+    window.addEventListener("resize", updateRect);
     return () => {
       ro.disconnect();
-      window.removeEventListener('resize', updateRect);
+      window.removeEventListener("resize", updateRect);
     };
   }, []);
 
   // Initialize active words on mount
   useEffect(() => {
-    if (initialisedRef.current) {
+    if (initialisedRef.current || !exclusion) {
       return;
     }
     initialisedRef.current = true;
@@ -334,7 +364,7 @@ export default function FrontagePage({ onNavigate }) {
         }
         const text = queueRef.current.shift();
         idRef.current += 1;
-        initial.push(makeWord(text, idRef.current, exclusion));
+        initial.push(makeWord(text, idRef.current, exclusion, initial));
       }
       separateWords(initial, exclusion);
       // We do not push out here because exclusion may be null, rely on animation tick
@@ -346,12 +376,15 @@ export default function FrontagePage({ onNavigate }) {
     if (reduceMotion) {
       // When reduced motion is on, keep words visible with no transitions
       setActive((words) =>
-        words.map((w) => ({
-          ...w,
-          opacity: 1,
-          phase: "hold",
-          life: w.life > 0 ? w.life : MIN_LIFE,
-        }))
+        words.map((w) => {
+          const updated = {
+            ...w,
+            opacity: 1,
+            phase: "hold",
+            life: w.life > 0 ? w.life : MIN_LIFE,
+          };
+          return clampWordWithinBounds(updated, exclusion);
+        })
       );
       return undefined;
     }
@@ -359,7 +392,6 @@ export default function FrontagePage({ onNavigate }) {
     const intervalId = window.setInterval(() => {
       setActive((words) => {
         let newWords = [];
-        let removedWords = [];
 
         for (const word of words) {
           let newWord = { ...word };
@@ -379,9 +411,8 @@ export default function FrontagePage({ onNavigate }) {
                 newWord.locked = true;
               }
             }
+            newWord = clampWordWithinBounds(newWord, exclusion);
             newWord.life = word.life - 1;
-            // Straight-line evolve
-            newWord = evolve(newWord, exclusion);
             if (newWord.life <= 0) {
               newWord.phase = "out";
               newWord.opacity = 0;           // triggers CSS fade-out
@@ -391,13 +422,11 @@ export default function FrontagePage({ onNavigate }) {
             // Keep the word until fade-out duration has elapsed
             const started = word.outAt || Date.now();
             const elapsed = Date.now() - started;
-            // Optional: tiny drift while fading out (keeps things organic)
-            newWord = evolve(newWord, exclusion);
             if (elapsed >= FADE_OUT_MS + 50) { // small buffer
-              removedWords.push(word);
               continue; // skip pushing this word, it's done fading
             }
           }
+          newWord = clampWordWithinBounds(newWord, exclusion);
           newWords.push(newWord);
         }
 
@@ -408,11 +437,11 @@ export default function FrontagePage({ onNavigate }) {
           }
           const text = queueRef.current.shift();
           idRef.current += 1;
-          newWords.push(makeWord(text, idRef.current, exclusion));
+          newWords.push(makeWord(text, idRef.current, exclusion, newWords));
         }
 
         separateWords(newWords, exclusion);
-        newWords = newWords.map((w) => pushOutOfExclusion(w, exclusion));
+        newWords = newWords.map((w) => clampWordWithinBounds(pushOutOfExclusion(w, exclusion), exclusion));
 
         return newWords;
       });
@@ -470,28 +499,47 @@ export default function FrontagePage({ onNavigate }) {
   const styles = useMemo(() => {
     return active.map((word) => {
       const fadeMs = word.fadeIn ? FADE_IN_MS : FADE_OUT_MS;
-      const transitionDuration = reduceMotion
-        ? "0s"
-        : `${word.moveDur}s, ${word.moveDur}s, ${word.moveDur}s, ${fadeMs}ms, ${fadeMs}ms`;
+      const transitionParts = [];
+      if (!reduceMotion) {
+        transitionParts.push(`opacity ${fadeMs}ms ease-in-out`);
+        if (supportsFilter) {
+          transitionParts.push(`filter ${fadeMs}ms ease-in-out`);
+        }
+      }
+      const filterValue = supportsFilter
+        ? (reduceMotion
+          ? "blur(0px)"
+          : word.opacity === 1
+            ? "blur(0px)"
+            : word.fadeIn
+              ? "blur(8px)"
+              : "blur(14px)")
+        : undefined;
+      const willChangeProps = ["opacity"];
+      if (supportsFilter) {
+        willChangeProps.push("filter");
+      }
       return {
         top: `${word.top}%`,
         left: `${word.left}%`,
         opacity: word.opacity,
-        filter: word.opacity === 1 ? "blur(0px)" : (word.fadeIn ? "blur(8px)" : "blur(14px)"),
         transform: `translate(-50%, -50%) scale(${word.scale})`,
-        transitionProperty: "top, left, transform, opacity, filter",
-        transitionDuration,
-        transitionTimingFunction: "linear",
+        ...(reduceMotion
+          ? { transition: "none" }
+          : transitionParts.length > 0
+            ? { transition: transitionParts.join(", ") }
+            : {}),
         display: "inline-block",
         whiteSpace: "normal",
         ...(word.locked && word.w != null ? { width: `${word.w}px` } : null),
         ...(word.locked && word.h != null ? { height: `${word.h}px` } : null),
         lineHeight: 1,
         transformOrigin: "50% 50%",
-        willChange: "top, left, transform, opacity, filter",
+        willChange: willChangeProps.join(", "),
+        ...(supportsFilter ? { filter: filterValue } : null),
       };
     });
-  }, [active, reduceMotion]);
+  }, [active, reduceMotion, supportsFilter]);
 
   return (
     <div
@@ -513,7 +561,7 @@ export default function FrontagePage({ onNavigate }) {
       }}
     >
       <span className="frontage-sr">Explore the programme overview</span>
-      <img className="frontage-logo" src={uweLogo} alt="UWE Bristol logo" />
+      <img ref={logoRef} className="frontage-logo" src={uweLogo} alt="UWE Bristol logo" />
       <div className="frontage-inner">
         <div
           ref={titleRef}

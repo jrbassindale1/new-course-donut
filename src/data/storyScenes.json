@@ -416,23 +416,23 @@
       "value": "13th",
       "source": "Guardian University Guide 2026"
     },
-    {
-      "id": "support",
-      "metric": "Students supported by staff",
-      "value": "94%",
-      "source": "NSS 2024"
+        {
+      "id": "views",
+      "metric": "Students say staff are good at explaining things",
+      "value": "96%",
+      "source": "NSS 2024/2025"
     },
     {
-      "id": "views",
-      "metric": "Students say their views are valued",
+      "id": "support",
+      "metric": "Students say their learning is supported by staff",
       "value": "94%",
-      "source": "NSS 2024"
+      "source": "NSS 2024/2025"
     },
     {
       "id": "feedback",
       "metric": "Students say feedback improved their work",
       "value": "94%",
-      "source": "NSS 2024"
+      "source": "NSS 2024/2025"
     },
     {
       "id": "continuation",

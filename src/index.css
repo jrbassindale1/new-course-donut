@@ -91,7 +91,9 @@ body {
 .breadcrumbs .current { color: #111827; }
 
 .btn { appearance: none; border: 1px solid #e5e7eb; background: transparent; color: #fff; padding: 6px 12px; border-radius: 12px; font-size: 13px; cursor: pointer; }
-.btn:hover { background: transparent; }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: transparent; }
+}
 
 .link { appearance: none; border: none; background: transparent; color: #4f46e5; padding: 0; cursor: pointer; font-size: 13px; }
 .link:hover { text-decoration: underline; }
@@ -380,10 +382,16 @@ body {
   color: #fff;
 }
 
-.btn.secondary:hover,
 .btn.secondary:focus-visible {
   background: #1f2937;
   border-color: #1f2937;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn.secondary:hover {
+    background: #1f2937;
+    border-color: #1f2937;
+  }
 }
 
 .btn.ghost {
@@ -391,10 +399,14 @@ body {
   border-color: rgba(17, 24, 39, 0.2);
   color: #111827;
 }
-
-.btn.ghost:hover,
 .btn.ghost:focus-visible {
   background: rgba(17, 24, 39, 0.12);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn.ghost:hover {
+    background: rgba(17, 24, 39, 0.12);
+  }
 }
 
 .carousel-page {
