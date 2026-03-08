@@ -9,6 +9,38 @@ const VIEW_FRONT = "front";
 const VIEW_CHART = "chart";
 const VIEW_GALLERY = "gallery";
 const VIEW_STORY = "story";
+const VIEW_META = {
+  [VIEW_FRONT]: {
+    title: "Frontage",
+    virtualPath: "/",
+  },
+  [VIEW_CHART]: {
+    title: "Programme Overview",
+    virtualPath: "/chart",
+  },
+  [VIEW_GALLERY]: {
+    title: "Image Carousel",
+    virtualPath: "/gallery",
+  },
+  [VIEW_STORY]: {
+    title: "Course Story",
+    virtualPath: "/story",
+  },
+};
+
+function getTrackedPath(virtualPath) {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const basePath = baseUrl === "/" ? "" : baseUrl.replace(/\/+$/, "");
+  if (virtualPath === "/") {
+    return basePath ? `${basePath}/` : "/";
+  }
+  return `${basePath}${virtualPath}`;
+}
+
+function getTrackedLocation(path) {
+  if (typeof window === "undefined") return path;
+  return new URL(path, window.location.origin).toString();
+}
 
 const hashToView = (hash) => {
   const cleanHash = hash.split("?")[0];
@@ -45,6 +77,9 @@ export default function App() {
   });
   const viewTimerRef = useRef({ view: null, startedAt: 0 });
   const lastViewRef = useRef(null);
+  const lastPageLocationRef = useRef(
+    typeof document !== "undefined" ? document.referrer || undefined : undefined,
+  );
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -96,35 +131,36 @@ export default function App() {
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
-
-    const viewLabels = {
-      [VIEW_FRONT]: "Frontage",
-      [VIEW_CHART]: "Programme Overview",
-      [VIEW_GALLERY]: "Image Carousel",
-      [VIEW_STORY]: "Course Story",
-    };
-
     const now = typeof performance !== "undefined" && typeof performance.now === "function"
       ? performance.now()
       : Date.now();
 
     viewTimerRef.current = { view, startedAt: now };
 
-    const pageTitle = viewLabels[view] || "Architecture";
+    const meta = VIEW_META[view] || { title: "Architecture", virtualPath: "/" };
+    const pageTitle = meta.title;
     const hashPath = window.location.hash || "#/";
+    const trackedPath = getTrackedPath(meta.virtualPath);
+    const trackedLocation = getTrackedLocation(trackedPath);
     trackPageView({
       name: view,
       title: pageTitle,
-      path: hashPath,
-      location: window.location.href,
+      path: trackedPath,
+      location: trackedLocation,
+      referrer: lastPageLocationRef.current,
+      additional: {
+        route_hash: hashPath,
+      },
     });
     setAnalyticsContext({ app_view: view, page_title: pageTitle });
     trackEvent("view_change", {
       view_name: view,
       previous_view: lastViewRef.current,
       hash: hashPath,
+      page_path: trackedPath,
     });
     lastViewRef.current = view;
+    lastPageLocationRef.current = trackedLocation;
 
     return () => {
       flushViewDuration("navigation");

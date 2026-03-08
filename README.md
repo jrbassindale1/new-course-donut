@@ -4,14 +4,14 @@ This Vite + React application powers the BSc Architecture course experience. It 
 
 ## Analytics setup
 
-1. Create a Google Analytics 4 property (or reuse an existing one) and copy its measurement ID (looks like `G-XXXXXXXXXX`).
-2. Add a `.env` file at the project root with `VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX`. The ID is read at build time; restart the dev server after updating it.
+1. The site now defaults to the Google Analytics 4 property `G-FG4T326FM1`.
+2. If you need to override that in another environment, add a `.env` file at the project root with `VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX`. The ID is read at build time; restart the dev server after updating it.
 3. Deploy as normal. The site automatically injects the GA tag, captures page-level view durations, carousel interactions, and detailed story-scene timings. All button and link clicks are recorded via delegated listeners.
-4. If the environment variable is absent, the analytics module falls back to console logging so you can verify events locally without sending real traffic.
+4. Hash-based app sections are reported to GA as virtual page paths derived from `BASE_URL`, so sub-pages appear cleanly in reports. In production that means `/open-day/`, `/open-day/chart`, `/open-day/gallery`, and `/open-day/story`.
 
 ### Event catalogue
 
-- `page_view`: fired whenever the current app view changes (`front`, `chart`, `gallery`, `story`). Includes `page_path`, `view_name`, and URL metadata.
+- `page_view`: fired whenever the current app view changes (`front`, `chart`, `gallery`, `story`). Includes virtual `page_path` values derived from the deployed base path, `view_name`, and URL/referrer metadata so the SPA behaves like a multi-page site in GA.
 - `view_duration`: emitted on every view exit (navigation, unload) with the milliseconds spent on the previous view.
 - `navigate_request`: triggered when in-app navigation is requested, including `from_view` and `target_view`.
 - `ui_click`: delegated listener that records every `<a>` and `<button>` activation with label, type, and href.

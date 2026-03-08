@@ -1,4 +1,5 @@
-const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+const DEFAULT_MEASUREMENT_ID = "G-FG4T326FM1";
+const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID || DEFAULT_MEASUREMENT_ID;
 
 let initialized = false;
 let listenersBound = false;
@@ -113,18 +114,20 @@ export function trackEvent(eventName, params = {}) {
   }
 }
 
-export function trackPageView({ name, path, title, location, additional = {} } = {}) {
+export function trackPageView({ name, path, title, location, referrer, additional = {} } = {}) {
   setAnalyticsContext({
     view_name: name,
     page_title: title || name,
     page_path: path,
     page_location: location,
+    page_referrer: referrer,
   });
 
   trackEvent("page_view", {
     page_title: title || name,
     page_path: path,
     page_location: location,
+    page_referrer: referrer,
     ...additional,
   });
 }
