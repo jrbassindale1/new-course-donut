@@ -7,7 +7,7 @@ This Vite + React application powers the BSc Architecture course experience. It 
 1. The site now defaults to the Google Analytics 4 property `G-FG4T326FM1`.
 2. If you need to override that in another environment, add a `.env` file at the project root with `VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX`. The ID is read at build time; restart the dev server after updating it.
 3. Deploy as normal. The site automatically injects the GA tag, captures page-level view durations, carousel interactions, and detailed story-scene timings. All button and link clicks are recorded via delegated listeners.
-4. Hash-based app sections are reported to GA as virtual page paths derived from `BASE_URL`, so sub-pages appear cleanly in reports. In production that means `/open-day/`, `/open-day/chart`, `/open-day/gallery`, and `/open-day/story`.
+4. Hash-based app sections are reported to GA as virtual page paths derived from `BASE_URL`, so sub-pages appear cleanly in reports. On Azure root hosting that means `/`, `/chart`, `/gallery`, and `/story`.
 
 ### Event catalogue
 
@@ -43,6 +43,6 @@ This repo is now set up for Azure Static Web Apps.
 4. After the app is created, open the Static Web App in Azure and copy the deployment token from `Overview` -> `Manage deployment token`.
 5. In GitHub, add a repository secret named `AZURE_STATIC_WEB_APPS_API_TOKEN` with that token value.
 6. Push to `main`. The workflow in [`.github/workflows/azure-static-web-apps.yml`](/Users/jr-bassindale/new-course-donut/.github/workflows/azure-static-web-apps.yml) will build and deploy automatically.
-7. If your repository has protected branch rules that still require the old Bluehost status check, remove that required check and replace it with the new Azure workflow check.
+7. If your repository has protected branch rules that still require the removed Bluehost status check, remove that required check.
 
-The Azure workflow builds with `APP_BASE_PATH=/`, so the site is served correctly from the Azure app root. The old Bluehost workflow remains available as a manual fallback in [`.github/workflows/deploy.yml`](/Users/jr-bassindale/new-course-donut/.github/workflows/deploy.yml).
+The Azure workflow builds with `APP_BASE_PATH=/`, so the site is served correctly from the Azure app root.

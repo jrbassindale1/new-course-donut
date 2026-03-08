@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import { setAnalyticsContext, trackEvent, trackTiming } from "../lib/analytics.js";
 
-// Prefix relative asset paths with the correct base ("/" in dev, "/open-day/" in prod)
+// Prefix relative asset paths with the configured Vite base path.
 const withBase = (p) => {
   if (!p) return p;
   // leave external or data/blob URLs alone

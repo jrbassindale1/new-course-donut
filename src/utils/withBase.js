@@ -1,12 +1,11 @@
 // src/utils/withBase.js
 export function withBase(path) {
-  // In dev: import.meta.env.BASE_URL = "/"
-  // In prod build: import.meta.env.BASE_URL = "/open-day/"
+  // BASE_URL is "/" for root deployments and can be overridden for subpath deployments.
   const base = import.meta.env.BASE_URL;
 
   // Remove any leading "/" from the path you give it
   const clean = String(path).replace(/^\/+/, "");
 
-  // Join them together, e.g. "/open-day/" + "images/foo.jpg"
+  // Join them together, e.g. "/" + "images/foo.jpg"
   return base + clean;
 }
