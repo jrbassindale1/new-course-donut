@@ -1,0 +1,49 @@
+name: Build and Deploy to Azure Static Web Apps
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      APP_BASE_PATH: /
+      AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: List dist contents
+        run: ls -la dist && du -sh dist || true
+
+      - name: Skip deploy when token is missing
+        if: env.AZURE_STATIC_WEB_APPS_API_TOKEN == ''
+        run: |
+          echo "AZURE_STATIC_WEB_APPS_API_TOKEN is not configured."
+          echo "Build succeeded, but deployment was skipped."
+
+      - name: Deploy dist/ to Azure Static Web Apps
+        if: env.AZURE_STATIC_WEB_APPS_API_TOKEN != ''
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          app_location: dist
+          output_location: ""
+          skip_app_build: true

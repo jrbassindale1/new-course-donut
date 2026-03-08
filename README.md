@@ -27,3 +27,22 @@ Each timing event reports `value` in milliseconds so you can chart dwell times i
 - `npm run build` – generate a production build.
 - `npm run preview` – preview the build output locally.
 - `npm run lint` – run ESLint across the workspace.
+
+## Deployment
+
+This repo is now set up for Azure Static Web Apps.
+
+### Azure Static Web Apps
+
+1. In the Azure portal, create a new `Static Web App`.
+2. Under deployment details, select `Other` so Azure does not generate a second workflow file.
+3. Use these build settings:
+   - App location: `/`
+   - API location: leave blank
+   - Output location: `dist`
+4. After the app is created, open the Static Web App in Azure and copy the deployment token from `Overview` -> `Manage deployment token`.
+5. In GitHub, add a repository secret named `AZURE_STATIC_WEB_APPS_API_TOKEN` with that token value.
+6. Push to `main`. The workflow in [`.github/workflows/azure-static-web-apps.yml`](/Users/jr-bassindale/new-course-donut/.github/workflows/azure-static-web-apps.yml) will build and deploy automatically.
+7. If your repository has protected branch rules that still require the old Bluehost status check, remove that required check and replace it with the new Azure workflow check.
+
+The Azure workflow builds with `APP_BASE_PATH=/`, so the site is served correctly from the Azure app root. The old Bluehost workflow remains available as a manual fallback in [`.github/workflows/deploy.yml`](/Users/jr-bassindale/new-course-donut/.github/workflows/deploy.yml).
