@@ -14,6 +14,7 @@ import SupportScene from "./scenes/SupportScene.jsx";
 import ContactScene from "./scenes/ContactScene.jsx";
 import InvolvementScene from "./scenes/InvolvementScene.jsx";
 import FaqScene from "./scenes/FaqScene.jsx";
+import CourseSpectrumScene from "./scenes/CourseSpectrumScene.jsx";
 import SceneHeading from "./components/SceneHeading.jsx";
 
 export default function SceneRenderer({ scene }) {
@@ -33,6 +34,8 @@ export default function SceneRenderer({ scene }) {
       return <LeadersScene scene={scene} />;
     case "welcome":
       return <WelcomeScene scene={scene} />;
+    case "course-spectrum":
+      return <CourseSpectrumScene scene={scene} />;
     case "bristol":
       return <BristolScene scene={scene} />;
     case "year1":

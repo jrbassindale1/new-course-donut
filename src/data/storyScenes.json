@@ -115,6 +115,43 @@
       }
     },
     {
+      "id": "course-spectrum",
+      "label": "Creativity",
+      "title": "Creative and Technical Balance",
+      "headline": "Where does Architecture sit in the design spectrum?",
+      "spectrum": {
+        "startLabel": "Creative",
+        "endLabel": "Technical",
+        "items": [
+          {
+            "id": "interior-design",
+            "name": "BA (Hons) Interior Design",
+            "description": "Interior Design emphasises human experience, materiality, spatial mood and aesthetics. Students explore lighting, colour, furniture, textures and the atmosphere of interiors. The course leans towards creativity, focusing on experimentation, visual communication and crafting sensory, emotionally resonant spaces."
+          },
+          {
+            "id": "architecture-planning",
+            "name": "BA (Hons) Architecture & Planning",
+            "description": "Architecture & Planning connects design with urban planning, policy and social context. You explore building-scale creativity alongside systems thinking for cities, land use and infrastructure. Technical content is lighter than pure architecture, but you gain insight into how design operates in real contexts."
+          },
+          {
+            "id": "architecture",
+            "name": "BSc (Hons) Architecture",
+            "description": "Architecture blends imagination with technical rigour. You design buildings and urban spaces while engaging with structure, environmental performance and regulatory constraints. It balances creativity with technical expertise so you can imagine and realise responsible buildings."
+          },
+          {
+            "id": "arch-env-engineering",
+            "name": "BEng (Hons) Architecture & Environmental Engineering",
+            "description": "Architecture & Environmental Engineering fuses design with engineering depth. Students still craft form and spatial quality, while developing strength in structural engineering, environmental systems and computational analysis. It shifts further toward technical performance with design embedded."
+          },
+          {
+            "id": "arch-tech",
+            "name": "BSc (Hons) Architectural Technology & Design",
+            "description": "Architectural Technology & Design prioritises construction, detailing, materials, building systems, BIM and performance analysis. Graduates translate concepts into buildable, compliant and efficient solutions. There is design creativity, but the focus is on how things work."
+          }
+        ]
+      }
+    },
+    {
       "id": "year1",
       "label": "Year 1",
       "title": "Year 1 - Creative Exploration",
