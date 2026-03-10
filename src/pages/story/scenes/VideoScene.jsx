@@ -3,6 +3,31 @@ import SceneHeading from "../components/SceneHeading.jsx";
 
 let ytApiPromise;
 
+function getYouTubeOrigin() {
+  if (typeof window === "undefined") return undefined;
+  if (!/^https?:$/.test(window.location.protocol)) return undefined;
+  return window.location.origin;
+}
+
+function buildPlayerVars() {
+  const origin = getYouTubeOrigin();
+  return {
+    controls: 0,
+    modestbranding: 1,
+    rel: 0,
+    fs: 0,
+    playsinline: 1,
+    showinfo: 0,
+    ...(origin ? { origin } : {}),
+  };
+}
+
+function applyIframeAttributes(player) {
+  const iframe = player?.getIframe?.();
+  if (!iframe) return;
+  iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+}
+
 function loadYouTubeIframeApi() {
   if (typeof window === "undefined") {
     return Promise.reject(new Error("No window"));
@@ -51,17 +76,20 @@ export default function VideoScene({ scene }) {
         if (cancelled || !containerRef.current) return;
         playerRef.current = new YT.Player(containerRef.current, {
           videoId: scene?.videoId || "",
-          playerVars: {
-            controls: 0,
-            modestbranding: 1,
-            rel: 0,
-            fs: 0,
-            playsinline: 1,
-            showinfo: 0,
-          },
+          playerVars: buildPlayerVars(),
           events: {
             onReady: () => {
-              if (!cancelled) setIsReady(true);
+              applyIframeAttributes(playerRef.current);
+              if (!cancelled) {
+                setError(null);
+                setIsReady(true);
+              }
+            },
+            onError: (event) => {
+              if (cancelled) return;
+              const code = event?.data;
+              setIsReady(false);
+              setError(new Error(`YouTube player error ${code ?? "unknown"}`));
             },
             onStateChange: (event) => {
               if (!event) return;
