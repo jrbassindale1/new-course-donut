@@ -437,6 +437,18 @@
           "longitude": 0.6848,
           "mapX": 23.81,
           "mapY": 65.31
+        },
+        {
+          "id": "ensa-normandie",
+          "institution": "ENSA Normandie",
+          "link": "https://ensa-normandie.fr/international/",
+          "summary": "New Partnership for 2026/27",
+          "image": "/images/global/ensa-normandie.jpg",
+          "city": "Rouen, France",
+          "latitude": 49.4453,
+          "longitude": 1.1517,
+          "mapX": 25.4,
+          "mapY": 58.5
         }
       ]
     },
@@ -449,39 +461,39 @@
   "stats": [
     {
       "id": "guardian-rank",
-      "metric": "Top 15 in the UK for Architecture",
-      "value": "13th",
-      "source": "Guardian University Guide 2026"
+      "metric": "Satisfied for Teaching - UK Architecture Schools",
+      "value": "4th",
+      "source": "Guardian University Guide 2027"
     },
-        {
+    {
       "id": "views",
-      "metric": "Students say staff are good at explaining things",
-      "value": "96%",
-      "source": "NSS 2024/2025"
+      "metric": "Teaching on My Course (Students say staff are good at explaining things)",
+      "value": "97%",
+      "source": "NSS 2025/26"
     },
     {
       "id": "support",
-      "metric": "Students say their learning is supported by staff",
-      "value": "94%",
-      "source": "NSS 2024/2025"
+      "metric": "Academic Support (Students say their learning is supported by staff)",
+      "value": "97%",
+      "source": "NSS 2025/26"
     },
     {
-      "id": "feedback",
-      "metric": "Students say feedback improved their work",
-      "value": "94%",
-      "source": "NSS 2024/2025"
+      "id": "freedom-of-expression",
+      "metric": "Freedom of Expression",
+      "value": "97%",
+      "source": "NSS 2025/26"
+    },
+    {
+      "id": "assessment-and-feedback",
+      "metric": "Assessment and Feedback (Students say feedback improved their work)",
+      "value": "96%",
+      "source": "NSS 2025/26"
     },
     {
       "id": "continuation",
       "metric": "Students still studying after year 1",
       "value": "95%",
       "source": "Discover Uni 2024"
-    },
-    {
-      "id": "teaching",
-      "metric": "Teaching Quality Score",
-      "value": "91.5%",
-      "source": "Times UK University Rankings 2026"
     }
   ],
   "narrative": {
